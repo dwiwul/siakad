@@ -22,7 +22,6 @@
                     <label for="pengumuman">Pengumuman</label>
                     <input type="text" id="pengumuman" name="pengumuman" class="form-control @error('pengumuman') is-invalid @enderror">
                 </div>
-
             </div>
         </div>
         <button type="submit" class="btn btn-primary">Tambah</button>

@@ -2,24 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Auth;
 use App\Jadwal;
-use App\Mapel;
-use App\Kelas;
-use App\Pegawai;
 use App\Semester;
-use App\User;
-use Illuminate\Support\Facades\Crypt;
-use Illuminate\Support\Str;
-use PDF;
-use App\Exports\SiswaExport;
-use App\Imports\SiswaImport;
-use Maatwebsite\Excel\Facades\Excel;
-use App\Http\Controllers\Controller;
+use App\Hari;
+use App\Kelas;
+use App\Mapel;
+use App\Guru;
+use App\Pegawai;
+use App\Ujian;
 use Illuminate\Support\Facades\DB;
-use RealRashid\SweetAlert\Facades\Alert;
-
+use Illuminate\Http\Request;
 
 class JadwalController extends Controller
 {
@@ -28,48 +20,77 @@ class JadwalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+	// public function __construct()
+    // {
+    //     $this->middleware('pegawai');
+    // }
     public function index()
     {
         $kelas = Kelas::all();
-        return view('admin/jadwal/index', compact('kelas'));
-
+        // return view ('pegawai/jadwal/index', compact('kelas'));
+        return view ('admin/jadwal/pilihKelas', compact('kelas'));
     }
-    public function pilihSemester($id)
-    {
+    public function pilihSemester(Request $request, $id){
+        // $semester = Semester::all();
+        $request->session()->put('session_idKelas', $id);
         $semester = DB::table('semester')
         // ->join('jadwal', 'jadwal.idSemester', '=', 'semester.idSemester')
         // ->join('jadwal', 'jadwal.idKelas', '=', 'kelas.idKelas')
-        ->select('semester.*')
-        ->orderBy('semester.tgl_efektif')
+        ->select('semester.idSemester', 'semester.tglMulai', 'semester.tglSelesai', 'semester.keterangan', 'semester.tahunAjaran')
+        ->orderBy('semester.tglMulai')
+        ->orderBy('semester.tglSelesai')
+        ->orderBy('semester.tahunAjaran')
+        ->orderBy('semester.keterangan')
         // ->where('jadwal.idKelas', $request->session()->get('session_idKelas'))
         // ->groupBy('semester.idSemester')
-        // ->groupBy('semester.tgl_efektif')
+        // ->groupBy('semester.tglEfektif')
         // ->groupBy('semester.keterangan')
         ->get();
         // ->join('jadwal', 'jadwal.idKelas', '=', 'kelas.idKelas')
         // ->join('jadwal', 'jadwal.idSemester', '=', 'semester.idSemester')
         // ->select('semester.*')
-        // ->orderBy('semester.tgl_efektif')
+        // ->orderBy('semester.tglEfektif')
         // ->where('jadwal.idSemester', $request->session()->get('session_idSemester'))
         // ->get();
+        // return view('pegawai/jadwal/pilihSemester', compact('semester', 'id'));
         return view('admin/jadwal/pilihSemester', compact('semester', 'id'));
     }
+
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request,$id)
     {
-        $jadwal = Jadwal::all();
-        $semester = Semester::all();
+        // echo $request->session()->get('session_idKelas');
+        // exit;
         $mapel = Mapel::all();
+        $jadwal = Jadwal::all();
+        // $hari = Hari::all();
         $kelas = Kelas::all();
         $pegawai = Pegawai::all();
-        // $data = [$users, $kelas, $spp];
-
-        return view("admin.jadwal.create", compact('jadwal', 'semester', 'mapel', 'kelas', 'pegawai'));
+        $semester = Semester::all();
+        // dd($id);
+        // $sess_idKelas = $request->session()->get('session_idKelas');
+        //$room = Room::where('id', $id)->get();
+        // $jadwal_senin = Jadwal::where('idHari', 1)->get();
+        // $jadwal_selasa = Jadwal::where('idHari', 2)->get();
+        // $jadwal_rabu = Jadwal::where('idHari', 3)->get();
+        // $jadwal_kamis = Jadwal::where('idHari', 4)->get();
+        // $jadwal_jumat = Jadwal::where('idHari', 5)->get();
+        $jadwal_senin = Jadwal::where('hari', 'Senin')->get();
+        $jadwal_selasa = Jadwal::where('hari', 'Selasa')->get();
+        $jadwal_rabu = Jadwal::where('hari', 'Rabu')->get();
+        $jadwal_kamis = Jadwal::where('hari', 'Kamis')->get();
+        $jadwal_jumat = Jadwal::where('hari', 'Jum`at')->get();
+        $jadwal_sabtu = Jadwal::where('hari', 'Sabtu')->get();
+        $jadwal_minggu = Jadwal::where('hari', 'Minggu')->get();
+        // return view('pegawai/jadwal/create', compact('jadwal', 'mapel', 'kelas', 'guru', 'id', 'jadwal_senin', 'jadwal_selasa',
+        // 'jadwal_rabu', 'jadwal_kamis', 'jadwal_jumat', 'semester'));
+        return view('admin/jadwal/create', compact('jadwal', 'mapel', 'kelas', 'pegawai', 'id', 'jadwal_senin', 'jadwal_selasa',
+        'jadwal_rabu', 'jadwal_kamis', 'jadwal_jumat', 'jadwal_sabtu', 'jadwal_minggu', 'semester'));
     }
 
     /**
@@ -80,124 +101,164 @@ class JadwalController extends Controller
      */
     public function store(Request $request)
     {
-       // $request->validate([
-         //   'nama_mapel' => 'required',
-           // 'nama_guru' => 'required',
-            //'hari' => 'required',
-            //'jam_mulai' => 'required',
-            //'jam_selesai' => 'required',
-            //]);
-            toast('Data Berhasil Ditambahkan!','success');
-            $jadwal=new jadwal;
-            $jadwal->idKelas = $request->idKelas;
-            $jadwal->idPegawai = $request->idPegawai;
-            $jadwal->idMapel = $request->idMapel;
-            $jadwal->idSemester = $request->idSemester;
-            $jadwal->hari = $request->hari;
-            $jadwal->jam_mulai = $request->jam_mulai;
-            $jadwal->jam_selesai = $request->jam_selesai;
+        $request->validate([
+            // 'idHari' => 'required',
+            'jamMulai' => 'required',
+            'jamSelesai' => 'required',
+            'idMapel' => 'required',
+            'idPegawai' => 'required',
+            'hari' => 'required'
+        ]);
+
+        $cek_jadwal=new jadwal;
+        $cek_jadwal = Jadwal::where('idMapel', $request->idMapel)
+        ->where('idKelas', $request->session()->get('session_idKelas'))
+        ->where('idSemester', $request->session()->get('session_idSemester'))
+        ->get();
+
+        // echo json_encode($jadwal);
+        // echo "<br/>".count($jadwal);
+        // exit;
+        $jadwal=new jadwal;
+        $jadwal->idSemester = $request->session()->get('session_idSemester');
+        // $jadwal->idHari = $request->idHari;
+        $jadwal->hari = $request->hari;
+        // $jadwal->idHari = $request->session()->get('session_idHari');
+        $jadwal->jamMulai = date('H:i', strtotime($request->jamMulai));
+        $jadwal->jamSelesai = date('H:i', strtotime($request->jamSelesai));
+        $jadwal->idMapel = $request->idMapel;
+        $jadwal->idKelas = $request->session()->get('session_idKelas');
+        $jadwal->idPegawai = $request->idPegawai;
+
+        if(count($cek_jadwal)>0){
+            //kalau jadwal sudah ada, maka cek dulu gurunya
+            foreach($cek_jadwal as $data){
+                if($request->idPegawai==$data->idPegawai){
+                    //lanjut
+                    $jadwal->save();
+                }else{
+                    //guru tidak boleh berbeda, flash message
+                    return redirect('admin/jadwal/show/'.$request->session()->get('session_idKelas').'/'.$request->session()->get('session_idSemester'))->with('create', 'Guru tidak sama!');
+                    // return redirect('pegawai/jadwal/index/'.$request->idJadwal)->with('create', 'Guru tidak sama!');
+                }
+            }
+        }else{
+            //kalau jadwal belum ada, langsung bisa simpan
             $jadwal->save();
-            return redirect('admin/jadwal/show/{idKelas}/{idJadwal}');
+        }
+        // dd($jadwal->save());
+        // echo $jadwal->toSql();
+        // dd(DB::getQueryLog());
+        // exit;
+        // return redirect('pegawai/jadwal/index/'.$request->idJadwal)->with('toast_success', 'Mapel Berhasil Ditambahkan!');
+        // return redirect('pegawai/jadwal/show/'.$request->session()->get('session_idKelas').'/'.$request->session()->get('session_idSemester'))->with('toast_success', 'Mapel Berhasil Ditambahkan!');
+        return redirect('admin/jadwal/show/'.$request->session()->get('session_idKelas').'/'.$request->session()->get('session_idSemester'))->with('toast_success', 'Mapel Berhasil Ditambahkan!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\jadwal  $jadwal
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $idKelas, $id)
     {
-        $kelas = Kelas::all();
-        $jadwal = Jadwal::all();
-        $pegawai = Pegawai::all();
-        $semester = Semester::all();
-        return view('admin/jadwal/show', compact('kelas','jadwal','semester'));
-
-        // $kelas = Kelas::all();
-        // return view('admin/jadwal/index', compact('kelas'));
+        // $semester_aktif = $request->session()->get('session_semester_aktif');
+        // $request->session()->put('session_idKelas',$id);
+        $request->session()->put('session_idSemester',$id);
+        $kelas = Kelas::where('idKelas', $idKelas)->get();
+        $jadwal = Jadwal::where('idSemester',$id)->get();
+        // $dtJadwal = Jadwal::where('hari', 'Senin')->get();
+        // $jadwal_senin = Jadwal::where('idSemester',$id)->where('idKelas', $idKelas)->where('idHari', 1)->get();
+        // $jadwal_selasa = Jadwal::where('idSemester',$id)->where('idKelas', $idKelas)->where('idHari', 2)->get();
+        // $jadwal_rabu = Jadwal::where('idSemester',$id)->where('idKelas', $idKelas)->where('idHari', 3)->get();
+        // $jadwal_kamis = Jadwal::where('idSemester',$id)->where('idKelas', $idKelas)->where('idHari', 4)->get();
+        // $jadwal_jumat = Jadwal::where('idSemester',$id)->where('idKelas', $idKelas)->where('idHari', 5)->get();
+        $jadwal_senin = Jadwal::where('idSemester', $id)->where('idKelas', $idKelas)->where('hari', 'Senin')->get();
+        $jadwal_selasa = Jadwal::where('idSemester',$id)->where('idKelas', $idKelas)->where('hari', 'Selasa')->get();
+        $jadwal_rabu = Jadwal::where('idSemester',$id)->where('idKelas', $idKelas)->where('hari', 'Rabu')->get();
+        $jadwal_kamis = Jadwal::where('idSemester',$id)->where('idKelas', $idKelas)->where('hari', 'Kamis')->get();
+        $jadwal_jumat = Jadwal::where('idSemester',$id)->where('idKelas', $idKelas)->where('hari', 'Jum`at')->get();
+        $jadwal_sabtu = Jadwal::where('idSemester',$id)->where('idKelas', $idKelas)->where('hari', 'Sabtu')->get();
+        $jadwal_minggu = Jadwal::where('idSemester',$id)->where('idKelas', $idKelas)->where('hari', 'Minggu')->get();
+        // return view('pegawai/jadwal/show', compact('jadwal', 'jadwal_senin', 'jadwal_selasa',
+        // 'jadwal_rabu', 'jadwal_kamis', 'jadwal_jumat', 'id'));
+        return view('admin/jadwal/show', compact('jadwal', 'jadwal_senin', 'jadwal_selasa',
+        'jadwal_rabu', 'jadwal_kamis', 'jadwal_jumat', 'jadwal_sabtu', 'jadwal_minggu', 'id'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\jadwal  $jadwal
      * @return \Illuminate\Http\Response
      */
-    public function edit($idJadwal)
+    public function edit($id)
     {
+        // $idJadwal = $id;
+        $jadwal = Jadwal::where('idJadwal', $id)->first();
 
-        $jadwal = Jadwal::where('idJadwal', $idJadwal)->first();
+        // $jadwal_senin = Jadwal::where('idKelas',$id)->where('idHari', 1)->get();
+        // $jadwal_selasa = Jadwal::where('idKelas',$id)->where('idHari', 2)->get();
+        // $hari = Hari::all();
         $mapel = Mapel::all();
-        $kelas = Kelas::all();
         $pegawai = Pegawai::all();
-        $semester = Semester::all();
-        return view("admin.jadwal.edit", compact('idJadwal', 'semester', 'mapel', 'kelas', 'pegawai'));
+        // return view('pegawai/jadwal/edit', compact('id','jadwal', 'mapel', 'guru'));
+        return view('admin/jadwal/edit', compact('id','jadwal', 'mapel', 'pegawai'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\jadwal  $jadwal
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $idJadwal)
+    public function update(Request $request, $id)
     {
-        toast('Data Berhasil Diubah!','success');
-        Jadwal::where('idJadwal', $idJadwal)
-        ->update([
-            'idKelas' => $request->idKelas,
-            'idMapel' => $request->idMapel,
-            'idPegawai' => $request->idPegawai,
-            'idSemester' => $request->idSemester,
-            'hari' => $request->hari,
-            'jam_mulai' => $request->jam_mulai,
-            'jam_selesai' => $request->jam_selesai,
-        ]);
-        return redirect('admin/jadwal/show/{idKelas}/{idJadwal}');
+        $cek = Jadwal::where('idJadwal',$id)->get();
+        // echo json_encode($cek);
+        $request->all();
+        // echo json_encode($request->idGuru);
+        // echo "<br/>idguru=".$request->idGuru."<br/>idmapel=".$request->idMapel."<br/>";
+        // exit;
+        foreach($cek as $data){
+            // echo json_encode($data)."<br/>";
+            if($data->idPegawai!=$request->idPegawai || $data->idMapel!=$request->idMapel){
+                // echo "guru ganti";
+                Jadwal::where('idMapel', $request->idMapel)
+                ->where('idSemester',$request->session()->get('session_idSemester'))
+                ->where('idKelas',$request->session()->get('session_idKelas'))
+                ->update([
+                    'idPegawai' => $request->idPegawai,
+                ]);
+            }
+        }
+        // exit;
+        Jadwal::where('idJadwal', $id)
+                ->update([
+                    // 'idHari' => $request->idHari,
+                    'hari' => $request->hari,
+                    'idKelas' => $request->session()->get('session_idKelas'),
+                    'idSemester' => $request->session()->get('session_idSemester'),
+                    'idPegawai' => $request->idPegawai,
+                    'idMapel' => $request->idMapel,
+                    'jamMulai' => date('H:i', strtotime($request->jamMulai)),
+                    'jamSelesai' => date('H:i', strtotime($request->jamSelesai)),
+                ]);
+        return redirect('admin/jadwal/show/'.$request->session()->get('session_idKelas').'/'.$request->session()->get('session_idSemester'))->with('toast_info', 'Data Berhasil Diubah!');
+        // return redirect('pegawai/jadwal/show/'.$request->session()->get('session_idKelas'))->with('toast_info', 'Data Berhasil Diubah!');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\jadwal  $jadwal
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        toast('Data Berhasil Dihapus!','success');
         $jadwal = Jadwal::find($id);
-        $jadwal->delete();
-        return redirect('admin/jadwal/show/{idKelas}/{idJadwal}');
+        return redirect()->back()->with('toast_warning', 'Data Berhasi Dihapus');
     }
-
-    public function cetakForm()
-    {
-        return view('admin.Jadwal.cetak-jadwal');
-    }
-
-    public function cetakJadwalPertanggal($tglawal, $tglakhir)
-    {
-           //dd([$tglawal, $tglakhir]);
-           $tglawal = $tglawal;
-           $tglakhir = $tglakhir;
-           $cetakPerTanggal = Jadwal::with('semester')->whereBetween('tgl_efektif', [$tglawal, $tglakhir]);
-           $pdf = PDF::loadview('admin/jadwal/cetak-data-pertanggal',compact('cetakPerTanggal', 'tglawal', 'tglakhir'));
-        //    return view('admin/jadwal/cetak-data-pertanggal', compact('cetakPertanggal'));
-
-        $pdf->setPaper("a4", 'potrait');
-        return $pdf->stream();
-    }
-
-    public function detail($id)
-    {
-        $jadwal = Jadwal::where('idJadwal', $id)->first();
-        $kelas = Kelas::where('idKelas', $id)->get();
-        $mapel = Mapel::where('idMapel', $id)->get();
-        $semester = Semester::where('idSemester', $id)->get();
-        $pegawai = Pegawai::where('idPegawai', $id)->get();
-        return view('admin/jadwal/detail', compact('jadwal', 'kelas', 'mapel', 'semester', 'pegawai'));
-    }
-
 }

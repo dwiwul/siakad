@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Pegawai;
+use App\Kepsek;
 use Maatwebsite\Excel\Concerns\ToModel;
 
 class PegawaiImport implements ToModel
@@ -17,10 +18,10 @@ class PegawaiImport implements ToModel
         $now = date('Y-m-d H:i:s');
         return new Pegawai([
             'nip' => $row[1],
-            'nama_guru' => $row[2],
+            'namaPegawai' => $row[2],
             'jk' => $row[3],
-            'tmp_lahir' => $row[4],
-            'tgl_lahir' => $row[5],
+            'tmpLahir' => $row[4],
+            'tglLahir' => $row[5],
             'alamat' => $row[6],
             'telp' => $row[7],
             'status' => $row[8],

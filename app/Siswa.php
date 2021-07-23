@@ -9,11 +9,16 @@ class Siswa extends Model
 {
     protected $table = 'siswa';
     protected $primaryKey = 'idSiswa';
-    protected $fillable = ['idKelas', 'nis', 'nama_siswa', 'alamat', 'jk', 'tmp_lahir', 'tgl_lahir', 'telp', 'nama_ortu', 'status_2'];
+    protected $fillable = ['idSemester', 'idKelas', 'tahunAngkatan', 'nis', 'namaSiswa', 'alamat', 'jk', 'tmpLahir', 'tglLahir', 'telp', 'namaOrtu', 'status'];
+
+    public function semester()
+    {
+        return $this->belongsTo('App\Semester', 'idSemester', 'idSemester');
+    }
 
     public function kelas()
     {
-        return $this->belongsTo('App\Kelas', 'idKelas');
+        return $this->belongsTo('App\Kelas', 'idKelas', 'idKelas');
     }
 
     public function nilai()
@@ -26,5 +31,8 @@ class Siswa extends Model
         return $this->hasMany('App\Pembayaran', 'idPembayaran', 'idPembayaran');
     }
 
-
+    public function historis()
+    {
+        return $this->belongsToMany(Kelas::class)->using(Historisiswa::class)->withPivot('tahun');
+    }
 }

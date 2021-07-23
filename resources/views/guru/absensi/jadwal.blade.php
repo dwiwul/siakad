@@ -2,16 +2,11 @@
 @section('title', 'List Jadwal')
 
 @section('content')
-
     <div class="container-fluid">
-
-        <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Jadwal Hari Ini</h1>
 
         </div>
-
-        <!-- Content Row -->
         <div class="row">
 
             <!-- Earnings (Monthly) Card Example -->
@@ -23,14 +18,14 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            {{ $item->nama_mapel }}</div>
-                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            <h4>7B</h4>
+                                            <h3>{{ $item->namaMapel }}</h3>
                                         </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $item->jam_mulai }} -
-                                            {{ $item->jam_selesai }}</div>
+                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                            <h4>{{ $item->namaKelas }}</h4>
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $item->jamMulai }} -
+                                            {{ $item->jamSelesai }}</div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>

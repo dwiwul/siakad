@@ -1,4 +1,4 @@
-@extends('sbadmin/guru_master')
+@extends('sbadmin/master')
 @section('title', 'List Kelas')
 
 @section('content')
@@ -18,8 +18,6 @@
                                 <th>Nama</th>
                                 <th >Aksi</th>
                             </tr>
-
-
                         </thead>
                         <tbody>
                             @php $i = 1 @endphp
@@ -27,11 +25,10 @@
                                 <tr>
                                     <td>{{$i++}}</td>
                                     <td>{{$item->nis}}</td>
-                                    <td>{{$item->nama_siswa}}</td>
+                                    <td>{{$item->namaSiswa}}</td>
                                     <td>
-                                        <a class="btn btn-success" href="{{ url('/raport/cetak/'.$item->idSiswa) }}">
-                                            Cetak Raport</a>
-
+                                        <a class="btn btn-success" href="{{ url('admin/raport/cetak/'.$item->idSiswa) }}">
+                                            <i class="fa fa-print"></i>Cetak</a>
                                     </td>
                                 </tr>
                             @endforeach

@@ -14,17 +14,18 @@ class SiswaImport implements ToModel
     */
     public function model(array $row)
     {
+        $now = date('Y-m-d H:i:s');
         return new Siswa([
-            'nis' => $row[1],
-            'nama_siswa' => $row[2],
-            'idKelas' => $row[3],
-            'alamat' => $row[4],
-            'jk' => $row[5],
-            'tmp_lahir' => $row[6],
-            'tgl_lahir' => $row[7],
-            'telp' => $row[8],
-            'nama_ortu' => $row[9],
-            'status_2' => $row[10],
+            'idKelas'   => $row[1],
+            'nis'       => $row[2],
+            'namaSiswa' => $row[3],
+            'alamat'    => $row[4],
+            'jk'        => $row[5],
+            'tmpLahir'  => $row[6],
+            'tglLahir'  => $row[7],
+            'telp    '  => $row[8],
+            'namaOrtu'  => $row[9],
+            'status  '  => $row[10],
         ]);
     }
 }

@@ -14,18 +14,18 @@
                     <select id="idMapel" name="idMapel" class="form-control @error('idMapel') is-invalid @enderror select2bs4">
                         <option>-- Pilih mapel--</option>
                         @foreach($mapel as $data)
-                            {{-- <option value="{{ $data->idMapel }}">{{ $data->nama_guru }}</option> --}}
-                            <option value="{{ $data->idMapel }}">{{ $data->nama_mapel }}</option>
+                            {{-- <option value="{{ $data->idMapel }}">{{ $data->namaPegawai }}</option> --}}
+                            <option value="{{ $data->idMapel }}">{{ $data->namaMapel }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="idGuru">Guru</label>
-                    <select id="idGuru" name="idGuru" class="form-control @error('idGuru') is-invalid @enderror select2bs4">
-                        <option>-- Pilih Guru --</option>
-                        @foreach($guru as $data)
-                            {{-- <option value="{{ $data->idGuru }}">{{ $data->nama_guru }}</option> --}}
-                            <option value="{{ $data->idGuru }}">{{ $data->nama_guru }}</option>
+                    <label for="idPegawai">Pegawai</label>
+                    <select id="idPegawai" name="idPegawai" class="form-control @error('idPegawai') is-invalid @enderror select2bs4">
+                        <option>-- Pilih Pegawai --</option>
+                        @foreach($pegawai as $data)
+                            {{-- <option value="{{ $data->idPegawai }}">{{ $data->namaPegawai }}</option> --}}
+                            <option value="{{ $data->idPegawai }}">{{ $data->namaPegawai }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -34,29 +34,29 @@
                     <select id="idSiswa" name="idSiswa" class="form-control @error('idSiswa') is-invalid @enderror select2bs4">
                         <option>-- Pilih --</option>
                         @foreach($siswa as $data)
-                            {{-- <option value="{{ $data->idSiswa }}">{{ $data->nama_guru }}</option> --}}
-                            <option value="{{ $data->idSiswa }}">{{ $data->nama_siswa }}</option>
+                            {{-- <option value="{{ $data->idSiswa }}">{{ $data->namaPegawai }}</option> --}}
+                            <option value="{{ $data->idSiswa }}">{{ $data->namaSiswa }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="nilai_harian">UH</label>
-                    <input type="text" class="form-control" id="nilai_harian" name="nilai_harian">
-                    @error('nilai_harian')
+                    <label for="nilaiHarian">UH</label>
+                    <input type="text" class="form-control" id="nilaiHarian" name="nilaiHarian">
+                    @error('nilaiHarian')
                         <small class="text-danger">{{ $message}}</small>
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="nilai_uts">UTS</label>
-                    <input type="text" class="form-control" id="nilai_uts" name="nilai_uts">
-                    @error('nilai_uts')
+                    <label for="nilaiUts">UTS</label>
+                    <input type="text" class="form-control" id="nilaiUts" name="nilaiUts">
+                    @error('nilaiUts')
                         <small class="text-danger">{{ $message}}</small>
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="nilai_uas">UAS</label>
-                    <input type="text" class="form-control" id="nilai_uas" name="nilai_uas">
-                    @error('nilai_uas')
+                    <label for="nilaiUas">UAS</label>
+                    <input type="text" class="form-control" id="nilaiUas" name="nilaiUas">
+                    @error('nilaiUas')
                         <small class="text-danger">{{ $message}}</small>
                     @enderror
                 </div>

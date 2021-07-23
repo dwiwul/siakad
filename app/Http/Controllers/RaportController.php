@@ -29,11 +29,12 @@ class RaportController extends Controller
     public function cetak($idSiswa)
     {
         $data = Nilai::leftJoin('mapel', 'mapel.idMapel', 'nilai.idMapel')
-            ->where('nilai.idSiswa', $idSiswa)
-            ->get();
+        ->where('nilai.idSiswa', $idSiswa)
+        ->get();
         $siswa = Siswa::leftJoin('kelas', 'kelas.idKelas', 'siswa.idKelas')
-            ->select('siswa.*', 'kelas.nama_kelas')
-            ->where('siswa.idSiswa', $idSiswa)->first();
+        ->select('siswa.*', 'kelas.namaKelas')
+        ->where('siswa.idSiswa', $idSiswa)->first();
+
         // return $data;
         // return view('guru.raport.printRaport', compact('data', 'siswa'));
         $pdf = PDF::loadView('guru.raport.printRaport', ['data' => $data, 'siswa' => $siswa]);
@@ -70,10 +71,10 @@ class RaportController extends Controller
     public function show($idKelas)
     {
         $data = Siswa::leftJoin('nilai', 'nilai.idSiswa', 'siswa.idSiswa')
-            ->select('siswa.idSiswa', 'siswa.nama_siswa', 'siswa.nis', 'nilai.*')
+            ->select('siswa.idSiswa', 'siswa.namaSiswa', 'siswa.nis', 'nilai.*')
             ->where('idKelas', $idKelas)->get();
         $kelas = Kelas::where('idKelas', $idKelas)->first();
-        return view('guru.raport.detail', compact('data', 'kelas'));
+        return view('guru/raport/detail', compact('data', 'kelas'));
     }
 
     /**

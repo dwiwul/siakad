@@ -26,8 +26,10 @@
                                 <th>No</th>
                                 <th>Nama</th>
                                 <th>KKM</th>
-                                <th>Nilai Akademik</th>
-                                <th>Nilai Kreatifitas</th>
+                                <th>Nilai Tugas</th>
+                                <th>Nilai UH</th>
+                                <th>Nilai UTS</th>
+                                <th>Nilai UAS</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -37,21 +39,17 @@
                             @foreach ($data as $item)
                                 <tr>
                                     <td>{{ $i++ }}</td>
-                                    <td>{{ $item->nama_siswa }}</td>
+                                    <td>{{ $item->namaSiswa }}</td>
                                     <td>{{ $item->kkm }}</td>
-                                    <td>{{ $item->nilai_akademik }}</td>
-                                    <td>{{ $item->nilai_kreatifitas }}</td>
-
-
-
+                                    <td>{{ $item->nilaiTugas }}</td>
+                                    <td>{{ $item->nilaiUH }}</td>
+                                    <td>{{ $item->nilaiUTS }}</td>
+                                    <td>{{ $item->nilaiUAS }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
                 </div>
-
-
-
             </div>
         </div>
     </div>

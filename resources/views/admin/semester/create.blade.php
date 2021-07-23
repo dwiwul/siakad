@@ -14,18 +14,18 @@
         <div class="container">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="tahun_ajaran">Tahun Ajaran</label>
-                    <input type="text" class="form-control" id="tahun_ajaran" name="tahun_ajaran">
-                    @error('tahun_ajaran')
+                    <label for="tahunAjaran">Tahun Ajaran</label>
+                    <input type="text" class="form-control" id="tahunAjaran" name="tahunAjaran">
+                    @error('tahunAjaran')
                         <small class="text-danger">{{ $message}}</small>
                     @enderror
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="tgl_efektif">Tanggal</label>
-                    <input type="date" class="form-control" id="tgl_efektif" name="tgl_efektif">
-                    @error('tgl_efektif')
+                    <label for="tglEfektif">Tanggal</label>
+                    <input type="date" class="form-control" id="tglEfektif" name="tglEfektif">
+                    @error('tglEfektif')
                         <small class="text-danger">{{ $message}}</small>
                     @enderror
                 </div>

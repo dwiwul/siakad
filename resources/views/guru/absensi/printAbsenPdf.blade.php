@@ -22,14 +22,14 @@
 
     </style>
     <center>
-        <h5>DAFTAR PRESENSI SISWA KELAS {{ $mpl->nama_kelas }}</h5>
+        <h5>DAFTAR PRESENSI SISWA KELAS {{ $mpl->namaKelas }}</h5>
     </center>
     <p style="text-align:left;font-size: 12px;">
         Tanggal : <b>{{ $mpl->hari . ', ' . Helper::tanggal($mpl->tgl) }}</b>
 
     </p>
     <p style="text-align:left;font-size: 12px;">
-        Mata Pelajaran : <b>{{ $mpl->nama_mapel }}</b>
+        Mata Pelajaran : <b>{{ $mpl->namaMapel }}</b>
 
     </p>
     <table style="width: 100%">
@@ -38,10 +38,7 @@
                 <th width="20px" style="text-align:center; font-size: 12px;">No</th>
                 <th width="80px" style="text-align:center; font-size: 12px;">NIS</th>
                 <th width="200px" style="text-align:center; font-size: 12px; ">Nama</th>
-                <th width="50px" style="text-align:center;  font-size: 12px;">Hadir</th>
-                <th width="50px" style="text-align:center;  font-size: 12px;">Sakit</th>
-                <th width="50px" style="text-align:center;  font-size: 12px;">Ijin</th>
-                <th width="50px" style="text-align:center; font-size: 12px; ">Alpha</th>
+                <th width="50px" style="text-align:center;  font-size: 12px;">Keterangan</th>
             </tr>
         </thead>
         <tbody>
@@ -55,52 +52,16 @@
                         <center>{{ $i++ }}</center>
                     </td>
                     <td style="font-size: 12px;"> {{ $item->nis }}</td>
-                    <td style="font-size: 12px;"> {{ $item->nama_siswa }}</td>
+                    <td style="font-size: 12px;"> {{ $item->namaSiswa }}</td>
                     <td style="font-size: 12px;">
-                        @if ($item->ijin == '0' && $item->sakit == '0' && $item->alpha == '0')
-                            <center>
-                                <div style="font-family: DejaVu Sans, sans-serif;">✔</div>
-                            </center>
-
-                        @else
-                            <center><span>-</span></center>
-                        @endif
+                       <p>{{ Str::ucfirst($item->keterangan)}}</p>
 
                     </td>
-                    <td style="font-size: 12px;">
-                        @if ($item->sakit == '1')
-                            <center>
-                                <div style="font-family: DejaVu Sans, sans-serif;">✔</div>
-                            </center>
 
-                        @else
-                            <center><span>-</span></center>
-                        @endif
-
-                    </td>
-                    <td style="font-size: 12px;">
-                        @if ($item->ijin == '1')
-                            <center>
-                                <div style="font-family: DejaVu Sans, sans-serif;">✔</div>
-                            </center>
-
-                        @else
-                            <center><span>-</span></center>
-                        @endif
-                    </td>
-                    <td style="font-size: 12px;">
-                        @if ($item->alhpa == '1')
-                            <center>
-                                <div style="font-family: DejaVu Sans, sans-serif;">✔</div>
-                            </center>
-
-                        @else
-                            <center><span>-</span></center>
-                        @endif
-                    </td>
 
                 </tr>
             @endforeach
+        </tbody>
 
     </table>
 

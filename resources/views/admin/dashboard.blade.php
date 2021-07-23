@@ -1,67 +1,57 @@
 @extends('sbadmin/master')
-@section('title', 'Dashboard')
+@section('title', 'Dashboard Admin')
 
 @section('content')
 
-    <div class="container-fluid">
+<div class="row">
 
-        <!-- Page Heading -->
-        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">DASHBOARD</h1>
-            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                    class="fas fa-download fa-sm text-white-50"></i> Export</a>
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            GURU</div>
+                        {{-- <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $jumlah_pegawai }}</div> --}}
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-users fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <!-- Content Row -->
-        <div class="row">
-
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-primary shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                    Siswa</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">24</div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                            </div>
-                        </div>
+    </div>
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                            SISWA</div>
+                        {{-- <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $jumlah_siswa }}</div> --}}
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-users fa-2x text-gray-300"></i>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
 
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-success shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                    Guru</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">8</div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <!-- Earnings (Monthly) Card Example -->
 
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
+        <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card border-left-info shadow h-100 py-2">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Uploud
+                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">PENGUMUMAN
                                 </div>
                                 <div class="row no-gutters align-items-center">
                                     <div class="col-auto">
-                                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">3</div>
+                                        {{-- <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{$jumlah_info }} }}</div> --}}
                                     </div>
                                     <div class="col">
                                         <div class="progress progress-sm mr-2">
@@ -78,17 +68,99 @@
                         </div>
                     </div>
                 </div>
+            </a>
+            {{-- @endforeach --}}
+        </div>
+
+
+    <!-- Pending Requests Card Example -->
+
+</div>
+    @endsection
+
+
+
+
+
+
+
+
+
+
+
+{{-- @extends('sbadmin/master')
+@section('title', 'Dashboard Admin')
+
+@section('content')
+
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">DASHBOARD</h1>
+        </div>
+
+        <!-- Content Row -->
+        <div class="row">
+
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-3 col-md-10 mb-6">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                   <h3> {{$siswa}} </h3>
+                                   <p> Total Siswa</p>
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                    <a href="{{ url('/siswa') }}" class="small-box-footer"> <i class="fas fa-arrow-circle-right"></i></a>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-users fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-3 col-md-10 mb-6">
+                <div class="card border-left-success shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                    <h3> {{$pegawai}} </h3>
+                                    <p> Total Pegawai</p>
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                    <a href="{{ url('/pegawai') }}" class="small-box-footer"> <i class="fas fa-arrow-circle-right"></i></a>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-users fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Earnings (Monthly) Card Example -->
             <!-- Pending Requests Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
+            <div class="col-xl-3 col-md-10 mb-6">
                 <div class="card border-left-warning shadow h-100 py-2">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                    Info</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">-</div>
+                                    <h3> {{$info}} </h3>
+                                   <p> Total Pengumuman</p>
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                    <a href="{{ url('/info') }}" class="small-box-footer"> <i class="fas fa-arrow-circle-right"></i></a>
+                                </div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -97,6 +169,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
 
         <!-- Content Row -->
@@ -111,4 +184,4 @@
         <!-- Content Row -->
 
     </div>
-@endsection
+@endsection --}}

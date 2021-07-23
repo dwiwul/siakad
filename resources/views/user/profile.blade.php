@@ -1,4 +1,14 @@
-@extends('sbadmin/master')
+@if (session('level') == 'Pegawai')
+{{-- {{ session('level')}} --}}
+    @extends('sbadmin/guru_master')
+@elseif (session('level') == 'Siswa')
+    @extends('sbadmin/siswa_master')
+@elseif (session('level') == 'Kepsek')
+    @extends('sbadmin/kepsek_master')
+@else
+    @extends('sbadmin/master')
+@endif
+
 @section('title', 'Edit Profil')
 @section('page')
     <li class="breadcrumb-item active"><a href="{{ route('profile') }}">Pengaturan</a></li>
@@ -14,7 +24,7 @@
             <!-- /.card-header -->
             <!-- form start -->
             <div class="card-body">
-                @if (session('level') == 'Guru')
+                @if (session('level') == 'Pegawai')
                     <form action="{{ url('/profile/guru/update') }}" method="post">
                         @method('put')
                         @csrf
@@ -42,23 +52,23 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="name_guru">Nama Guru</label>
-                                    <input type="text" id="name_guru" name="nama_guru" value="{{ $data->nama_guru }}"
-                                        class="form-control @error('name_guru') is-invalid @enderror">
+                                    <label for="namaPegawai">Nama Pegawai</label>
+                                    <input type="text" id="namaPegawai" name="namaPegawai" value="{{ $data->namaPegawai }}"
+                                        class="form-control @error('namaPegawai') is-invalid @enderror">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="tmp_lahir">Tempat Lahir</label>
-                                    <input type="text" id="tmp_lahir" name="tmp_lahir" value="{{ $data->tmp_lahir }}"
-                                        class="form-control @error('tmp_lahir') is-invalid @enderror">
+                                    <label for="tmpLahir">Tempat Lahir</label>
+                                    <input type="text" id="tmpLahir" name="tmpLahir" value="{{ $data->tmpLahir }}"
+                                        class="form-control @error('tmpLahir') is-invalid @enderror">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="tgl_lahir">Tanggal Lahir</label>
-                                    <input type="date" id="tgl_lahir" name="tgl_lahir" value="{{ $data->tgl_lahir }}"
-                                        class="form-control @error('tgl_lahir') is-invalid @enderror">
+                                    <label for="tglLahir">Tanggal Lahir</label>
+                                    <input type="date" id="tglLahir" name="tglLahir" value="{{ $data->tglLahir }}"
+                                        class="form-control @error('tglLahir') is-invalid @enderror">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -91,9 +101,9 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="name_siswa">Nama Siswa</label>
-                                    <input type="text" id="name_siswa" name="nama_siswa" value="{{ $data->nama_siswa }}"
-                                        class="form-control @error('name_siswa') is-invalid @enderror">
+                                    <label for="namaSiswa">Nama Siswa</label>
+                                    <input type="text" id="namaSiswa" name="namaSiswa" value="{{ $data->namaSiswa }}"
+                                        class="form-control @error('namaSiswa') is-invalid @enderror">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -116,16 +126,23 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="tmp_lahir">Tempat Lahir</label>
-                                    <input type="text" id="tmp_lahir" name="tmp_lahir" value="{{ $data->tmp_lahir }}"
-                                        class="form-control @error('tmp_lahir') is-invalid @enderror">
+                                    <label for="tahunAngkatan">Tahun Angkatan</label>
+                                    <input readonly type="text" id="tahunAngkatan" name="tahunAngkatan" value="{{ $data->tahunAngkatan }}"
+                                        class="form-control @error('tahunAngkatan') is-invalid @enderror">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="tgl_lahir">Tanggal Lahir</label>
-                                    <input type="date" id="tgl_lahir" name="tgl_lahir" value="{{ $data->tgl_lahir }}"
-                                        class="form-control @error('tgl_lahir') is-invalid @enderror">
+                                    <label for="tmpLahir">Tempat Lahir</label>
+                                    <input type="text" id="tmpLahir" name="tmpLahir" value="{{ $data->tmpLahir }}"
+                                        class="form-control @error('tmpLahir') is-invalid @enderror">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="tglLahir">Tanggal Lahir</label>
+                                    <input type="date" id="tglLahir" name="tglLahir" value="{{ $data->tglLahir }}"
+                                        class="form-control @error('tglLahir') is-invalid @enderror">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -134,6 +151,42 @@
                                     <input type="text" id="nis" name="nis" onkeypress="return inputAngka(event)"
                                         value="{{ $data->nis }}"
                                         class="form-control @error('nis') is-invalid @enderror">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="telp">Nomor Telpon/HP</label>
+                                    <input type="text" id="telp" name="telp" value="{{ $data->telp }}"
+                                        onkeypress="return inputAngka(event)"
+                                        class="form-control @error('telp') is-invalid @enderror">
+                                </div>
+                            </div>
+                        </div>
+
+                        <a href="#" name="kembali" class="btn btn-default" id="back"><i
+                                class='nav-icon fas fa-arrow-left'></i>
+                            &nbsp; Kembali</a> &nbsp;
+                        <button name="submit" class="btn btn-primary"><i class="nav-icon fas fa-save"></i> &nbsp;
+                            Simpan</button>
+                    </form>
+
+                @elseif (session('level') == "Kepsek")
+                    <form action="{{ url('/profile/kepsek/update') }}" method="post">
+                        @method('put')
+                        @csrf
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="namaKepsek">Nama Kepala Sekolah</label>
+                                    <input type="text" id="namaKepsek" name="namaKepsek" value="{{ $data->namaKepsek }}"
+                                        class="form-control @error('namaKepsek') is-invalid @enderror">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="alamat">Alamat</label>
+                                    <input type="text" id="alamat" name="alamat" value="{{ $data->alamat }}"
+                                        class="form-control @error('alamat') is-invalid @enderror">
                                 </div>
                             </div>
                             <div class="col-md-6">

@@ -26,8 +26,8 @@
 					  	@foreach($semester as $row)
 						    <tr>
 						    	<td>{{$loop->iteration}}</td>
-                                <td>{{$row->tahun_ajaran}}</td>
-						    	<td>{{ $row->tgl_efektif }}</td>
+                                <td>{{$row->tahunAjaran}}</td>
+						    	<td>{{ $row->tglMulai }}</td>
 						    	<td>{{ $row->keterangan }}</td>
 						    	<td>
 						    		<a href="{{url('/admin/jadwal/show/'.$id.'/'.$row->idSemester)}}" class="btn btn-outline-primary"><i class="fas fa-search"></i></i></a>

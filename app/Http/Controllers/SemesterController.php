@@ -41,8 +41,9 @@ class SemesterController extends Controller
     public function store(Request $request)
     {
         $semester = new Semester();
-        $semester->tahun_ajaran = $request->get("tahun_ajaran");
-        $semester->tgl_efektif = $request->get("tgl_efektif");
+        $semester->tahunAjaran = $request->get("tahunAjaran");
+        $semester->tglMulai = $request->get("tglMulai");
+        $semester->tglSelesai = $request->get("tglSelesai");
         $semester->keterangan = $request->get("keterangan");
         $semester->save();
         $semester = Semester::all();
@@ -54,6 +55,8 @@ class SemesterController extends Controller
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
+     *
+     *
      */
     public function show($id)
     {
@@ -83,8 +86,9 @@ class SemesterController extends Controller
     {
         Semester::where('idSemester', $id)
         ->update([
-            'tahun_ajaran' => $request->tahun_ajaran,
-            'tgl_efektif' => $request->tgl_efektif,
+            'tahunAjaran' => $request->tahunAjaran,
+            'tglMulai' => $request->tglMulai,
+            'tglSelesai' => $request->tglSelesai,
             'keterangan' => $request->keterangan,
         ]);
         return redirect('admin/semester/index');

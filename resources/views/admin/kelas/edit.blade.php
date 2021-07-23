@@ -16,9 +16,9 @@
             <div class="container">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="nama_kelas">Nama Kelas</label>
-                        <input type="text" value="{{$kelas->nama_kelas}}" class="form-control" id="nama_kelas" name="nama_kelas">
-                        @error('nama_kelas')
+                        <label for="namaKelas">Nama Kelas</label>
+                        <input type="text" value="{{$kelas->namaKelas}}" class="form-control" id="namaKelas" name="namaKelas">
+                        @error('namaKelas')
                             <small class="text-danger">{{ $message}}</small>
                         @enderror
                     </div>

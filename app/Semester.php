@@ -8,12 +8,17 @@ class Semester extends Model
 {
     protected $table = 'semester';
     protected $primaryKey = 'idSemester';
-    protected $fillable = ['tahun_ajaran', 'tgl_efektif', 'keterangan'];
+    protected $fillable = ['tahunAjaran', 'tglMulai', 'tglSelesai', 'keterangan'];
 
 
     public function jadwal()
     {
         return $this->hasMany('App\Jadwal', 'idJadwal', 'idJadwal');
+    }
+
+    public function pembayaran()
+    {
+        return $this->hasMany('App\Pembayaran', 'idPembayaran', 'idPembayaran');
     }
 
 }

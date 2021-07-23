@@ -23,11 +23,9 @@
                             @foreach ($kelas as $item)
                                 <tr>
                                     <td>{{$i++}}</td>
-                                    <td>{{$item->nama_kelas}}</td>
+                                    <td>{{$item->namaKelas}}</td>
                                     <td>
-                                        <a class="btn btn-success" href="{{ url('/raport/kelas/'.$item->idKelas) }}">
-                                            Detail</a>
-
+                                        <a class="btn btn-success" href="{{ url('admin/raport/kelas/'.$item->idKelas) }}"></a>
                                     </td>
                                 </tr>
                             @endforeach

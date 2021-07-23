@@ -9,16 +9,17 @@
               <!-- Add the bg color to the header using any of the bg-* classes -->
               <div class="widget-user-header bg-dark">
                 <!-- /.widget-user-image -->
-                <h3 class="widget-user-username">{{$siswa->nama_siswa}}</h3>
+                <h3 class="widget-user-username">{{$siswa->namaSiswa}}</h3>
                 <h6 class="widget-user-desc">{{$siswa->nis}}</h6>
-                <h5 class="widget-user-desc">{{$siswa->kelas->nama_kelas}}</h5>
+                <h5 class="widget-user-desc">{{$siswa->kelas->namaKelas}}</h5>
+                <h5 class="widget-user-desc">{{$siswa->semester->tglMulai}}</h5>
               </div>
               <div class="table-responsive">
                 <table class = "table">
                   <tbody>
                     <tr>
                       <th>Tempat, tanggal lahir :</th>
-                      <td>{{$siswa->tmp_lahir}}, {{$siswa->tgl_lahir}}</td>
+                      <td>{{$siswa->tmpLahir}}, {{$siswa->tglLahir}}</td>
                     </tr>
                     <tr>
                       <th>Jenis Kelamin :</th>
@@ -34,11 +35,11 @@
                     </tr>
                     <tr>
                         <th>Nama Orang Tua :</th>
-                        <td>{{$siswa->snama_ortu}}</td>
+                        <td>{{$siswa->namaOrtu}}</td>
                     </tr>
                     <tr>
                         <th>Status :</th>
-                        <td>{{$siswa->status_2}}</td>
+                        <td>{{$siswa->status}}</td>
                     </tr>
                   </tbody>
                 </table>

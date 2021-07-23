@@ -9,7 +9,7 @@ class Kelas extends Model
 {
     protected $table = 'kelas';
     protected $primaryKey = 'idKelas';
-    protected $fillable = ['idPegawai', 'nama_kelas' ];
+    protected $fillable = ['idPegawai', 'namaKelas' ];
 
 
     public function jadwal()
@@ -17,4 +17,8 @@ class Kelas extends Model
         return $this->hasMany('App\Jadwal', 'idJadwal', 'idJadwal');
     }
 
+    public function siswa()
+    {
+        return $this->belongsToMany(Siswa::class)->using(Historisiswa::class)->withPivot('tahun');
+    }
 }

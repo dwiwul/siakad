@@ -9,10 +9,10 @@
               <!-- Add the bg color to the header using any of the bg-* classes -->
               <div class="widget-user-header bg-dark">
                 <!-- /.widget-user-image -->
-                <h3 class="widget-user-username">{{$jadwal->semester->tgl_efektif}}</h3>
-                <h6 class="widget-user-desc">{{$jadwal->pegawai->nama_guru}}</h6>
-                <h5 class="widget-user-desc">{{$jadwal->kelas->nama_kelas}}</h5>
-                <h5 class="widget-user-desc">{{$jadwal->mapel->nama_mapel}}</h5>
+                <h3 class="widget-user-username">{{$jadwal->semester->tglMulai}}</h3>
+                <h6 class="widget-user-desc">{{$jadwal->pegawai->namaPegawai}}</h6>
+                <h5 class="widget-user-desc">{{$jadwal->kelas->namaKelas}}</h5>
+                <h5 class="widget-user-desc">{{$jadwal->mapel->namaMapel}}</h5>
               </div>
               <div class="table-responsive">
                 <table class = "table">
@@ -23,7 +23,7 @@
                       </tr>
                     <tr>
                       <th>Jam Mulai / Jam Selesai :</th>
-                      <td>{{$jadwal->jam_mulai}}, {{$jadwal->jam_selesai}}</td>
+                      <td>{{$jadwal->jamMulai}}, {{$jadwal->jamSelesai}}</td>
                     </tr>
                   </tbody>
                 </table>

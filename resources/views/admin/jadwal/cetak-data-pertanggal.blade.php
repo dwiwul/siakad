@@ -23,7 +23,7 @@
             width : 100%;
         }
     </style>
-    <title>Cetak Log Book</title>
+    <title>Cetak Jadwal</title>
 </head>
 <body>
     <div class="form-group">
@@ -53,12 +53,12 @@
                 @foreach($cetakPerTanggal as $row)
                 <tr>
                     <td>{{ $loop->iteration}} </td>
-                    <td>{{ $row->Mapel->nama_mapel }}</td>
-                    <td>{{ $row->Pegawai->nama_guru }}</td>
-                    <td>{{ $row->Semester->tgl_efektif }}</td>
+                    <td>{{ $row->Mapel->namaMapel }}</td>
+                    <td>{{ $row->Pegawai->namaPegawai}}</td>
+                    <td>{{ $row->Semester->tglAwal }}</td>
                     <td>{{ $row->hari }}</td>
-                    <td>{{ $row->jam_mulai }}</td>
-                    <td>{{ $row->jam_Selesai }}</td>
+                    <td>{{ $row->jamMulai }}</td>
+                    <td>{{ $row->jamSelesai }}</td>
                 </tr>
                 @endforeach
         </table>

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Siswa;
+use App\Pegawai;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -18,7 +21,10 @@ class AdminController extends Controller
 
     public function dashboard()
     {
-        return view('admin/dashboard');
+        $siswa = DB::table('siswa')->count();
+        $pegawai = DB::table('pegawai')->count();
+        $info = DB::table('info')->count();
+        return view('admin/beranda')->with(compact ('siswa', 'pegawai', 'info'));
     }
 
     /**

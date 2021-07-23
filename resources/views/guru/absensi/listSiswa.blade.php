@@ -33,7 +33,7 @@
                                         <input type="hidden" name="idSiswa[]" value="{{ $item->idSiswa }}">
                                         <td>{{ $i++ }}</td>
                                         <td>{{ date('d, M Y') }}</td>
-                                        <td>{{ $item->nama_siswa }}</td>
+                                        <td>{{ $item->namaSiswa }}</td>
                                         <td>
                                             <div class="custom-control custom-checkbox">
                                                 <div class="form-check">

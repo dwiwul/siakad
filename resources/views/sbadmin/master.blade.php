@@ -23,6 +23,11 @@
     <link rel="stylesheet" href="{{ asset('vendor/sbadmin/datatables-bs4/css/dataTables.bootstrap4.css') }}">
 
     <link href="{{ asset('vendor/sbadmin/datatable/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset ('vendor/sbadmin/https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css')}}" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('vendor/sbadmin/https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.css') }}">
+
+
+
 
 
 
@@ -37,11 +42,13 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">ADMIN <sup></sup></div>
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+                {{-- <div class="sidebar-brand-icon rotate-n-15"> --}}
+                    <img class="img-profile rounded-circle"
+                        src="{{url('vendor/sbadmin/img/logo mts-1.JPG')}}">
+                    {{-- <i class="fas fa-laugh-wink"></i> --}}
+                {{-- </div> --}}
+                <div class="sidebar-brand-text mx-3">MTs<sup> Roudlatul Ulum</sup></div>
             </a>
 
             <!-- Divider -->
@@ -49,9 +56,9 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="/dashboard">
+                <a class="nav-link" href="{{ url ('admin/beranda')}}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
+                    <span>Beranda</span></a>
             </li>
 
             <!-- Divider -->
@@ -60,57 +67,57 @@
             <!-- Heading -->
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#master"
-                    aria-expanded="true" aria-controls="master">
-                    <i class="fas fa-fw fa-users"></i>
+            <li class="nav-item" id="nav-master">
+                <a class="nav-link" id="a-master" href="#" data-toggle="collapse" data-target="#collapseMasterdata"
+                    aria-expanded="true" aria-controls="collapseMasterdata">
+                    <i class="fas fa-fw fa-plus"></i>
                     <span>Master Data</span>
                 </a>
-                <div id="master" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseMasterdata" class="collapse" aria-labelledby="headingMasterdata"
+                    data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{url('admin/pegawai/index')}}">Data Pegawai</a>
-                        <a class="collapse-item" href="{{url('admin/siswa/index')}}">Data Siswa</a>
-                        <a class="collapse-item" href="{{url('admin/semester/index')}}">Data Tahun Akademik</a>
-                        <a class="collapse-item" href="{{url('admin/kelas/index')}}">Data Kelas</a>
-                        <a class="collapse-item" href="{{url('admin/mapel/index')}}">Data Mapel</a>
-                        <a class="collapse-item" href="{{url('admin/jadwal/index')}}">Data Jadwal</a>
+                        <a class="collapse-item" id="a-nav-siswa" href="{{url('admin/siswa/index')}}">Siswa</a>
+                        <a class="collapse-item" id="a-nav-tu" href="{{url('admin/petugasTU/index')}}">Petugas TU</a>
+                        <a class="collapse-item" id="a-nav-kelas" href="{{url('admin/kelas/index')}}">Kelas</a>
+                        <a class="collapse-item" id="a-nav-mapel" href="{{url('admin/mapel/index')}}">Mata Pelajaran</a>
                     </div>
                 </div>
             </li>
-            <!-- Divider -->
-
-            <!-- Heading -->
-            <li class="nav-item">
-                <a class="nav-link" href="{{url('/admin/raport/kelas')}}">
-                    <i class="fas fa-fw fa-folder-open"></i>
-                    <span>Raport Siswa</span></a>
-            </li>
-            <!-- Nav Item - Pages Collapse Menu -->
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="{{url('admin/pembayaran/index')}}">
-                    <i class="fas fa-fw fa-credit-card"></i>
-                    <span>Pembayaran</span></a>
-            </li>
-
-            <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="{{url('admin/info/index')}}">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Pengumuman</span></a>
-            </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{{url('admin/users/index')}}">
-                    <i class="fas fa-fw fa-user"></i>
-                    <span>User</span>
+                <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePembelajaran"
+                    aria-expanded="true" aria-controls="collapsePembelajaran">
+                    <i class="fas fa-fw fa-book"></i>
+                    <span>Pembelajaran</span>
                 </a>
-                <div id="user" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapsePembelajaran" class="collapse" aria-labelledby="headingPembelajaran"
+                    data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="/pegawai/index">Data Pegawai</a>
+                        <a class="collapse-item" href="{{url('admin/semester/index')}}">Periode</a>
+                        {{-- <a class="collapse-item" href="{{url('admin/histori/index-histori')}}">Kelas Siswa</a> --}}
+                        {{-- <a class="collapse-item" href="{{url('admin/jadwal/index')}}">Jadwal</a> --}}
+                        <a class="collapse-item" href="{{url('admin/jadwal/pilihKelas')}}">Jadwal</a>
+                        <a class="collapse-item" href="{{url('admin/info/index')}}">Pengumuman</a>
+                        <a class="collapse-item" href="{{url('admin/raport/kelas')}}">Raport</a>
                     </div>
                 </div>
             </li>
+
+
+            <li class="nav-item">
+                <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePembayaran"
+                    aria-expanded="true" aria-controls="collapsePembayaran">
+                    <i class="fas fa-fw fa-credit-card"></i>
+                    <span>Pembayaran</span>
+                </a>
+                <div id="collapsePembayaran" class="collapse" aria-labelledby="headingPembayaran" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{url('admin/lks/index')}}">LKS</a>
+                        <a class="collapse-item" href="{{url('admin/iuran/index')}}">Iuran</a>
+                    </div>
+                </div>
+            </li>
+
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -141,7 +148,7 @@
                     </button>
 
                     <!-- Topbar Search -->
-                    <form
+                    {{-- <form
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
                             <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
@@ -152,7 +159,7 @@
                                 </button>
                             </div>
                         </div>
-                    </form>
+                    </form> --}}
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -193,7 +200,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Administrator</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ session('username') }}</span>
                                 <img class="img-profile rounded-circle"
                                     src="{{asset('vendor/sbadmin/img/undraw_profile.svg')}}">
                             </a>
@@ -234,7 +241,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
+                        <span>Siakad &copy; MTs Roudlotul Ulum Parang</span>
                     </div>
                 </div>
             </footer>
@@ -271,6 +278,8 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
+    <script src="{{ asset('vendor/sbadmin/https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js')}}" integrity="sha512-bnIvzh6FU75ZKxp0GXLH9bewza/OIw6dLVh9ICg0gogclmYGguQJWl8U30WpbsGTqbIiAwxTsbe76DErLq5EDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="{{asset("vendor/sbadmin/https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.js")}}"></script>
     <script src="{{asset('vendor/sbadmin/vendor/jquery/jquery.min.js')}}"></script>
     <script src="{{asset('vendor/sbadmin/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 
@@ -290,7 +299,11 @@
     <script src="{{ asset('vendor/sbadmin/datatable/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('vendor/sbadmin/datatable/datatables/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('vendor/sbadmin/js/demo/datatables-demo.js') }}"></script>
+    <script src="{{ asset ('vendor/sbadmin/https://code.jquery.com/jquery-3.3.1.slim.min.js')}}" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="{{ asset ('vendor/sbadmin/https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js')}}" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="{{ asset ('vendor/sbadmin/https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js')}}" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
+    @yield('js')
     {{-- <script type="text/javascript">
     <script>
     $ ( function () {

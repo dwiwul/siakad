@@ -23,12 +23,12 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            {{ $item->nama_mapel }}</div>
+                                            {{ $item->namaMapel }}</div>
                                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                             <h4>Senin</h4>
                                         </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $item->jam_mulai }} -
-                                            {{ $item->jam_selesai }}</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $item->jamMulai }} -
+                                            {{ $item->jamSelesai }}</div>
                                     </div>
 
                                 </div>

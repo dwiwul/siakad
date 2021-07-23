@@ -11,102 +11,124 @@
                 @csrf
                 @method('patch')
                 <div class="container">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="nis">NIS</label>
-                            <input type="text" value="{{$siswa->nis}}" class="form-control" id="nis" name="nis">
-                            @error('nis')
-                                <small class="text-danger">{{ $message}}</small>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="nama_siswa">Nama Siswa</label>
-                            <input type="text" value="{{$siswa->nama_siswa}}" class="form-control" id="nama_siswa" name="nama_siswa">
-                            @error('nama_siswa')
-                                <small class="text-danger">{{ $message}}</small>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="idKelas">Kelas</label>
-                            <select id="idKelas" name="idKelas" class="form-control @error('idKelas') is-invalid @enderror select2bs4">
-                                <option>-- Pilih Kelas --</option>
-                                @foreach($kelas as $data)
-                                    <option value="{{ $data->idKelas }}">{{ $data->nama_kelas }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="alamat">Alamat</label>
-                            <input type="text" value="{{$siswa->alamat}}"class="form-control" id="alamat" name="alamat">
-                            @error('alamat')
-                                <small class="text-danger">{{ $message}}</small>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="jk">Jenis Kelamin</label>
-                                <select value="{{$siswa->jk}}" class="form-control" name="jk" id="jk">
-                                    <option>--Pilihan--</option>
-                                    <option value="L">Laki-laki</option>
-                                    <option value="P">Perempuan</option>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="idSemester">Tahun</label>
+                                <select id="idSemester" name="idSemester" class="form-control @error('idSemester') is-invalid @enderror select2bs4">
+                                    {{-- <option>-- Pilih Kelas --</option> --}}
+                                    @foreach($semester as $data)
+                                        <option value="{{ $data->idSemester }}">{{ $data->tahunAjaran }}</option>
+                                    @endforeach
                                 </select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="tmp_lahir">Tempat Lahir</label>
-                            <input type="text" value="{{$siswa->tmp_lahir}}" class="form-control" id="tmp_lahir" name="tmp_lahir">
-                            @error('tmp_lahir')
-                                <small class="text-danger">{{ $message}}</small>
-                            @enderror
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="nis">NISN</label>
+                                <input type="text" value="{{$siswa->nis}}" class="form-control" id="nis" name="nis">
+                                @error('nis')
+                                    <small class="text-danger">{{ $message}}</small>
+                                @enderror
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="tgl_lahir">Tanggal</label>
-                            <input type="date" value="{{$siswa->tgl_lahir}}" class="form-control" id="tgl_lahir" name="tgl_lahir">
-                            @error('tgl_lahir')
-                                <small class="text-danger">{{ $message}}</small>
-                            @enderror
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="tahunAngkatan">tahunAngkatan</label>
+                                <input type="text" value="{{$siswa->tahunAngkatan}}" class="form-control" id="tahunAngkatan" name="tahunAngkatan">
+                                @error('tahunAngkatan')
+                                    <small class="text-danger">{{ $message}}</small>
+                                @enderror
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="telp">Telp/HP</label>
-                            <input type="text" value="{{$siswa->telp}}" class="form-control" id="telp" name="telp">
-                            @error('telp')
-                                <small class="text-danger">{{ $message}}</small>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="nama_ortu">Nama OrangTua</label>
-                            <input type="text" value="{{$siswa->nama_ortu}}" class="form-control" id="nama_ortu" name="nama_ortu">
-                            @error('nama_ortu')
-                                <small class="text-danger">{{ $message}}</small>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="status_2">Status</label>
-                                <select value="{{$siswa->status_2}}" class="form-control" name="status_2" id="status_2">
-                                    <option>--Pilihan--</option>
-                                    <option value="Siswa">Siswa</option>
-                                    <option value="Alumni">Alumni</option>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="idKelas">Kelas</label>
+                                <select id="idKelas" name="idKelas" class="form-control @error('idKelas') is-invalid @enderror select2bs4">
+                                    {{-- <option>-- Pilih Kelas --</option> --}}
+                                    @foreach($kelas as $data)
+                                        <option value="{{ $data->idKelas }}">{{ $data->namaKelas }}</option>
+                                    @endforeach
                                 </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="namaSiswa">Nama Siswa</label>
+                                <input type="text" value="{{$siswa->namaSiswa}}" class="form-control" id="namaSiswa" name="namaSiswa">
+                                @error('namaSiswa')
+                                    <small class="text-danger">{{ $message}}</small>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="jk">Jenis Kelamin</label>
+                                    <select value="{{$siswa->jk}}" class="form-control" name="jk" id="jk">
+                                        {{-- <option>--Pilihan--</option> --}}
+                                        <option value="L">Laki-laki</option>
+                                        <option value="P">Perempuan</option>
+                                    </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="alamat">Alamat</label>
+                                <input type="text" value="{{$siswa->alamat}}"class="form-control" id="alamat" name="alamat">
+                                @error('alamat')
+                                    <small class="text-danger">{{ $message}}</small>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="tmpLahir">Tempat Lahir</label>
+                                <input type="text" value="{{$siswa->tmpLahir}}" class="form-control" id="tmpLahir" name="tmpLahir">
+                                @error('tmpLahir')
+                                    <small class="text-danger">{{ $message}}</small>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="tglLahir">Tanggal</label>
+                                <input type="date" value="{{$siswa->tglLahir}}" class="form-control" id="tglLahir" name="tglLahir">
+                                @error('tglLahir')
+                                    <small class="text-danger">{{ $message}}</small>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="telp">Telp/HP</label>
+                                <input type="text" value="{{$siswa->telp}}" class="form-control" id="telp" name="telp">
+                                @error('telp')
+                                    <small class="text-danger">{{ $message}}</small>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="namaOrtu">Nama OrangTua</label>
+                                <input type="text" value="{{$siswa->namaOrtu}}" class="form-control" id="namaOrtu" name="namaOrtu">
+                                @error('namaOrtu')
+                                    <small class="text-danger">{{ $message}}</small>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="status">Status</label>
+                                    <select value="{{$siswa->status}}" class="form-control" name="status" id="status">
+                                        {{-- <option>--Pilihan--</option> --}}
+                                        <option value="Siswa" {{$siswa->status == 'Siswa' ? 'selected' : ''}}>Siswa</option>
+                                        <option value="Alumni" {{$siswa->status == 'Alumni' ? 'selected' : ''}}>Alumni</option>
+                                    </select>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Edit</button>
+                <button type="submit" class="btn btn-primary">Simpan</button>
                 <a href="{{url('admin/siswa/index')}}" class="btn btn-secondary btn-sm">Kembali</a>
             </form>
         </div>

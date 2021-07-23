@@ -8,7 +8,7 @@
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <a href="/absen/list/{{$id}}/add/{{$kelas->idKelas}}" class="btn btn-primary btn-sm"> <i class="fas fa-plus"></i> Tambah Absen</a>
+                <a href="{{ url('/absen/list/'.$id.'/add/'.$kelas->idKelas)}}" class="btn btn-primary btn-sm"> <i class="fas fa-plus"></i> Tambah Absen</a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -28,8 +28,8 @@
                                 <tr>
                                     <td>{{$i++}}</td>
                                     <td>{{Helper::tanggal($item->tgl)}}</td>
-                                    <td>{{$item->nama_mapel}}</td>
-                                    <td>{{$item->nama_kelas}}</td>
+                                    <td>{{$item->namaMapel}}</td>
+                                    <td>{{$item->namaKelas}}</td>
                                     <td>
                                         <a class="btn btn-success" href="{{ url('/absen/detail/'.$item->idAbsensi) }}">
                                             <i class="fa fa-eye"></i></a>

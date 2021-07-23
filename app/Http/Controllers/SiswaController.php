@@ -11,6 +11,8 @@ use App\Kelas;
 use App\Siswa;
 use App\Jadwal;
 use App\Nilai;
+use App\Semester;
+use App\Info;
 use PDF;
 use App\Exports\SiswaExport;
 use App\Imports\SiswaImport;
@@ -24,13 +26,54 @@ class SiswaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+//    public function pilihKelas()
+//     {
+//         // $semester = Semester::all();
+//         $kelas = Kelas::all();
+//         return view('admin/siswa/pilihKelas', compact('kelas'));
+
+//         }
+
+    // public function index()
+    // {
+    //     $kelas = Kelas::all();
+    //     $siswa = Siswa::all();
+    //     $semester = Semester::all();
+    //     $kelas7A = Siswa::where('idKelas', 1)->get();
+    //     $kelas7B = Siswa::where('idKelas', 3)->get();
+    //     $kelas8A = Siswa::where('idKelas', 4)->get();
+    //     $kelas8B = Siswa::where('idKelas', 5)->get();
+    //     $kelas9A = Siswa::where('idKelas', 6)->get();
+    //     $kelas9B = Siswa::where('idKelas', 7)->get();
+    //     // dd($kelas8A);
+    //     return view("admin/siswa/index", compact('semester', 'kelas',  'siswa', 'kelas7A', 'kelas7B', 'kelas8A', 'kelas8B', 'kelas9A', 'kelas9B' ));
+    // }
+
     public function index()
     {
         $siswa = Siswa::all();
         $kelas = Kelas::all();
-        return view('admin/siswa/index', compact('siswa', 'kelas'));
+        $semester = Semester::all();
+        return view('admin/siswa/index', compact('siswa', 'kelas', 'semester'));
     }
 
+    public function perTahunAjaran($year)
+    {
+        $siswa = Siswa::join('kelas', 'siswa.idKelas', 'kelas.idKelas')
+        ->where('siswa.tahunAngkatan', $year)->select(
+            'siswa.*',
+            'kelas.namaKelas'
+        )->get();
+
+        return $siswa;
+    }
+
+    public function getTahunAjaran()
+    {
+        $siswa = collect(Siswa::select('tahunAngkatan')->get())->unique()->values()->all();
+
+        return $siswa;
+    }
 
     public function dashboard()
     {
@@ -45,7 +88,8 @@ class SiswaController extends Controller
     public function create()
     {
         $kelas = Kelas::all();
-        return view('admin/siswa/create', compact('kelas'));
+        $semester = Semester::all();
+        return view('admin/siswa/create', compact('kelas', 'semester'));
     }
 
     /**
@@ -59,23 +103,26 @@ class SiswaController extends Controller
         toast('Data Berhasil Ditambahkan!','success');
         $request->validate([
             'nis' => 'required',
-            'nama_siswa' => 'required',
-            'idkelas' => 'required',
+            'namaSiswa' => 'required',
+            'idKelas' => 'required',
+            'idSemester' => 'required',
             'telp' => 'required',
-            'status_2' => 'required',
+            'status' => 'required',
             ]);
 
             $siswa=new siswa;
             $siswa->nis = $request->nis;
-            $siswa->nama_siswa = $request->nama_siswa;
+            $siswa->idSemester = $request->idSemester;
+            $siswa->namaSiswa = $request->namaSiswa;
             $siswa->idKelas = $request->idKelas;
+            $siswa->tahunAngkatan = $request->tahunAngkatan;
             $siswa->alamat = $request->alamat;
             $siswa->jk = $request->jk;
-            $siswa->tmp_lahir = $request->tmp_lahir;
-            $siswa->tgl_lahir = $request->tgl_lahir;
+            $siswa->tmpLahir = $request->tmpLahir;
+            $siswa->tglLahir = $request->tglLahir;
             $siswa->telp = $request->telp;
-            $siswa->nama_ortu = $request->nama_ortu;
-            $siswa->status_2 = $request->status_2;
+            $siswa->namaOrtu = $request->namaOrtu;
+            $siswa->status = $request->status;
             $siswa->save();
             return redirect('admin/siswa/index');
     }
@@ -89,8 +136,9 @@ class SiswaController extends Controller
     public function show($id)
     {
         $siswa = Siswa::where('idSiswa', $id)->first();
+        $semester = Semester::where('idSemester', $id)->get();
         $kelas = Kelas::where('idKelas', $id)->get();
-        return view('admin/siswa/show', compact('siswa', 'kelas'));
+        return view('admin/siswa/show', compact('siswa', 'kelas', 'semester'));
     }
 
     /**
@@ -101,9 +149,11 @@ class SiswaController extends Controller
      */
     public function edit($idSiswa)
     {
+        $siswa = Siswa::all();
         $kelas = Kelas::all();
+        $semester = Semester::all();
         $siswa = Siswa::where('idSiswa', $idSiswa)->first();
-        return view('admin/siswa/edit', compact('siswa', 'kelas', 'idSiswa'));
+        return view('admin/siswa/edit', compact('kelas', 'semester', 'siswa', 'idSiswa'));
     }
 
     /**
@@ -113,21 +163,23 @@ class SiswaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($idSiswa, Request $request)
     {
         Alert::success('Data Berhasil Diubah', 'Success');
-       Siswa::where('idSiswa', $id)
+       Siswa::where('idSiswa', $idSiswa)
         ->update([
             'nis' => $request->nis,
-            'nama_siswa' => $request->nama_siswa,
+            'namaSiswa' => $request->namaSiswa,
+            'idSemester' => $request->idSemester,
             'idKelas' => $request->idKelas,
             'alamat' => $request->alamat,
+            'tahunAngkatan' => $request->tahunAngkatan,
             'jk' => $request->jk,
-            'tmp_lahir' => $request->tmp_lahir,
-            'tgl_lahir' => $request->tgl_lahir,
+            'tmpLahir' => $request->tmpLahir,
+            'tglLahir' => $request->tglLahir,
             'telp' => $request->telp,
-            'nama_ortu' => $request->nama_ortu,
-            'status_2' => $request->status_2,
+            'namaOrtu' => $request->namaOrtu,
+            'status' => $request->status,
         ]);
         return redirect('admin/siswa/index');
     }
@@ -164,15 +216,48 @@ class SiswaController extends Controller
         return view('siswa/lihat-nilai', compact('nilai'));
     }
 
-    public function cetakSiswa()
+    public function lihatInfo()
     {
-           //dd([$tglawal, $tglakhir]);
+        $info = Info::all();
+        return view('siswa/lihat-pengumuman', compact('info'));
+    }
 
-           $siswa = Siswa::all();
-           $pdf = PDF::loadview('admin/siswa/cetak-data-siswa',['siswa'=>$siswa]);
-        // return view('admin.Pegawai.cetak-data-pegawai', compact('cetakPegawai'));
+    // public function cetakForm()
+    // {
+    //     return view('admin.Jadwal.cetak-jadwal');
+    // }
+
+    // public function cetakJadwalPertanggal($tglawal, $tglakhir)
+    // {
+    //        //dd([$tglawal, $tglakhir]);
+    //        $tglawal = $tglawal;
+    //        $tglakhir = $tglakhir;
+    //        $cetakPerTanggal = Jadwal::with('semester')->whereBetween('tglEfektif', [$tglawal, $tglakhir]);
+    //        $pdf = PDF::loadview('admin/jadwal/cetak-data-pertanggal',compact('cetakPerTanggal', 'tglawal', 'tglakhir'));
+    //     //    return view('admin/jadwal/cetak-data-pertanggal', compact('cetakPertanggal'));
+
+    //     $pdf->setPaper("a4", 'potrait');
+    //     return $pdf->stream();
+    // }
+
+    public function cetakForm()
+    {
+        return view('admin/siswa/cetak-siswa');
+    }
+
+    public function cetakSiswa($tglawal, $tglakhir)
+    {
+        // dd($tglawal = $tglawal);
+        $tglawal = $tglawal;
+        $tglakhir = $tglakhir;
+        // $cetakPerTanggal = Siswa::with('semester')->whereBetween('tglMulai', [$tglawal, $tglakhir])->get();
+        // return $cetakPerTanggal;
+        $cetakPerTanggal = $siswa = Siswa::with('semester')->get();
+
+        $pdf = PDF::loadview('admin/siswa/cetak-data-siswa',compact('cetakPerTanggal', 'tglawal', 'tglakhir'));
 
         $pdf->setPaper("a4", 'potrait');
+
         return $pdf->stream();
     }
 
@@ -188,5 +273,12 @@ class SiswaController extends Controller
         return redirect('admin/siswa/index');
     }
 
-}
+    public function beranda()
+    {
+        $siswa = DB::table('siswa')->count();
+        $pegawai = DB::table('pegawai')->count();
+        $info = DB::table('info')->count();
+        return view('siswa/beranda')->with(compact ('siswa', 'pegawai', 'info'));
+    }
 
+}

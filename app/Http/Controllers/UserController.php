@@ -8,6 +8,8 @@ use App\Guru;
 use App\Siswa;
 use App\Mapel;
 use App\Kelas;
+use App\Pegawai;
+use App\Kepsek;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Str;
@@ -22,20 +24,19 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
-
-
     public function index()
     {
         $users = User::all();
-        return view('admin.users.index', compact('users'));
+        $pegawai = Pegawai::all();
+        $kepsek = Kepsek::all();
+        $siswa = Siswa::all();
+        return view('kepsek/users/index',compact('users','pegawai', 'siswa', 'kepsek'));
     }
-
     //protected function validator(array $data)
     //{
     // return Validator::make($data, [
     //'username' => 'required|string|username|max:255|unique::users',
-    //'password_2' => 'required|min:6|confirmed',
+    //'password' => 'required|min:6|confirmed',
     //'level' => 'required',
     //]);
     //}
@@ -47,8 +48,9 @@ class UserController extends Controller
      */
     public function create()
     {
-
-        return view("admin.users.create");
+        $siswa = Siswa::all();
+        $pegawai= Pegawai::all();
+        return view('kepsek/users/create', compact('siswa', 'pegawai'));
     }
 
     /**
@@ -59,10 +61,10 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all);
+        // dd($request->all);
         $users = new User();
         $users->username = $request->get("username");
-        $users->password_2 = bcrypt($request->get("password_2"));
+        $users->password = bcrypt($request->get("password"));
         $users->level = $request->get("level");
         $users->save();
         $users = User::all();
@@ -87,8 +89,11 @@ class UserController extends Controller
      */
     public function edit($idUsers)
     {
-        $users = User::findOrFail($idUsers);
-        return view("admin.users.edit", compact('users'));
+        $siswa = Siswa::all();
+        $pegawai = Pegawai::all();
+        $kepsek = Kepsek::all();
+        $users = User::where('idUsers', $idUsers)->first();
+        return view('kepsek/users/edit', compact('users', 'siswa', 'pegawai', 'kepsek', 'idUsers'));
     }
 
     public function editProfile()
@@ -108,10 +113,10 @@ class UserController extends Controller
     {
         $users = User::findOrFail($idUsers);
         $users->username = $request->get("username");
-        $users->password_2 = bcrypt($request->get("password_2"));
+        $users->password = bcrypt($request->get("password"));
         $users->level = $request->get("level");
         $users->save();
-        return redirect("users");
+        return redirect("kepsek/users/index");
     }
 
     /**
@@ -130,16 +135,44 @@ class UserController extends Controller
         return redirect('users');
     }
 
+    // public function profile()
+    // {
+    //     $data = [];
+    //     //return session('level');
+    //     if (session('level') == 'Pegawai') {
+    //         $data = Guru::where('idPegawai', session('idPegawai'))->first();
+    //         // return $data;
+    //         return view('user.profile_guru', compact('data'));
+    //     } else if(session('level') == 'Siswa'){
+    //         $data = Siswa::where('idSiswa', session('idSiswa'))->first();
+    //         // return $data;
+    //         return view('user.profile_siswa', compact('data'));
+    //     } else if(session('level') == 'Kepsek'){
+    //         $data = Kepsek::where('idKepsek', session('idKepsek'))->first();
+    //         // return $data;
+    //         return view('user.profile_kepsek', compact('data'));
+    //     }else{
+    //         $data = user::where('idUsers', session('idUsers'))->first();
+    //         // return $data;
+    //         return view('user.profile', compact('data'));
+    //     }
+    //     return session('level');
+    // }
+
     public function profile()
     {
         $data = [];
         // return session('id');
-        if (session('level') == 'Guru') {
-            $data = Guru::where('idUsers', session('idUsers'))->first();
+        if (session('level') == 'Pegawai') {
+            $data = Guru::where('idPegawai', session('id'))->first();
             // return $data;
             return view('user.profile', compact('data'));
         } else if(session('level') == 'Siswa'){
-            $data = Siswa::where('idUsers', session('idUsers'))->first();
+            $data = Siswa::where('idSiswa', session('id'))->first();
+            // return $data;
+            return view('user.profile', compact('data'));
+        } else if(session('level') == 'Kepsek'){
+            $data = Kepsek::where('idKepsek', session('id'))->first();
             // return $data;
             return view('user.profile', compact('data'));
         }else{
@@ -153,7 +186,7 @@ class UserController extends Controller
     public function updateProfile(Request $request)
     {
         if ($request['password'] != null) {
-            $in['password_2'] = bcrypt($request['password']);
+            $in['password'] = bcrypt($request['password']);
         }
         $in['username'] = $request['username'];
         try {
@@ -169,27 +202,38 @@ class UserController extends Controller
     public function updateProfileGuru(Request $request)
     {
         // return $request;
-        $in['nama_guru'] = $request['nama_guru'];
+        $in['namaPegawai'] = $request['namaPegawai'];
         $in['jk'] = $request['jk'];
-        $in['tmp_lahir'] = $request['tmp_lahir'];
-        $in['tgl_lahir'] = $request['tgl_lahir'];
+        $in['tmpLahir'] = $request['tmpLahir'];
+        $in['tglLahir'] = $request['tglLahir'];
         $in['alamat'] = $request['alamat'];
         $in['telp'] = $request['telp'];
-        Guru::where('idUsers', session('id'))->update($in);
+        Guru::where('idPegawai', session('id'))->update($in);
+        return redirect('/profile');
+    }
+
+    public function updateProfileKepsek(Request $request)
+    {
+        // return $request;
+        $in['namaKepsek'] = $request['namaKepsek'];
+        $in['alamat'] = $request['alamat'];
+        $in['telp'] = $request['telp'];
+        Kepsek::where('idKepsek', session('id'))->update($in);
         return redirect('/profile');
     }
 
     public function updateProfileSiswa(Request $request)
     {
         // return $request;
-        $in['nama_siswa'] = $request['nama_siswa'];
-        $in['jk'] = $request['jk'];
-        $in['tmp_lahir'] = $request['tmp_lahir'];
-        $in['tgl_lahir'] = $request['tgl_lahir'];
-        $in['alamat'] = $request['alamat'];
-        $in['telp'] = $request['telp'];
-        $in['nis'] = $request['nis'];
-        Siswa::where('idUsers', session('id'))->update($in);
-        return redirect('/profile');
-    }
+       $in['namaSiswa'] = $request['namaSiswa'];
+       $in['tahunAngkatan'] = $request['tahunAngkatan'];
+       $in['jk'] = $request['jk'];
+       $in['tmpLahir'] = $request['tmpLahir'];
+       $in['tglLahir'] = $request['tglLahir'];
+       $in['alamat'] = $request['alamat'];
+       $in['telp'] = $request['telp'];
+       $in['nis'] = $request['nis'];
+       Siswa::where('idSiswa', session('id'))->update($in);
+       return redirect('/profile');
+   }
 }

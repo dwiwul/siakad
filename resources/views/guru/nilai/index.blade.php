@@ -31,12 +31,12 @@
                             @foreach ($data['nilai'] as $idNilai =>$nilai)
                                 <tr>
                                     <td>{{$i++}}</td>
-                                    <td>{{$nilai->mapel->nama_mapel }}</td>
-                                    <td>{{$nilai->guru->nama_guru }}</td>
-                                    <td>{{$nilai->siswa->nama_siswa }}</td>
-                                    <td>{{$nilai->nilai_harian}}</td>
-                                    <td>{{$nilai->nilai_uts}}</td>
-                                    <td>{{$nilai->nilai_uas}}</td>
+                                    <td>{{$nilai->mapel->namaMapel }}</td>
+                                    <td>{{$nilai->pegawai->namaPegawai }}</td>
+                                    <td>{{$nilai->siswa->namaSiswa }}</td>
+                                    <td>{{$nilai->nilaiHarian}}</td>
+                                    <td>{{$nilai->nilaiUts}}</td>
+                                    <td>{{$nilai->nilaiUas}}</td>
                                     <td>
                                         <a class="btn btn-warning" href="{{route('nilai.edit', ['id' => $nilai->idNilai])}}">
                                             <i class="fa fa-edit"></i></a>

@@ -25,13 +25,13 @@
         <h5><b>RAPORT</b></h5>
     </center>
     <p style="text-align:left;font-size: 12px;">
-        Nama : {{ $siswa->nama_siswa }}
+        Nama : {{ $siswa->namaSiswa }}
         <span style="float:right;">
             Nomor Induk : {{ $siswa->nis }}
         </span>
     </p>
     <p style="text-align:left;font-size: 12px;">
-        Kelas : {{ $siswa->nama_kelas }}
+        Kelas : {{ $siswa->namaKelas }}
         <span style="float:right;">
             Tahun Ajaran/Semester : 2020-2021/Genap
         </span>
@@ -42,16 +42,13 @@
                 <th  style="text-align:center; font-size: 12px;" rowspan="2">No</th>
                 <th  style="text-align:center; font-size: 12px;" rowspan="2">Mata Pelajaran</th>
                 <th  style="text-align:center; font-size: 12px;" rowspan="2">KKM</th>
-                <th  style="text-align:center; font-size: 12px;" colspan="2">Akademik</th>
-                <th  style="text-align:center; font-size: 12px;" colspan="2">Kreatifitas</th>
+                <th  style="text-align:center; font-size: 12px;" colspan="4">Akademik</th>
             </tr>
             <tr>
-                <th  style="text-align:center; font-size: 12px;">Nilai</th>
-                <th  style="text-align:center; font-size: 12px;">Deskripsi</th>
-
-                <th  style="text-align:center; font-size: 12px;">Nilai</th>
-                <th  style="text-align:center; font-size: 12px;">Deskripsi</th>
-
+                <th  style="text-align:center; font-size: 12px;">Tugas</th>
+                <th  style="text-align:center; font-size: 12px;">UH</th>
+                <th  style="text-align:center; font-size: 12px;">UTS</th>
+                <th  style="text-align:center; font-size: 12px;">UAS</th>
             </tr>
 
         </thead>
@@ -74,12 +71,12 @@
                 <tr>
 
                     <td  style="text-align:center; font-size: 12px;">{{ $i }}</td>
-                    <td  style=" font-size: 12px;">{{ $item->nama_mapel }}</td>
+                    <td  style=" font-size: 12px;">{{ $item->namaMapel }}</td>
                     <td  style="text-align:center; font-size: 12px;">{{ $item->kkm }}</td>
-                    <td  style="text-align:center; font-size: 12px;">{{ $item->nilai_akademik }}</td>
-                    <td  style=" font-size: 12px;">{{ $item->deskripsi_akademik }}</td>
-                    <td  style="text-align:center; font-size: 12px;">{{ $item->nilai_kreatifitas }}</td>
-                    <td  style=" font-size: 12px;">{{ $item->deskripsi_kreatifitas }}</td>
+                    <td  style="text-align:center; font-size: 12px;">{{ $item->nilaiTugas }}</td>
+                    <td  style=" font-size: 12px;">{{ $item->nilaiUH }}</td>
+                    <td  style="text-align:center; font-size: 12px;">{{ $item->nilaiUTS }}</td>
+                    <td  style=" font-size: 12px;">{{ $item->nilaiUAS }}</td>
                     @php
                         $i++;
                     @endphp
@@ -87,7 +84,6 @@
             @endforeach
 
     </table>
-
 </body>
 
 </html>

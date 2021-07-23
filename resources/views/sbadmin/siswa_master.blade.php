@@ -20,6 +20,10 @@
 
     <!-- Custom styles for this template-->
     <link href="{{asset('vendor/sbadmin/css/sb-admin-2.min.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('vendor/sbadmin/datatables-bs4/css/dataTables.bootstrap4.css') }}">
+
+    <link href="{{ asset('vendor/sbadmin/datatable/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset ('vendor/sbadmin/https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css')}}" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
 </head>
 
@@ -33,10 +37,9 @@
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">SISWA <sup></sup></div>
+                <img class="img-profile rounded-circle"
+                        src="{{url('vendor/sbadmin/img/logo mts-1.JPG')}}">
+                <div class="sidebar-brand-text mx-3">MTs <sup>Roudlatul Ulum Parang</sup></div>
             </a>
 
             <!-- Divider -->
@@ -44,7 +47,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="{{url('dashboard')}}">
+                <a class="nav-link" href="{{url('siswa/beranda')}}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Beranda</span></a>
             </li>
@@ -64,6 +67,12 @@
                 <a class="nav-link" href="{{url ('siswa/lihat-nilai')}}">
                     <i class="fas fa-fw fa-file"></i>
                     <span>Nilai</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{url('siswa/lihat-pengumuman')}}">
+                    <i class="fas fa-fw fa-info"></i>
+                    <span>Informasi</span></a>
             </li>
 
             <!-- Divider -->
@@ -92,7 +101,7 @@
                     </button>
 
                     <!-- Topbar Search -->
-                    <form
+                    {{-- <form
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
                             <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
@@ -103,7 +112,7 @@
                                 </button>
                             </div>
                         </div>
-                    </form>
+                    </form> --}}
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -144,7 +153,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Siswa</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ session('username') }}</span>
                                 <img class="img-profile rounded-circle"
                                     src="{{url('vendor/sbadmin/img/undraw_profile.svg')}}">
                             </a>
@@ -185,7 +194,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
+                        <span>Siakad &copy; MTs Roudlotul Ulum Parang</span>
                     </div>
                 </div>
             </footer>
@@ -237,6 +246,21 @@
     <!-- Page level custom scripts -->
     <script src="{{url('vendor/sbadmin/js/demo/chart-area-demo.js')}}"></script>
     <script src="{{url('vendor/sbadmin/js/demo/chart-pie-demo.js')}}"></script>
+
+    <script src="{{ asset('vendor/sbadmin/datatable/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('vendor/sbadmin/datatable/datatables/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('vendor/sbadmin/js/demo/datatables-demo.js') }}"></script>
+    <script src="{{ asset ('vendor/sbadmin/https://code.jquery.com/jquery-3.3.1.slim.min.js')}}" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="{{ asset ('vendor/sbadmin/https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js')}}" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="{{ asset ('vendor/sbadmin/https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js')}}" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+    @yield('js')
+    {{-- <script type="text/javascript">
+    <script>
+    $ ( function () {
+        $('#data-table').DataTable();
+    })
+    </script> --}}
 
 </body>
 

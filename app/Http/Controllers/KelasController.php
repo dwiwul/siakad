@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Kelas;
-use App\Guru;
+use App\Pegawai;
 use App\Jadwal;
 use App\Siswa;
 use Illumninate\Support\Facades\Crypt;
@@ -44,7 +44,7 @@ class KelasController extends Controller
     public function store(Request $request)
     {
         $kelas = new Kelas();
-        $kelas->nama_kelas = $request->get("nama_kelas");
+        $kelas->namaKelas = $request->get("namaKelas");
         $kelas->save();
         $kelas = Kelas::all();
         return redirect('admin/kelas/index');
@@ -71,10 +71,8 @@ class KelasController extends Controller
      */
     public function edit($id)
     {
-
         $kelas = Kelas::where('idKelas', $id)->first();
         return view('admin/kelas/edit', compact('kelas', 'id'));
-
     }
 
     /**
@@ -88,7 +86,7 @@ class KelasController extends Controller
     {
         Kelas::where('idKelas', $id)
         ->update([
-            'nama_kelas' => $request->nama_kelas,
+            'namaKelas' => $request->namaKelas,
         ]);
         return redirect('admin/kelas/index');
     }
@@ -101,7 +99,6 @@ class KelasController extends Controller
      */
     public function destroy($id)
     {
-
         $kelas = Kelas::find($id);
         $kelas->delete();
         return redirect('admin/kelas/index');

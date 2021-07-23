@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 08, 2021 at 04:23 AM
+-- Generation Time: Jul 06, 2021 at 05:20 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -45,10 +45,94 @@ CREATE TABLE `absensi_detail` (
   `idDetail` bigint(20) UNSIGNED NOT NULL,
   `idAbsensi` bigint(20) UNSIGNED NOT NULL,
   `idSiswa` bigint(20) UNSIGNED NOT NULL,
-  `keterangan` enum('sakit','izin','alpha') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `keterangan` enum('hadir, sakit','izin','alpha') COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bank_soal`
+--
+
+CREATE TABLE `bank_soal` (
+  `idBankSoal` bigint(20) UNSIGNED NOT NULL,
+  `idUjian` bigint(20) UNSIGNED NOT NULL,
+  `soal` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `jawaban1` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `jawaban2` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `jawaban3` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `jawaban4` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `kunci` enum('a','b','c','d') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `detailbayar`
+--
+
+CREATE TABLE `detailbayar` (
+  `idBayar` bigint(20) UNSIGNED NOT NULL,
+  `jenisBayar` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `detailbayar`
+--
+
+INSERT INTO `detailbayar` (`idBayar`, `jenisBayar`, `created_at`, `updated_at`) VALUES
+(1, 'Iuran Semester/Ujian', '2021-06-14 05:22:17', '2021-07-05 20:50:49'),
+(2, 'LKS', '2021-06-09 06:20:17', '2021-06-10 06:20:17');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `hasil_ujian`
+--
+
+CREATE TABLE `hasil_ujian` (
+  `idHasilUjian` bigint(20) UNSIGNED NOT NULL,
+  `idUjian` bigint(20) UNSIGNED NOT NULL,
+  `idSiswa` bigint(20) UNSIGNED NOT NULL,
+  `listsoal` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `jawaban` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `skor` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tgl_mulai` datetime NOT NULL,
+  `tgl_selesai` datetime NOT NULL,
+  `status` enum('Y','N') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `historisiswa`
+--
+
+CREATE TABLE `historisiswa` (
+  `idHistori` bigint(20) UNSIGNED NOT NULL,
+  `idSemester` bigint(20) UNSIGNED NOT NULL,
+  `idSiswa` bigint(20) UNSIGNED NOT NULL,
+  `idKelas` bigint(20) UNSIGNED NOT NULL,
+  `tahun` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `historisiswa`
+--
+
+INSERT INTO `historisiswa` (`idHistori`, `idSemester`, `idSiswa`, `idKelas`, `tahun`, `created_at`, `updated_at`) VALUES
+(4, 3, 30, 3, '2021', '2021-06-29 23:45:28', '2021-06-29 23:45:28'),
+(7, 2, 33, 1, '2021', '2021-07-01 23:15:27', '2021-07-01 23:15:27');
 
 -- --------------------------------------------------------
 
@@ -71,7 +155,8 @@ CREATE TABLE `info` (
 INSERT INTO `info` (`idInfo`, `tgl`, `pengumuman`, `created_at`, `updated_at`) VALUES
 (1, '2021-06-12', 'Jumat Bersih', '2021-06-07 10:25:37', '2021-06-07 18:16:33'),
 (2, '2021-06-04', 'Jumat Bersih', '2021-06-07 10:27:00', '2021-06-07 10:27:00'),
-(3, '2021-06-13', 'Jumat Sehat', '2021-06-07 10:32:44', '2021-06-07 10:32:44');
+(5, '2021-06-16', 'Kegiatan Istigosah', '2021-06-16 00:36:29', '2021-06-16 00:36:29'),
+(6, '2021-07-03', 'Pramuka Rutin Kelas 7', '2021-07-02 04:57:24', '2021-07-02 04:57:24');
 
 -- --------------------------------------------------------
 
@@ -86,11 +171,23 @@ CREATE TABLE `jadwal` (
   `idMapel` bigint(20) UNSIGNED NOT NULL,
   `idKelas` bigint(20) UNSIGNED NOT NULL,
   `hari` enum('Senin','Selasa','Rabu','Kamis','Jum`at','Sabtu') COLLATE utf8mb4_unicode_ci NOT NULL,
-  `jam_mulai` time NOT NULL,
-  `jam_selesai` time NOT NULL,
+  `jamMulai` time NOT NULL,
+  `jamSelesai` time NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `jadwal`
+--
+
+INSERT INTO `jadwal` (`idJadwal`, `idSemester`, `idPegawai`, `idMapel`, `idKelas`, `hari`, `jamMulai`, `jamSelesai`, `created_at`, `updated_at`) VALUES
+(21, 2, 30, 1, 1, 'Kamis', '17:40:00', '18:40:00', '2021-07-03 03:40:43', '2021-07-03 03:40:43'),
+(22, 2, 16, 1, 3, 'Jum`at', '17:44:00', '18:44:00', '2021-07-03 03:44:13', '2021-07-06 00:23:44'),
+(26, 2, 16, 2, 1, 'Selasa', '14:05:00', '16:00:00', '2021-07-06 00:06:34', '2021-07-06 00:06:34'),
+(27, 2, 22, 5, 1, 'Selasa', '16:15:00', '17:00:00', '2021-07-06 00:07:26', '2021-07-06 00:07:26'),
+(28, 2, 16, 1, 3, 'Selasa', '14:00:00', '15:30:00', '2021-07-06 00:23:15', '2021-07-06 00:23:44'),
+(29, 2, 31, 8, 4, 'Selasa', '15:00:00', '18:00:00', '2021-07-06 01:37:43', '2021-07-06 01:37:43');
 
 -- --------------------------------------------------------
 
@@ -100,7 +197,7 @@ CREATE TABLE `jadwal` (
 
 CREATE TABLE `kelas` (
   `idKelas` bigint(20) UNSIGNED NOT NULL,
-  `nama_kelas` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `namaKelas` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -109,8 +206,35 @@ CREATE TABLE `kelas` (
 -- Dumping data for table `kelas`
 --
 
-INSERT INTO `kelas` (`idKelas`, `nama_kelas`, `created_at`, `updated_at`) VALUES
-(1, '7A', '2021-06-07 06:51:49', '2021-06-07 07:12:27');
+INSERT INTO `kelas` (`idKelas`, `namaKelas`, `created_at`, `updated_at`) VALUES
+(1, '7A', '2021-06-07 06:51:49', '2021-07-06 00:05:47'),
+(3, '7B', '2021-06-08 22:38:02', '2021-06-08 22:38:02'),
+(4, '8A', '2021-06-08 22:38:11', '2021-06-08 22:38:11'),
+(5, '8B', '2021-06-08 22:38:18', '2021-06-08 22:38:18'),
+(6, '9A', '2021-06-08 22:38:25', '2021-06-08 22:38:25'),
+(7, '9B', '2021-06-08 22:38:31', '2021-06-08 22:38:31');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kepsek`
+--
+
+CREATE TABLE `kepsek` (
+  `idKepsek` bigint(20) UNSIGNED NOT NULL,
+  `namaKepsek` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `alamat` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `telp` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `kepsek`
+--
+
+INSERT INTO `kepsek` (`idKepsek`, `namaKepsek`, `alamat`, `telp`, `created_at`, `updated_at`) VALUES
+(1, 'Sudarno', 'Parang Magetan', '085672418634', '2021-06-14 05:22:17', '2021-06-24 13:03:29');
 
 -- --------------------------------------------------------
 
@@ -120,10 +244,38 @@ INSERT INTO `kelas` (`idKelas`, `nama_kelas`, `created_at`, `updated_at`) VALUES
 
 CREATE TABLE `mapel` (
   `idMapel` bigint(20) UNSIGNED NOT NULL,
-  `nama_mapel` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `namaMapel` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `mapel`
+--
+
+INSERT INTO `mapel` (`idMapel`, `namaMapel`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'Pend. Agama Islam', '2021-06-09 01:06:08', '2021-06-09 01:06:08', NULL),
+(2, 'Bahasa Indonesia', '2021-06-09 01:09:33', '2021-06-09 01:20:27', NULL),
+(5, 'Matematika', '2021-06-18 19:38:59', '2021-06-18 19:38:59', NULL),
+(7, 'IPA', '2021-07-04 08:15:58', '2021-07-04 08:15:58', NULL),
+(8, 'IPS', '2021-07-04 08:16:07', '2021-07-04 08:16:07', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `materi`
+--
+
+CREATE TABLE `materi` (
+  `idMateri` bigint(20) UNSIGNED NOT NULL,
+  `idJadwal` bigint(20) UNSIGNED NOT NULL,
+  `judul` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `file` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `deskripsi` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tanggal` date NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -155,7 +307,20 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (11, '2021_06_07_050331_create_absensi_detail_table', 9),
 (13, '2021_06_07_050534_create_info_table', 11),
 (14, '2021_06_07_050629_create_nilai_table', 12),
-(15, '2021_06_07_051519_create_pembayaran_table', 13);
+(15, '2021_06_07_051519_create_pembayaran_table', 13),
+(16, '2021_06_08_094520_create_materi_table', 14),
+(17, '2021_06_08_095234_create_tugas_table', 15),
+(19, '2021_06_08_102646_create_ujian_table', 16),
+(20, '2021_06_08_103045_create_bank_soal_table', 17),
+(21, '2021_06_08_103518_create_hasil_ujian_table', 18),
+(22, '2021_06_08_104115_create_submisi_table', 19),
+(23, '2021_06_08_104333_create_submisi_upload_table', 20),
+(24, '2021_06_29_140536_create_histori_siswa_table', 21),
+(25, '2021_06_29_211426_create_kepsek_table', 22),
+(26, '2021_06_30_193404_create_historibayar_table', 23),
+(27, '2021_07_01_172557_create_petugas_t_u_table', 24),
+(28, '2021_07_03_042403_create_pembelajaran_table', 25),
+(29, '2021_07_06_034325_create_detailbayar_table', 26);
 
 -- --------------------------------------------------------
 
@@ -166,13 +331,13 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 CREATE TABLE `nilai` (
   `idNilai` bigint(20) UNSIGNED NOT NULL,
   `idMapel` bigint(20) UNSIGNED NOT NULL,
-  `idPegawai` bigint(20) UNSIGNED NOT NULL,
   `idSiswa` bigint(20) UNSIGNED NOT NULL,
+  `idSemester` bigint(20) UNSIGNED NOT NULL,
   `kkm` varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nilai_akademik` varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `deskripsi_akademik` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nilai_kreatifitas` varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `deskripsi_kreatifitas` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nilaiTugas` varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nilaiUH` varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nilaiUTS` varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nilaiUAS` varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -198,11 +363,11 @@ CREATE TABLE `password_resets` (
 
 CREATE TABLE `pegawai` (
   `idPegawai` bigint(20) UNSIGNED NOT NULL,
-  `nip` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `nama_guru` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nip` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `namaPegawai` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `jk` enum('L','P') COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tmp_lahir` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `tgl_lahir` date DEFAULT NULL,
+  `tmpLahir` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `tglLahir` date DEFAULT NULL,
   `alamat` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `telp` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -214,9 +379,12 @@ CREATE TABLE `pegawai` (
 -- Dumping data for table `pegawai`
 --
 
-INSERT INTO `pegawai` (`idPegawai`, `nip`, `nama_guru`, `jk`, `tmp_lahir`, `tgl_lahir`, `alamat`, `telp`, `status`, `created_at`, `updated_at`) VALUES
-(1, '98896', 'parno', 'L', NULL, NULL, '', NULL, '', '2021-06-14 05:22:17', '2021-06-07 05:22:17'),
-(3, '134775', 'Sudarno', 'L', 'Nganjuk', '2021-06-16', 'Loceret, Nganjuk', '0739832', 'Guru', '2021-06-07 07:52:17', '2021-06-07 07:52:17');
+INSERT INTO `pegawai` (`idPegawai`, `nip`, `namaPegawai`, `jk`, `tmpLahir`, `tglLahir`, `alamat`, `telp`, `status`, `created_at`, `updated_at`) VALUES
+(16, '62737893', 'Bp Horas', 'L', 'Magetan', '1970-01-01', 'magetan', '08538264680', 'Kepala Sekolah', '2021-06-15 23:34:54', '2021-06-30 09:34:32'),
+(22, '62737893', 'Bp Sudarno', 'L', 'Magetan', '1970-01-01', 'parang, magetan', '08538264680', 'Guru', '2021-06-16 22:06:50', '2021-06-16 22:06:50'),
+(29, '62737893', 'Bp Horas', 'L', 'Magetan', '1970-01-01', 'magetan', '08538264680', 'Kepala Sekolah', '2021-07-02 11:05:14', '2021-07-02 11:05:14'),
+(30, '62737893', 'Bp Sudarno', 'L', 'Magetan', '1970-01-01', 'parang, magetan', '08538264680', 'Guru', '2021-07-02 11:05:14', '2021-07-02 11:05:14'),
+(31, '62737893', 'Bp Arianto', 'L', 'Madiun', '1970-03-12', 'parang, magetan', '0835793648', 'Guru', '2021-07-02 13:23:59', '2021-07-02 13:23:59');
 
 -- --------------------------------------------------------
 
@@ -227,12 +395,69 @@ INSERT INTO `pegawai` (`idPegawai`, `nip`, `nama_guru`, `jk`, `tmp_lahir`, `tgl_
 CREATE TABLE `pembayaran` (
   `idPembayaran` bigint(20) UNSIGNED NOT NULL,
   `idSiswa` bigint(20) UNSIGNED NOT NULL,
+  `idSemester` bigint(20) UNSIGNED NOT NULL,
+  `idKelas` bigint(20) UNSIGNED NOT NULL,
+  `idBayar` bigint(20) UNSIGNED NOT NULL,
   `tgl` date NOT NULL,
-  `jenis_bayar` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `jumlah_bayar` int(11) NOT NULL,
+  `jumlahBayar` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `pembayaran`
+--
+
+INSERT INTO `pembayaran` (`idPembayaran`, `idSiswa`, `idSemester`, `idKelas`, `idBayar`, `tgl`, `jumlahBayar`, `created_at`, `updated_at`) VALUES
+(23, 30, 2, 1, 2, '2021-07-06', 100000, '2021-07-05 10:30:33', '2021-07-05 10:30:33');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pembelajaran`
+--
+
+CREATE TABLE `pembelajaran` (
+  `idPembelajaran` bigint(20) UNSIGNED NOT NULL,
+  `idSemester` bigint(20) UNSIGNED NOT NULL,
+  `idPegawai` bigint(20) UNSIGNED NOT NULL,
+  `idMapel` bigint(20) UNSIGNED NOT NULL,
+  `idKelas` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `pembelajaran`
+--
+
+INSERT INTO `pembelajaran` (`idPembelajaran`, `idSemester`, `idPegawai`, `idMapel`, `idKelas`, `created_at`, `updated_at`) VALUES
+(1, 2, 16, 1, 1, '2021-06-14 05:22:17', '2021-06-24 13:03:29');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `petugastu`
+--
+
+CREATE TABLE `petugastu` (
+  `idTU` bigint(20) UNSIGNED NOT NULL,
+  `namaTU` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `jk` enum('L','P') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `alamat` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `telp` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `petugastu`
+--
+
+INSERT INTO `petugastu` (`idTU`, `namaTU`, `jk`, `alamat`, `telp`, `created_at`, `updated_at`) VALUES
+(3, 'Yuliani', 'P', 'Madiun', '08538264680', '2021-07-01 21:36:02', '2021-07-01 21:36:02'),
+(5, 'Arianto', 'L', 'Caruban', '085382646801', '2021-07-02 04:52:17', '2021-07-02 04:52:39'),
+(7, 'Arianto', 'L', 'Plaosan', '08538264680', '2021-07-04 22:27:42', '2021-07-04 22:27:42');
 
 -- --------------------------------------------------------
 
@@ -242,12 +467,20 @@ CREATE TABLE `pembayaran` (
 
 CREATE TABLE `semester` (
   `idSemester` bigint(20) UNSIGNED NOT NULL,
-  `tahun_ajaran` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tgl_efektif` date NOT NULL,
+  `tahunAjaran` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tglMulai` date NOT NULL,
+  `tglSelesai` date DEFAULT NULL,
   `keterangan` enum('ganjil','genap') COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `semester`
+--
+
+INSERT INTO `semester` (`idSemester`, `tahunAjaran`, `tglMulai`, `tglSelesai`, `keterangan`, `created_at`, `updated_at`) VALUES
+(2, '2021/2022', '2021-06-09', '2022-12-01', 'ganjil', '2021-06-08 21:35:32', '2021-07-01 06:02:39');
 
 -- --------------------------------------------------------
 
@@ -257,16 +490,91 @@ CREATE TABLE `semester` (
 
 CREATE TABLE `siswa` (
   `idSiswa` bigint(20) UNSIGNED NOT NULL,
+  `idSemester` bigint(20) UNSIGNED NOT NULL,
   `idKelas` bigint(20) UNSIGNED NOT NULL,
+  `tahunAngkatan` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nis` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `nama_siswa` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `namaSiswa` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `alamat` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `jk` enum('L','P') COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tmp_lahir` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `tgl_lahir` date DEFAULT NULL,
+  `tmpLahir` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `tglLahir` date DEFAULT NULL,
   `telp` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `nama_ortu` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status_2` enum('Siswa','Alumni') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `namaOrtu` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` enum('Siswa','Alumni') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `siswa`
+--
+
+INSERT INTO `siswa` (`idSiswa`, `idSemester`, `idKelas`, `tahunAngkatan`, `nis`, `namaSiswa`, `alamat`, `jk`, `tmpLahir`, `tglLahir`, `telp`, `namaOrtu`, `status`, `created_at`, `updated_at`) VALUES
+(30, 2, 1, '2021', '1350000774001', 'Indah Puspita Sari', 'Magetan', 'L', 'Madiun', '2000-03-26', '08538264680', '-', 'Siswa', '2021-06-29 23:45:28', '2021-07-05 23:46:29'),
+(33, 2, 1, '2021', '1350000774000', 'Abil', 'parang, magetan', 'L', 'Madiun', '2021-01-02', '08538264680', 'mukeji', 'Siswa', '2021-07-01 23:15:27', '2021-07-01 23:15:27');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `submisi`
+--
+
+CREATE TABLE `submisi` (
+  `idSubmisi` bigint(20) UNSIGNED NOT NULL,
+  `idTugas` bigint(20) UNSIGNED NOT NULL,
+  `idSiswa` bigint(20) UNSIGNED NOT NULL,
+  `nilai` double(8,2) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `submisi_upload`
+--
+
+CREATE TABLE `submisi_upload` (
+  `idSubmisiUpload` bigint(20) UNSIGNED NOT NULL,
+  `idSubmisi` bigint(20) UNSIGNED NOT NULL,
+  `url` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tugas`
+--
+
+CREATE TABLE `tugas` (
+  `idTugas` bigint(20) UNSIGNED NOT NULL,
+  `idJadwal` bigint(20) UNSIGNED NOT NULL,
+  `judul` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `file` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `deskripsi` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `waktu_awal` datetime NOT NULL,
+  `waktu_akhir` datetime NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ujian`
+--
+
+CREATE TABLE `ujian` (
+  `idUjian` bigint(20) UNSIGNED NOT NULL,
+  `idJadwal` bigint(20) UNSIGNED NOT NULL,
+  `kategori` enum('Ulangan Harian','Ulangan Tengah Semester','Ulangan Akhir Semester') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `nama_ujian` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `waktu_awal` datetime NOT NULL,
+  `waktu_akhir` datetime NOT NULL,
+  `durasi` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -280,10 +588,11 @@ CREATE TABLE `siswa` (
 CREATE TABLE `users` (
   `idUsers` bigint(20) UNSIGNED NOT NULL,
   `idPegawai` bigint(20) UNSIGNED DEFAULT NULL,
+  `idKepsek` bigint(20) UNSIGNED DEFAULT NULL,
   `idSiswa` bigint(20) UNSIGNED DEFAULT NULL,
   `username` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password_2` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `level` enum('Admin','Pegawai','Siswa') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `level` enum('Admin','Pegawai','Kepsek','Siswa') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -293,9 +602,11 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`idUsers`, `idPegawai`, `idSiswa`, `username`, `password_2`, `level`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 1, NULL, 'Guru', 'guru', 'Pegawai', NULL, '2021-06-14 05:22:17', '2021-06-07 05:22:17'),
-(2, NULL, NULL, 'Admin', 'admin', 'Admin', NULL, '2021-06-14 05:22:17', '2021-06-07 05:22:17');
+INSERT INTO `users` (`idUsers`, `idPegawai`, `idKepsek`, `idSiswa`, `username`, `password`, `level`, `remember_token`, `created_at`, `updated_at`) VALUES
+(4, NULL, NULL, NULL, 'Admin', '$2y$10$pl0FWn3H2JAbFGg3/L4i8uzEl0JdXC6Gd7sh84Iui7LUYUIKf6xfa', 'Admin', NULL, '2021-06-14 05:22:17', '2021-07-02 04:59:11'),
+(11, 16, NULL, NULL, 'Horas', '$2y$10$UuVXoKd5rz4/moznS3iWj.cP5flZRXKw2DqAg2pgG9lpdXrtl2WlW', 'Pegawai', NULL, '2021-06-14 05:22:17', '2021-06-07 05:22:17'),
+(13, NULL, 1, NULL, 'sudarno', '$2y$10$ejN2CGmEtJtxnsF9Gt1FFeKjltGThgQxJa.h1Oe5602KX.s5Y6RzS', 'Kepsek', NULL, '2021-06-01 04:36:44', '2021-06-01 04:36:44'),
+(14, 31, NULL, NULL, 'Arianto', '$2y$10$UuVXoKd5rz4/moznS3iWj.cP5flZRXKw2DqAg2pgG9lpdXrtl2WlW', 'Pegawai', NULL, '2021-06-14 05:22:17', '2021-06-24 13:03:29');
 
 --
 -- Indexes for dumped tables
@@ -317,6 +628,37 @@ ALTER TABLE `absensi_detail`
   ADD KEY `absensi_detail_idsiswa_foreign` (`idSiswa`);
 
 --
+-- Indexes for table `bank_soal`
+--
+ALTER TABLE `bank_soal`
+  ADD PRIMARY KEY (`idBankSoal`),
+  ADD KEY `bank_soal_idujian_foreign` (`idUjian`);
+
+--
+-- Indexes for table `detailbayar`
+--
+ALTER TABLE `detailbayar`
+  ADD PRIMARY KEY (`idBayar`),
+  ADD UNIQUE KEY `detailbayar_jenisbayar_unique` (`jenisBayar`);
+
+--
+-- Indexes for table `hasil_ujian`
+--
+ALTER TABLE `hasil_ujian`
+  ADD PRIMARY KEY (`idHasilUjian`),
+  ADD KEY `hasil_ujian_idujian_foreign` (`idUjian`),
+  ADD KEY `hasil_ujian_idsiswa_foreign` (`idSiswa`);
+
+--
+-- Indexes for table `historisiswa`
+--
+ALTER TABLE `historisiswa`
+  ADD PRIMARY KEY (`idHistori`),
+  ADD KEY `historisiswa_idsiswa_foreign` (`idSiswa`),
+  ADD KEY `historisiswa_idkelas_foreign` (`idKelas`),
+  ADD KEY `idSemester` (`idSemester`);
+
+--
 -- Indexes for table `info`
 --
 ALTER TABLE `info`
@@ -327,23 +669,36 @@ ALTER TABLE `info`
 --
 ALTER TABLE `jadwal`
   ADD PRIMARY KEY (`idJadwal`),
-  ADD KEY `jadwal_idsemester_foreign` (`idSemester`),
-  ADD KEY `jadwal_idpegawai_foreign` (`idPegawai`),
-  ADD KEY `jadwal_idmapel_foreign` (`idMapel`),
-  ADD KEY `jadwal_idkelas_foreign` (`idKelas`);
+  ADD KEY `idSemester` (`idSemester`),
+  ADD KEY `idMapel` (`idMapel`),
+  ADD KEY `idKelas` (`idKelas`),
+  ADD KEY `idPegawai` (`idPegawai`);
 
 --
 -- Indexes for table `kelas`
 --
 ALTER TABLE `kelas`
   ADD PRIMARY KEY (`idKelas`),
-  ADD UNIQUE KEY `kelas_nama_kelas_unique` (`nama_kelas`);
+  ADD UNIQUE KEY `kelas_nama_kelas_unique` (`namaKelas`);
+
+--
+-- Indexes for table `kepsek`
+--
+ALTER TABLE `kepsek`
+  ADD PRIMARY KEY (`idKepsek`);
 
 --
 -- Indexes for table `mapel`
 --
 ALTER TABLE `mapel`
   ADD PRIMARY KEY (`idMapel`);
+
+--
+-- Indexes for table `materi`
+--
+ALTER TABLE `materi`
+  ADD PRIMARY KEY (`idMateri`),
+  ADD KEY `materi_idjadwal_foreign` (`idJadwal`);
 
 --
 -- Indexes for table `migrations`
@@ -356,9 +711,9 @@ ALTER TABLE `migrations`
 --
 ALTER TABLE `nilai`
   ADD PRIMARY KEY (`idNilai`),
-  ADD KEY `nilai_idpegawai_foreign` (`idPegawai`),
   ADD KEY `nilai_idmapel_foreign` (`idMapel`),
-  ADD KEY `nilai_idsiswa_foreign` (`idSiswa`);
+  ADD KEY `nilai_idsiswa_foreign` (`idSiswa`),
+  ADD KEY `nilai_idsemester_foreign` (`idSemester`);
 
 --
 -- Indexes for table `password_resets`
@@ -377,7 +732,26 @@ ALTER TABLE `pegawai`
 --
 ALTER TABLE `pembayaran`
   ADD PRIMARY KEY (`idPembayaran`),
-  ADD KEY `pembayaran_idsiswa_foreign` (`idSiswa`);
+  ADD KEY `pembayaran_idsiswa_foreign` (`idSiswa`),
+  ADD KEY `idSemester` (`idSemester`),
+  ADD KEY `idKelas` (`idKelas`),
+  ADD KEY `idBayar` (`idBayar`);
+
+--
+-- Indexes for table `pembelajaran`
+--
+ALTER TABLE `pembelajaran`
+  ADD PRIMARY KEY (`idPembelajaran`),
+  ADD KEY `pembelajaran_idsemester_foreign` (`idSemester`),
+  ADD KEY `pembelajaran_idpegawai_foreign` (`idPegawai`),
+  ADD KEY `pembelajaran_idmapel_foreign` (`idMapel`),
+  ADD KEY `pembelajaran_idkelas_foreign` (`idKelas`);
+
+--
+-- Indexes for table `petugastu`
+--
+ALTER TABLE `petugastu`
+  ADD PRIMARY KEY (`idTU`);
 
 --
 -- Indexes for table `semester`
@@ -390,7 +764,37 @@ ALTER TABLE `semester`
 --
 ALTER TABLE `siswa`
   ADD PRIMARY KEY (`idSiswa`),
-  ADD KEY `siswa_idkelas_foreign` (`idKelas`);
+  ADD KEY `idSemester` (`idSemester`),
+  ADD KEY `idKelas` (`idKelas`);
+
+--
+-- Indexes for table `submisi`
+--
+ALTER TABLE `submisi`
+  ADD PRIMARY KEY (`idSubmisi`),
+  ADD KEY `submisi_idtugas_foreign` (`idTugas`),
+  ADD KEY `submisi_idsiswa_foreign` (`idSiswa`);
+
+--
+-- Indexes for table `submisi_upload`
+--
+ALTER TABLE `submisi_upload`
+  ADD PRIMARY KEY (`idSubmisiUpload`),
+  ADD KEY `submisi_upload_idsubmisi_foreign` (`idSubmisi`);
+
+--
+-- Indexes for table `tugas`
+--
+ALTER TABLE `tugas`
+  ADD PRIMARY KEY (`idTugas`),
+  ADD KEY `tugas_idjadwal_foreign` (`idJadwal`);
+
+--
+-- Indexes for table `ujian`
+--
+ALTER TABLE `ujian`
+  ADD PRIMARY KEY (`idUjian`),
+  ADD KEY `ujian_idjadwal_foreign` (`idJadwal`);
 
 --
 -- Indexes for table `users`
@@ -398,7 +802,8 @@ ALTER TABLE `siswa`
 ALTER TABLE `users`
   ADD PRIMARY KEY (`idUsers`),
   ADD KEY `users_idpegawai_foreign` (`idPegawai`),
-  ADD KEY `users_idsiswa_foreign` (`idSiswa`);
+  ADD KEY `idKepsek` (`idKepsek`),
+  ADD KEY `idSiswa` (`idSiswa`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -417,34 +822,70 @@ ALTER TABLE `absensi_detail`
   MODIFY `idDetail` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `bank_soal`
+--
+ALTER TABLE `bank_soal`
+  MODIFY `idBankSoal` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `detailbayar`
+--
+ALTER TABLE `detailbayar`
+  MODIFY `idBayar` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `hasil_ujian`
+--
+ALTER TABLE `hasil_ujian`
+  MODIFY `idHasilUjian` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `historisiswa`
+--
+ALTER TABLE `historisiswa`
+  MODIFY `idHistori` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
 -- AUTO_INCREMENT for table `info`
 --
 ALTER TABLE `info`
-  MODIFY `idInfo` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idInfo` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `jadwal`
 --
 ALTER TABLE `jadwal`
-  MODIFY `idJadwal` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `idJadwal` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `kelas`
 --
 ALTER TABLE `kelas`
-  MODIFY `idKelas` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idKelas` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `kepsek`
+--
+ALTER TABLE `kepsek`
+  MODIFY `idKepsek` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `mapel`
 --
 ALTER TABLE `mapel`
-  MODIFY `idMapel` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `idMapel` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `materi`
+--
+ALTER TABLE `materi`
+  MODIFY `idMateri` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `nilai`
@@ -456,31 +897,67 @@ ALTER TABLE `nilai`
 -- AUTO_INCREMENT for table `pegawai`
 --
 ALTER TABLE `pegawai`
-  MODIFY `idPegawai` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idPegawai` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `idPembayaran` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `idPembayaran` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+
+--
+-- AUTO_INCREMENT for table `pembelajaran`
+--
+ALTER TABLE `pembelajaran`
+  MODIFY `idPembelajaran` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `petugastu`
+--
+ALTER TABLE `petugastu`
+  MODIFY `idTU` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `semester`
 --
 ALTER TABLE `semester`
-  MODIFY `idSemester` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `idSemester` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `siswa`
 --
 ALTER TABLE `siswa`
-  MODIFY `idSiswa` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `idSiswa` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+
+--
+-- AUTO_INCREMENT for table `submisi`
+--
+ALTER TABLE `submisi`
+  MODIFY `idSubmisi` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `submisi_upload`
+--
+ALTER TABLE `submisi_upload`
+  MODIFY `idSubmisiUpload` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tugas`
+--
+ALTER TABLE `tugas`
+  MODIFY `idTugas` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ujian`
+--
+ALTER TABLE `ujian`
+  MODIFY `idUjian` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `idUsers` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idUsers` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Constraints for dumped tables
@@ -500,40 +977,104 @@ ALTER TABLE `absensi_detail`
   ADD CONSTRAINT `absensi_detail_idsiswa_foreign` FOREIGN KEY (`idSiswa`) REFERENCES `siswa` (`idSiswa`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Constraints for table `bank_soal`
+--
+ALTER TABLE `bank_soal`
+  ADD CONSTRAINT `bank_soal_idujian_foreign` FOREIGN KEY (`idUjian`) REFERENCES `ujian` (`idUjian`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `hasil_ujian`
+--
+ALTER TABLE `hasil_ujian`
+  ADD CONSTRAINT `hasil_ujian_idsiswa_foreign` FOREIGN KEY (`idSiswa`) REFERENCES `siswa` (`idSiswa`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `hasil_ujian_idujian_foreign` FOREIGN KEY (`idUjian`) REFERENCES `ujian` (`idUjian`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `historisiswa`
+--
+ALTER TABLE `historisiswa`
+  ADD CONSTRAINT `historisiswa_idkelas_foreign` FOREIGN KEY (`idKelas`) REFERENCES `kelas` (`idKelas`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `historisiswa_idsiswa_foreign` FOREIGN KEY (`idSiswa`) REFERENCES `siswa` (`idSiswa`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `jadwal`
 --
 ALTER TABLE `jadwal`
-  ADD CONSTRAINT `jadwal_idkelas_foreign` FOREIGN KEY (`idKelas`) REFERENCES `kelas` (`idKelas`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `jadwal_idmapel_foreign` FOREIGN KEY (`idMapel`) REFERENCES `mapel` (`idMapel`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `jadwal_idpegawai_foreign` FOREIGN KEY (`idPegawai`) REFERENCES `pegawai` (`idPegawai`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `jadwal_idsemester_foreign` FOREIGN KEY (`idSemester`) REFERENCES `semester` (`idSemester`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `jadwal_ibfk_1` FOREIGN KEY (`idMapel`) REFERENCES `mapel` (`idMapel`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `jadwal_ibfk_2` FOREIGN KEY (`idKelas`) REFERENCES `kelas` (`idKelas`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `jadwal_ibfk_3` FOREIGN KEY (`idSemester`) REFERENCES `semester` (`idSemester`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `jadwal_ibfk_4` FOREIGN KEY (`idPegawai`) REFERENCES `pegawai` (`idPegawai`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `materi`
+--
+ALTER TABLE `materi`
+  ADD CONSTRAINT `materi_idjadwal_foreign` FOREIGN KEY (`idJadwal`) REFERENCES `jadwal` (`idJadwal`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `nilai`
 --
 ALTER TABLE `nilai`
   ADD CONSTRAINT `nilai_idmapel_foreign` FOREIGN KEY (`idMapel`) REFERENCES `mapel` (`idMapel`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `nilai_idpegawai_foreign` FOREIGN KEY (`idPegawai`) REFERENCES `pegawai` (`idPegawai`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `nilai_idsemester_foreign` FOREIGN KEY (`idSemester`) REFERENCES `semester` (`idSemester`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `nilai_idsiswa_foreign` FOREIGN KEY (`idSiswa`) REFERENCES `siswa` (`idSiswa`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
+  ADD CONSTRAINT `pembayaran_ibfk_1` FOREIGN KEY (`idSemester`) REFERENCES `semester` (`idSemester`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `pembayaran_ibfk_2` FOREIGN KEY (`idKelas`) REFERENCES `kelas` (`idKelas`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `pembayaran_ibfk_3` FOREIGN KEY (`idBayar`) REFERENCES `detailbayar` (`idBayar`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `pembayaran_idsiswa_foreign` FOREIGN KEY (`idSiswa`) REFERENCES `siswa` (`idSiswa`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `pembelajaran`
+--
+ALTER TABLE `pembelajaran`
+  ADD CONSTRAINT `pembelajaran_idkelas_foreign` FOREIGN KEY (`idKelas`) REFERENCES `kelas` (`idKelas`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `pembelajaran_idmapel_foreign` FOREIGN KEY (`idMapel`) REFERENCES `mapel` (`idMapel`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `pembelajaran_idpegawai_foreign` FOREIGN KEY (`idPegawai`) REFERENCES `pegawai` (`idPegawai`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `pembelajaran_idsemester_foreign` FOREIGN KEY (`idSemester`) REFERENCES `semester` (`idSemester`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `siswa`
 --
 ALTER TABLE `siswa`
-  ADD CONSTRAINT `siswa_idkelas_foreign` FOREIGN KEY (`idKelas`) REFERENCES `kelas` (`idKelas`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `siswa_ibfk_1` FOREIGN KEY (`idSemester`) REFERENCES `semester` (`idSemester`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `submisi`
+--
+ALTER TABLE `submisi`
+  ADD CONSTRAINT `submisi_idsiswa_foreign` FOREIGN KEY (`idSiswa`) REFERENCES `siswa` (`idSiswa`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `submisi_idtugas_foreign` FOREIGN KEY (`idTugas`) REFERENCES `tugas` (`idTugas`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `submisi_upload`
+--
+ALTER TABLE `submisi_upload`
+  ADD CONSTRAINT `submisi_upload_idsubmisi_foreign` FOREIGN KEY (`idSubmisi`) REFERENCES `submisi` (`idSubmisi`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tugas`
+--
+ALTER TABLE `tugas`
+  ADD CONSTRAINT `tugas_idjadwal_foreign` FOREIGN KEY (`idJadwal`) REFERENCES `jadwal` (`idJadwal`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `ujian`
+--
+ALTER TABLE `ujian`
+  ADD CONSTRAINT `ujian_idjadwal_foreign` FOREIGN KEY (`idJadwal`) REFERENCES `jadwal` (`idJadwal`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `users`
 --
 ALTER TABLE `users`
-  ADD CONSTRAINT `users_idpegawai_foreign` FOREIGN KEY (`idPegawai`) REFERENCES `pegawai` (`idPegawai`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `users_idsiswa_foreign` FOREIGN KEY (`idSiswa`) REFERENCES `siswa` (`idSiswa`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`idKepsek`) REFERENCES `kepsek` (`idKepsek`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `users_ibfk_2` FOREIGN KEY (`idSiswa`) REFERENCES `siswa` (`idSiswa`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `users_idpegawai_foreign` FOREIGN KEY (`idPegawai`) REFERENCES `pegawai` (`idPegawai`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

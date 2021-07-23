@@ -11,6 +11,8 @@ use App\Kelas;
 use App\Absensi;
 use App\Jadwal;
 use App\User;
+use App\Siswa;
+
 
 
 class GuruController extends Controller
@@ -32,6 +34,12 @@ class GuruController extends Controller
     {
         return view('guru/dashboard');
     }
+
+    // public function beranda()
+    // {
+    //     $jumlah_siswa = Siswa::all()->count();
+    //     return view('guru/beranda')->with('jumlah_siswa',  $jumlah_siswa);
+    // }
 
     /**
      * Show the form for creating a new resource.

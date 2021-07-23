@@ -15,16 +15,16 @@
                     <select id="idMapel" name="idMapel" class="form-control @error('idMapel') is-invalid @enderror select2bs4">
                         <option value="">-- Pilih mapel --</option>
                         @foreach($mapel as $data)
-                            <option value="{{ $data->idNilai }}">{{ $data->nama_mapel }}</option>
+                            <option value="{{ $data->idNilai }}">{{ $data->namaMapel }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="idGuru">Guru</label>
-                    <select id="idGuru" name="idGuru" class="form-control @error('idGuru') is-invalid @enderror select2bs4">
-                        <option value="">-- Pilih Guru --</option>
-                        @foreach($guru as $data)
-                            <option value="{{ $data->idGuru }}">{{ $data->nama_guru }}</option>
+                    <label for="idPegawai">Guru</label>
+                    <select id="idPegawai" name="idPegawai" class="form-control @error('idPegawai') is-invalid @enderror select2bs4">
+                        <option value="">-- Pilih Pegawai --</option>
+                        @foreach($pegawai as $data)
+                            <option value="{{ $data->idPegawai }}">{{ $data->namaPegawai }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -33,28 +33,28 @@
                     <select id="idSiswa" name="idSiswa" class="form-control @error('idSiswa') is-invalid @enderror select2bs4">
                         <option value="">-- Pilih Tahun --</option>
                         @foreach($siswa as $data)
-                            <option value="{{ $data->idSiswa }}">{{ $data->nama_siswa }}</option>
+                            <option value="{{ $data->idSiswa }}">{{ $data->namaSiswa }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="nilai_harian">UH</label>
-                    <input type="text" value="{{$siswa->nilai_harian}}" class="form-control" id="nilai_harian" name="nilai_harian">
-                    @error('nilai_harian')
+                    <label for="nilaiHarian">UH</label>
+                    <input type="text" value="{{$siswa->nilaiHarian}}" class="form-control" id="nilaiHarian" name="nilaiHarian">
+                    @error('nilaiHarian')
                         <small class="text-danger">{{ $message}}</small>
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="nilai_uts">UTS</label>
-                    <input type="text" value="{{$siswa->nilai_uts}}" class="form-control" id="nilai_uts" name="nilai_uts">
-                    @error('nilai_uts')
+                    <label for="nilaiUts">UTS</label>
+                    <input type="text" value="{{$siswa->nilaiUts}}" class="form-control" id="nilaiUts" name="nilaiUts">
+                    @error('nilaiUts')
                         <small class="text-danger">{{ $message}}</small>
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="nilai_uas">UAS</label>
-                    <input type="text" value="{{$siswa->nilai_uas}}" class="form-control" id="nilai_uas" name="nilai_uas">
-                    @error('nilai_uas')
+                    <label for="nilaiUas">UAS</label>
+                    <input type="text" value="{{$siswa->nilaiUas}}" class="form-control" id="nilaiUas" name="nilaiUas">
+                    @error('nilaiUas')
                         <small class="text-danger">{{ $message}}</small>
                     @enderror
                 </div>

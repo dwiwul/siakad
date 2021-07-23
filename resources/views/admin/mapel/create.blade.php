@@ -14,8 +14,8 @@
         <div class="container">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="nama_mapel">Nama Mapel</label>
-                    <input type="text" id="nama_mapel" name="nama_mapel" class="form-control @error('nama_mapel') is-invalid @enderror">
+                    <label for="namaMapel">Nama Mapel</label>
+                    <input type="text" id=" namaMapel" name=" namaMapel" class="form-control @error(' namaMapel') is-invalid @enderror">
                 </div>
             </div>
         </div>

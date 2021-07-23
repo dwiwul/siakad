@@ -8,7 +8,7 @@
 
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
-            
+
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -25,14 +25,14 @@
                             @foreach ($mapel as $mpl)
                                 <tr>
                                     <td>{{ $i++ }}</td>
-                                    <td>{{ $mpl->nama_mapel }}</td>
-                                    <td>{{ $mpl->nama_kelas }}</td>
+                                    <td>{{ $mpl->namaMapel }}</td>
+                                    <td>{{ $mpl->namaKelas }}</td>
 
                                     <td>
-                                        <a class="btn btn-success" href="{{ url('/detailNilai/' . $mpl->idKelas) }}">
-                                            Detail</a>
-                                        <a class="btn btn-warning" href="{{ url('/listSiswa/' . $mpl->idKelas) }}">
-                                            Input Nilai</a>
+                                        <a class="btn btn-success" href="{{ url('/detailNilai/' . $mpl->idMapel) }}">
+                                            <i class="fa fa-eye"></i>Detail</a>
+                                        <a class="btn btn-warning" href="{{ url('/listSiswa/' . $mpl->idJadwal) }}">
+                                            <i class="fa fa-edit"></i>Input Nilai</a>
 
                                     </td>
                                 </tr>

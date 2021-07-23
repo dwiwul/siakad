@@ -16,20 +16,26 @@ class User extends Authenticatable
      * @var array
      */
     protected $primaryKey = 'idUsers';
+    protected $table = 'users';
     protected $fillable = [
-        'idSiswa', 'idPegawai', 'username', 'password_2', 'level',
+         'idPegawai', 'idKepsek', 'idSiswa', 'username', 'password', 'level',
     ];
 
     public function pegawai()
     {
-        return $this->belongsTo('App\Pegawai', 'idPegawai');
+        return $this->belongsTo('App\Pegawai', 'idPegawai', 'idPegawai');
     }
     public function siswa()
     {
         return $this->belongsTo('App\Siswa', 'idSiswa');
     }
 
+    public function kepsek()
+    {
+        return $this->belongsTo('App\Kepsek', 'idKepsek');
+    }
+
     protected $hidden = [
-        'password_2', 'remember_token',
+        'password', 'remember_token',
     ];
 }

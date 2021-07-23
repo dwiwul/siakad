@@ -14,7 +14,8 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Nama Kelas</th>
+                                <th>Kelas</th>
+                                <th>Wali Kelas</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -23,7 +24,8 @@
                             @foreach ($kelas as $row)
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
-                                    <td>{{$row->nama_kelas}}</td>
+                                    <td>{{$row->namaKelas}}</td>
+                                    <td>{{$row->pegawai->namaPegawai}}</td>
                                     <td>
                                         <a href="{{url('/admin/jadwal/pilihSemester/'.$row->idKelas)}}" class="btn btn-outline-primary"><i class="fas fa-search"></i></i></a>
 

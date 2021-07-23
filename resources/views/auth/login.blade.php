@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SIAKAD - Login</title>
+    <title>SIAKAD - Masuk</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{ url ('vendor/sbadmin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet')}}" type="text/css">
@@ -37,8 +37,8 @@
                             <div class="col-lg">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h3 class="m-0 font-weight-bold text-success">Sistem Informasi Akademik</h3>
-                                        <h4 class="m-0 font-weight-bold text-primary">Login</h4>
+                                        <img src="{{url('vendor/sbadmin/img/siakad.png')}}" >
+                                            <h4 class="m-3 font-weight-bold text-primary">Masuk</h4>
                                     </div>
                                     @if (session('message'))
                                     <div class="row">
@@ -61,15 +61,15 @@
                                             </div>
                                             <div class="form-group">
                                                 <label class="small mb-1" for="inputPassword">Password</label>
-                                                <input class="form-control py-4 {{ $errors->has('password_2') ? 'is-invalid' : '' }}"
+                                                <input class="form-control py-4 {{ $errors->has('password') ? 'is-invalid' : '' }}"
                                                     id="inputPassword" type="password" placeholder="Enter password" name="password">
-                                                @if ($errors->has('password_2'))
-                                                    <div class="invalid-feedback"> {{ $errors->first('password_2') }}</div>
+                                                @if ($errors->has('password'))
+                                                    <div class="invalid-feedback"> {{ $errors->first('password') }}</div>
                                                 @endif
                                             </div>
                                             <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
-                                                <a class="small" href="{{ route('password.request') }}">Forgot Password?</a>
-                                                <button class="btn btn-primary" type="submit">Login</a>
+                                                {{-- <a class="small" href="{{ route('password.request') }}">Lupa Password?</a> --}}
+                                                <button class="btn btn-primary" type="submit">Masuk</a>
                                             </div>
                                         <hr>
                                     </form>

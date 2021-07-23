@@ -22,7 +22,7 @@ class MapelController extends Controller
     public function index()
     {
         $mapel = Mapel::all();
-        return view("admin.mapel.index", compact('mapel'));
+        return view("admin/mapel/index", compact('mapel'));
     }
 
     /**
@@ -36,10 +36,10 @@ class MapelController extends Controller
         $mapel = Jadwal::where('jadwal.idPegawai', session('id'))
             ->leftJoin('kelas', 'kelas.idKelas', 'jadwal.idKelas')
             ->leftJoin('mapel', 'mapel.idMapel', 'jadwal.idMapel')
-            ->select('mapel.nama_mapel', 'jadwal.*', 'kelas.nama_kelas', 'kelas.idKelas')
+            ->select('mapel.namaMapel', 'jadwal.*', 'kelas.namaKelas', 'kelas.idKelas')
             ->get();
-
-        return view('guru.nilai.listMapel', compact('mapel'));
+        // return $mapel;
+        return view('guru/nilai/listMapel', compact('mapel'));
     }
 
 
@@ -47,12 +47,12 @@ class MapelController extends Controller
     {
         $mapel = Mapel::find($idMapel);
 
-        return view("admin.mapel.index", compact('mapel'));
+        return view("admin/mapel/index", compact('mapel'));
     }
 
     public function create()
     {
-        return view("admin.mapel.create");
+        return view("admin/mapel/create");
     }
 
     /**
@@ -64,7 +64,7 @@ class MapelController extends Controller
     public function store(Request $request)
     {
         $mapel = new Mapel();
-        $mapel->nama_mapel = $request->get("nama_mapel");
+        $mapel->namaMapel = $request->get("namaMapel");
         $mapel->save();
         $mapel = Mapel::all();
         return redirect("admin/mapel/index");
@@ -103,7 +103,7 @@ class MapelController extends Controller
     public function update(Request $request, $idMapel)
     {
         $mapel = Mapel::findOrFail($idMapel);
-        $mapel->nama_mapel = $request->get("nama_mapel");
+        $mapel->namaMapel = $request->get("namaMapel");
         $mapel->save();
         return redirect("admin/mapel/index");
     }
