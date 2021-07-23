@@ -241,6 +241,7 @@ Route::group(['middleware' =>['auth']], function() {
         Route::patch('admin/lks/{id}', 'LksController@update');
         Route::get('admin/lks/show/{id}', 'LksController@show');
         Route::delete('admin/lks/destroy/{id}', 'LksController@destroy');
+        Route::get('admin/lks/cetak-data-lks/{tglawal}/{tglakhir}', 'LksController@cetakLks')->name('cetak-data-lks');
 
         Route::get('admin/iuran/index', 'IuranController@index');
         Route::get('admin/iuran/create', 'IuranController@create');

@@ -142,7 +142,7 @@ class IuranController extends Controller
         $cetakPerTanggal = Iuran::whereBetween('tgl', [$tglawal, $tglakhir])
         ->get();
         $pdf = PDF::loadview('admin/iuran/cetak-data-iuran',compact('cetakPerTanggal', 'tglawal', 'tglakhir'));
-        dd($cetakPerTanggal);
+        // dd($cetakPerTanggal);
 
         $pdf->setPaper("a4", 'potrait');
         return $pdf->stream();

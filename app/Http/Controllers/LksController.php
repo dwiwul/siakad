@@ -129,4 +129,17 @@ class LksController extends Controller
         $lks->delete();
         return redirect('admin/lks/index');
     }
+
+    public function cetakLks($tglawal, $tglakhir)
+    {
+        $tglawal = $tglawal;
+        $tglakhir = $tglakhir;
+        $cetakPerTanggal = Lks::whereBetween('tgl', [$tglawal, $tglakhir])
+        ->get();
+        $pdf = PDF::loadview('admin/lks/cetak-data-lks',compact('cetakPerTanggal', 'tglawal', 'tglakhir'));
+        // dd($cetakPerTanggal);
+
+        $pdf->setPaper("a4", 'potrait');
+        return $pdf->stream();
+    }
 }

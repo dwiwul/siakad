@@ -10,12 +10,12 @@
             <div class="card shadow mb-4">
 
                 <div class="card-header py-3">
-                    <h1 class="h3 mb-4 text-gray-800">Cetak Data Pembayaran</h1>
+                    <h3 class="h3 mb-4 text-gray-800">Cetak Pertanggal</h3>
                 </div>
                 <div class="card-body">
                 @csrf
                 <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-5">
                             <div class="form-group">
                                 <label for="tglawal">Tanggal Awal</label>
                                 <input type="date" class="form-control" id="tglawal" name="tglawal">
@@ -24,7 +24,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-5">
                             <div class="form-group">
                                 <label for="tglakhir">Tanggal Akhir</label>
                                 <input type="date" class="form-control" id="tglakhir" name="tglakhir">
@@ -33,13 +33,14 @@
                                 @enderror
                             </div>
                         </div>
-                </div>
-
-                <div class="input-group mb-3">
-                    <a href="" onclick="this.href='/admin/iuran/cetak-data-iuran/' + document.getElementById('tglawal').value +
-                    '/' +  document.getElementById('tglakhir').value" target="_blank"
-                    class="btn btn-primary col-md-12">Cetak Laporan Pertanggal<i class="fas fa-print"></i>
-                    </a>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <a href="" onclick="this.href='/admin/iuran/cetak-data-iuran/' + document.getElementById('tglawal').value +
+                                '/' +  document.getElementById('tglakhir').value" target="_blank"
+                                class="btn btn-success col-md-5">Cetak<i class="fas fa-print"></i>
+                                </a>
+                            </div>
+                        </div>
                 </div>
             </div>
         </div>
@@ -49,8 +50,8 @@
                         <button type="button" href="{{ url('admin/iuran')}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
                             data-toggle="modal" data-target="#exampleModal">
                                 <i class="fas fa-plus fa-sm text-white-50"></i></button>
-                        <a href="{{url('admin/iuran/cetak-data-iuran')}}" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" target="_blank" rel="noopener noreferrer"><i
-                            class="fas fa-print fa-sm text-white-50"></i> Laporan PDF</a>
+                        {{-- <a href="{{url('admin/iuran/cetak-data-iuran')}}" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" target="_blank" rel="noopener noreferrer"><i
+                            class="fas fa-print fa-sm text-white-50"></i> Laporan PDF</a> --}}
                     </div>
 
                     <div class="table-responsive">
@@ -182,10 +183,6 @@
                     </div>
                 </div>
             </div>
-
-
-
-
-    </div>
+        </div>
 @endsection
 

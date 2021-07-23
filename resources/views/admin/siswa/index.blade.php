@@ -296,21 +296,13 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        {{-- <div class="col-md-6">
+
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="nis">NISN</label>
                                                 <input type="text" value="{{$siswa->nis}}" class="form-control" id="nis" name="nis">
                                                 @error('nis')
                                                     <small class="text-danger">{{ $message}}</small>
-                                                @enderror
-                                            </div>
-                                        </div> --}}
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="nis">NISN</label>
-                                                <input type="text"  class="form-control" id="nis" name="nis" value="{{old('nis')}}">
-                                                @error('nis')
-                                                    <small class="text-danger">{{ $message }}</small>
                                                 @enderror
                                             </div>
                                         </div>
