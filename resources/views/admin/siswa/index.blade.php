@@ -258,13 +258,11 @@
                             <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <form action="{{ url ('/siswa/'.$row->siswa)}}" method="post" id="editModal" enctype="multipart/form-data">
+                        <form action="{{ action ('SiswaController@update')}}" method="post" id="editModal" enctype="multipart/form-data">
                             <div class="modal-body">
                                 <div class="form-group">
-                                    @csrf
-                            @method('patch')
-                                    {{-- {{ method_field('PATCH') }}
-                                    {{ @csrf_field() }} --}}
+                                    {{ method_field('PATCH') }}
+                                    {{ @csrf_field() }}
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
@@ -433,9 +431,6 @@
 @endsection
 @section('js')
 <script>
-    $.('#nav-master').addClass('nav-item active');
-    $.('#a-master').addClass('collapse show');
-    $.('#a-nav-master').addClass('nav-link ');
     const select = $('#tahun-ajaran');
 
     $.ajax({

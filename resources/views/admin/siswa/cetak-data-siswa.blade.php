@@ -54,7 +54,7 @@
                 <th>Nama OrangTua</th>
                 <th>Status</th>
               </tr>
-                @foreach($cetakPerTanggal as $row)
+                @foreach($siswa as $row)
                 <tr>
                     <td>{{ $loop->iteration}} </td>
                     <td>{{ $row->semester->tahunAjaran }}</td>

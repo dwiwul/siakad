@@ -18,6 +18,7 @@ use App\Exports\SiswaExport;
 use App\Imports\SiswaImport;
 use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert;
+use Carbon\Carbon;
 
 class SiswaController extends Controller
 {
@@ -253,9 +254,9 @@ class SiswaController extends Controller
         // $cetakPerTanggal = Siswa::with('semester')->whereBetween('tglMulai', [$tglawal, $tglakhir])->get();
         // return $cetakPerTanggal;
 
-        # cek cara ini 
+        # cek cara ini
         $siswa = Siswa::with('semester')->where(function ($query) use ($tglawal, $tglakhir) {
-            return $query->whereBetween('semester.tglMulai', [$tglawal, $tglakhir]);
+            return $query->whereBetween('tglMulai', [$tglawal, $tglakhir]);
         })->get();
         // $cetakPerTanggal = $siswa = Siswa::with('semester')->get();
 
@@ -278,6 +279,7 @@ class SiswaController extends Controller
         Excel::import(new SiswaImport, $file);
         return redirect('admin/siswa/index');
     }
+
 
     public function beranda()
     {
