@@ -248,13 +248,19 @@ class SiswaController extends Controller
     public function cetakSiswa($tglawal, $tglakhir)
     {
         // dd($tglawal = $tglawal);
-        $tglawal = $tglawal;
-        $tglakhir = $tglakhir;
+        $from   = Carbon::make($tglawal)->format('Y-m-d H:i:s');
+        $to     = Carbon::make($tglakhir)->format('Y-m-d H:i:s');
         // $cetakPerTanggal = Siswa::with('semester')->whereBetween('tglMulai', [$tglawal, $tglakhir])->get();
         // return $cetakPerTanggal;
-        $cetakPerTanggal = $siswa = Siswa::with('semester')->get();
 
-        $pdf = PDF::loadview('admin/siswa/cetak-data-siswa',compact('cetakPerTanggal', 'tglawal', 'tglakhir'));
+        # cek cara ini 
+        $siswa = Siswa::with('semester')->where(function ($query) use ($tglawal, $tglakhir) {
+            return $query->whereBetween('semester.tglMulai', [$tglawal, $tglakhir]);
+        });
+        // $cetakPerTanggal = $siswa = Siswa::with('semester')->get();
+
+        // $pdf = PDF::loadview('admin/siswa/cetak-data-siswa',compact('cetakPerTanggal', 'tglawal', 'tglakhir'));
+        $pdf = PDF::loadview('admin/siswa/cetak-data-siswa', compact('siswa'));
 
         $pdf->setPaper("a4", 'potrait');
 
