@@ -256,7 +256,7 @@ class SiswaController extends Controller
         # cek cara ini 
         $siswa = Siswa::with('semester')->where(function ($query) use ($tglawal, $tglakhir) {
             return $query->whereBetween('semester.tglMulai', [$tglawal, $tglakhir]);
-        });
+        })->get();
         // $cetakPerTanggal = $siswa = Siswa::with('semester')->get();
 
         // $pdf = PDF::loadview('admin/siswa/cetak-data-siswa',compact('cetakPerTanggal', 'tglawal', 'tglakhir'));
