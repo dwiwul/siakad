@@ -253,14 +253,23 @@ class SiswaController extends Controller
         // $cetakPerTanggal = Siswa::with('semester')->whereBetween('tglMulai', [$tglawal, $tglakhir])->get();
         // return $cetakPerTanggal;
 
-        # cek cara ini 
-        $siswa = Siswa::with('semester')->where(function ($query) use ($tglawal, $tglakhir) {
-            return $query->whereBetween('semester.tglMulai', [$tglawal, $tglakhir]);
+        # cek cara ini / comment dulu
+        // $siswa = Siswa::with('semester')->where(function ($query) use ($tglawal, $tglakhir) {
+        //     return $query->whereBetween('semester.tglMulai', [$tglawal, $tglakhir]);
+        // })->get();
+        # catatan  algorithma : ambil data siswa dengan semester  dengan eaager loading untuk mencegah N plus 1 query problem, dimana siswaa punya data semesternya,kemudian di constraint berdasar tgl mulai nya antara nilai date yang di berikan  
+        $siswa = Siswa::with('semester')->whereHas('semester', function ($query) use ($from, $to) {
+            return $query->whereBetween('tglMulai', [$from, $to]);
         })->get();
+
+        # setelah itu coba dump dulu buat ngelihat isinya sebelum di cetak ke pdf variable siswa nya. 
+        dd($siswa); # comment here if the result is match your expectation.
+
+        # kalo result nya sesuai tinggal komentari aja dd($siswa nya)
         // $cetakPerTanggal = $siswa = Siswa::with('semester')->get();
 
         // $pdf = PDF::loadview('admin/siswa/cetak-data-siswa',compact('cetakPerTanggal', 'tglawal', 'tglakhir'));
-        $pdf = PDF::loadview('admin/siswa/cetak-data-siswa', compact('siswa'));
+        $pdf = PDF::loadview('admin/siswa/cetak-data-siswa', compact('siswa', 'from', 'to'));
 
         $pdf->setPaper("a4", 'potrait');
 
