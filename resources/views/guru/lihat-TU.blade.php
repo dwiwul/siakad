@@ -28,7 +28,7 @@
                                     <td>{{$row->jk}}</td>
                                     <td>{{$row->alamat}}</td>
                                     <td>{{$row->telp}}</td>
-                                    
+
                                 </tr>
                             @endforeach
                         </tbody>
@@ -36,7 +36,7 @@
                 </div>
             </div>
             <!-- Button trigger modal -->
-           
+
         </div>
         @include('sweetalert::alert')
     </div>

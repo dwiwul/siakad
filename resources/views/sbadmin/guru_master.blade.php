@@ -46,35 +46,39 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="{{url('guru/beranda')}}">
+            <li class="nav-item {{Request::is('guru/beranda') ? 'active' : ''}}">
+                <a class="nav-link" href="#">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Beranda</span></a>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item {{Request::is('guru/lihat-siswa') ? 'active' : ''}} |
+                                {{Request::is('absen') ? 'active' : ''}} |
+                                {{Request::is('listmapel') ? 'active' : ''}}">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePembelajaran"
                     aria-expanded="true" aria-controls="collapsePembelajaran">
                     <i class="fas fa-fw fa-plus"></i>
                     <span>Pembelajaran</span>
                 </a>
-                <div id="collapsePembelajaran" class="collapse" aria-labelledby="headingPembelajaran" data-parent="#accordionSidebar">
+                <div id="collapsePembelajaran" class="collapse {{Request::is('guru/lihat-siswa') ? 'show' : ''}} |
+                                                                {{Request::is('absen') ? 'show' : ''}} |
+                                                                {{Request::is('listmapel') ? 'show' : ''}}" aria-labelledby="headingPembelajaran" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{url('guru/lihat-siswa')}}">Siswa</a>
-                        <a class="collapse-item" href="{{url('absen')}}">Presensi</a>
-                        <a class="collapse-item" href="{{url('listmapel')}}">Nilai</a>
+                        <a class="collapse-item {{Request::is('guru/lihat-siswa') ? 'active' : ''}}" id="a-nav-siswa" href="{{url('guru/lihat-siswa')}}">Siswa</a>
+                        <a class="collapse-item {{Request::is('absen') ? 'active' : ''}}" id="a-nav-siswa" href="{{url('absen')}}">Presensi</a>
+                        <a class="collapse-item {{Request::is('listmapel') ? 'active' : ''}}" id="a-nav-siswa" href="{{url('listmapel')}}">Nilai</a>
                         {{-- <a class="collapse-item" href="{{url('absen')}}">Absensi</a> --}}
                     </div>
                 </div>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item {{Request::is('guru/lihat-TU') ? 'active' : ''}}">
                 <a class="nav-link" href="{{url('guru/lihat-TU')}}">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Petugas TU</span></a>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item {{Request::is('guru/lihat-info') ? 'active' : ''}}">
                 <a class="nav-link" href="{{url('guru/lihat-info')}}">
                     <i class="fas fa-fw fa-info"></i>
                     <span>Informasi</span></a>

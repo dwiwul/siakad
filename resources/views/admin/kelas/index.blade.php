@@ -30,8 +30,10 @@
                                     <td>{{$loop->iteration}}</td>
                                     <td>{{$row->namaKelas}}</td>
                                     <td>
-                                        <a class="btn btn-outline-warning" href="{{url('admin/kelas/edit/'.$row->idKelas)}}" >
-                                            <i class="fa fa-edit"></i></a>
+                                        {{-- <a class="btn btn-outline-warning" href="{{url('admin/kelas/edit/'.$row->idKelas)}}" >
+                                            <i class="fa fa-edit"></i></a> --}}
+                                        <button type="button" href="{{ url('admin/kelas/edit/'.$row->idKelas)}}" class="btn btn-outline-warning" data-toggle="modal" data-target="#editModal-{{$row->idKelas}}">
+                                                <i class="fas fa-edit"></i></button>
                                         <form method="POST" class="d-inline"
                                             action="{{url('admin/kelas/destroy/'.$row->idKelas)}}">
                                             {{ csrf_field() }}
@@ -79,6 +81,43 @@
                                 </div>
                             </div>
                         </div>
+
+                        @foreach ($kelas as $row)
+                        <div class="modal fade" id="editModal-{{$row->idKelas}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="editModal">Ubah Data</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    {{-- url('admin/siswa/.$idSiswa --}}
+                                    <form action="{{ url('admin/kelas/'.$row->idKelas)}}" method="post" id="editModal" enctype="multipart/form-data">
+                                        {{ method_field('PUT') }}
+                                        {{ @csrf_field() }}
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="namaKelas">Nama Kelas</label>
+                                                            <input type="text" id="namaKelas" name="namaKelas" class="form-control @error('namaKelas') is-invalid @enderror select2bs4" value="{{$row->namaKelas}}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+
                     </table>
                 </div>
             </div>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 06, 2021 at 05:20 PM
+-- Generation Time: Jul 24, 2021 at 12:51 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -35,6 +35,29 @@ CREATE TABLE `absensi` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `absensi`
+--
+
+INSERT INTO `absensi` (`idAbsensi`, `idJadwal`, `tgl`, `created_at`, `updated_at`) VALUES
+(1, 22, '2021-07-09', '2021-06-14 05:22:17', '2021-06-24 13:03:29'),
+(2, 23, '2021-07-10', '2021-06-14 05:22:17', '2021-06-24 13:03:29'),
+(3, 30, '2021-07-10', '2021-07-10 08:16:44', '2021-07-10 08:16:44'),
+(4, 30, '2021-07-10', '2021-07-10 08:19:25', '2021-07-10 08:19:25'),
+(5, 30, '2021-07-10', '2021-07-10 08:23:08', '2021-07-10 08:23:08'),
+(6, 30, '2021-07-10', '2021-07-10 08:24:31', '2021-07-10 08:24:31'),
+(7, 23, '2021-07-10', '2021-07-10 08:43:30', '2021-07-10 08:43:30'),
+(8, 23, '2021-07-10', '2021-07-10 08:52:21', '2021-07-10 08:52:21'),
+(9, 23, '2021-07-10', '2021-07-10 08:55:00', '2021-07-10 08:55:00'),
+(11, 32, '2021-07-11', '2021-07-10 22:27:32', '2021-07-10 22:27:32'),
+(13, 34, '2021-07-11', '2021-07-11 00:40:13', '2021-07-11 00:40:13'),
+(14, 34, '2021-07-11', '2021-07-11 05:26:30', '2021-07-11 05:26:30'),
+(15, 34, '2021-07-11', '2021-07-11 05:27:05', '2021-07-11 05:27:05'),
+(16, 34, '2021-07-11', '2021-07-11 05:27:55', '2021-07-11 05:27:55'),
+(17, 44, '2021-07-12', '2021-07-11 17:01:35', '2021-07-11 17:01:35'),
+(18, 35, '2021-07-12', '2021-07-11 19:19:23', '2021-07-11 19:19:23'),
+(19, 46, '2021-07-22', '2021-07-22 01:29:52', '2021-07-22 01:29:52');
+
 -- --------------------------------------------------------
 
 --
@@ -44,11 +67,19 @@ CREATE TABLE `absensi` (
 CREATE TABLE `absensi_detail` (
   `idDetail` bigint(20) UNSIGNED NOT NULL,
   `idAbsensi` bigint(20) UNSIGNED NOT NULL,
-  `idSiswa` bigint(20) UNSIGNED NOT NULL,
-  `keterangan` enum('hadir, sakit','izin','alpha') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `idSiswa` bigint(20) UNSIGNED DEFAULT NULL,
+  `keterangan` enum('hadir','sakit','izin','alpha') COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `absensi_detail`
+--
+
+INSERT INTO `absensi_detail` (`idDetail`, `idAbsensi`, `idSiswa`, `keterangan`, `created_at`, `updated_at`) VALUES
+(5, 9, NULL, 'hadir', '2021-07-10 08:55:00', '2021-07-10 08:55:00'),
+(22, 19, NULL, 'hadir', '2021-07-22 01:29:52', '2021-07-22 01:29:52');
 
 -- --------------------------------------------------------
 
@@ -126,14 +157,6 @@ CREATE TABLE `historisiswa` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `historisiswa`
---
-
-INSERT INTO `historisiswa` (`idHistori`, `idSemester`, `idSiswa`, `idKelas`, `tahun`, `created_at`, `updated_at`) VALUES
-(4, 3, 30, 3, '2021', '2021-06-29 23:45:28', '2021-06-29 23:45:28'),
-(7, 2, 33, 1, '2021', '2021-07-01 23:15:27', '2021-07-01 23:15:27');
-
 -- --------------------------------------------------------
 
 --
@@ -153,10 +176,35 @@ CREATE TABLE `info` (
 --
 
 INSERT INTO `info` (`idInfo`, `tgl`, `pengumuman`, `created_at`, `updated_at`) VALUES
-(1, '2021-06-12', 'Jumat Bersih', '2021-06-07 10:25:37', '2021-06-07 18:16:33'),
-(2, '2021-06-04', 'Jumat Bersih', '2021-06-07 10:27:00', '2021-06-07 10:27:00'),
-(5, '2021-06-16', 'Kegiatan Istigosah', '2021-06-16 00:36:29', '2021-06-16 00:36:29'),
-(6, '2021-07-03', 'Pramuka Rutin Kelas 7', '2021-07-02 04:57:24', '2021-07-02 04:57:24');
+(1, '2021-06-12', 'Jumat Sehat', '2021-06-07 10:25:37', '2021-07-23 22:44:54'),
+(6, '2021-07-03', 'Pramuka Rutin Kelas 7', '2021-07-02 04:57:24', '2021-07-02 04:57:24'),
+(7, '2021-07-02', 'Shalat Dhuha Setiap Hari kecuali Hari Senin', '2021-07-11 04:28:40', '2021-07-11 04:28:40');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `iuran`
+--
+
+CREATE TABLE `iuran` (
+  `idIuran` bigint(20) UNSIGNED NOT NULL,
+  `idSemester` bigint(20) UNSIGNED NOT NULL,
+  `idSiswa` bigint(20) UNSIGNED NOT NULL,
+  `idKelas` bigint(20) UNSIGNED NOT NULL,
+  `tgl` date NOT NULL,
+  `jenisBayar` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `jumlahBayar` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `iuran`
+--
+
+INSERT INTO `iuran` (`idIuran`, `idSemester`, `idSiswa`, `idKelas`, `tgl`, `jenisBayar`, `jumlahBayar`, `created_at`, `updated_at`) VALUES
+(1, 2, 51, 7, '2021-07-01', 'Iuran Semester', 50000, '2021-07-22 00:19:33', '2021-07-22 00:19:52'),
+(2, 2, 47, 1, '2021-07-02', 'Iuran Semester', 100000, '2021-07-23 16:00:51', '2021-07-23 16:00:51');
 
 -- --------------------------------------------------------
 
@@ -170,7 +218,7 @@ CREATE TABLE `jadwal` (
   `idPegawai` bigint(20) UNSIGNED NOT NULL,
   `idMapel` bigint(20) UNSIGNED NOT NULL,
   `idKelas` bigint(20) UNSIGNED NOT NULL,
-  `hari` enum('Senin','Selasa','Rabu','Kamis','Jum`at','Sabtu') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `hari` enum('Senin','Selasa','Rabu','Kamis','Jum`at','Sabtu','Minggu') COLLATE utf8mb4_unicode_ci NOT NULL,
   `jamMulai` time NOT NULL,
   `jamSelesai` time NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -182,12 +230,25 @@ CREATE TABLE `jadwal` (
 --
 
 INSERT INTO `jadwal` (`idJadwal`, `idSemester`, `idPegawai`, `idMapel`, `idKelas`, `hari`, `jamMulai`, `jamSelesai`, `created_at`, `updated_at`) VALUES
-(21, 2, 30, 1, 1, 'Kamis', '17:40:00', '18:40:00', '2021-07-03 03:40:43', '2021-07-03 03:40:43'),
 (22, 2, 16, 1, 3, 'Jum`at', '17:44:00', '18:44:00', '2021-07-03 03:44:13', '2021-07-06 00:23:44'),
+(23, 2, 16, 1, 5, 'Sabtu', '13:00:00', '22:00:00', '2021-06-14 05:22:17', '2021-06-29 15:46:56'),
 (26, 2, 16, 2, 1, 'Selasa', '14:05:00', '16:00:00', '2021-07-06 00:06:34', '2021-07-06 00:06:34'),
 (27, 2, 22, 5, 1, 'Selasa', '16:15:00', '17:00:00', '2021-07-06 00:07:26', '2021-07-06 00:07:26'),
 (28, 2, 16, 1, 3, 'Selasa', '14:00:00', '15:30:00', '2021-07-06 00:23:15', '2021-07-06 00:23:44'),
-(29, 2, 31, 8, 4, 'Selasa', '15:00:00', '18:00:00', '2021-07-06 01:37:43', '2021-07-06 01:37:43');
+(29, 2, 31, 8, 4, 'Selasa', '15:00:00', '18:00:00', '2021-07-06 01:37:43', '2021-07-06 01:37:43'),
+(30, 2, 16, 1, 4, 'Sabtu', '17:05:00', '22:00:00', '2021-07-10 03:11:13', '2021-07-10 03:11:13'),
+(32, 2, 16, 2, 1, 'Minggu', '07:00:00', '22:00:00', '2021-07-10 22:26:31', '2021-07-10 22:26:31'),
+(34, 2, 16, 8, 1, 'Minggu', '07:00:00', '22:00:00', '2021-07-11 00:37:48', '2021-07-11 00:37:48'),
+(35, 2, 16, 2, 1, 'Senin', '07:00:00', '07:40:00', '2021-07-11 16:16:40', '2021-07-11 16:16:40'),
+(36, 2, 33, 10, 1, 'Rabu', '08:20:00', '09:35:00', '2021-07-11 16:17:30', '2021-07-11 16:17:30'),
+(37, 2, 22, 5, 1, 'Kamis', '07:00:00', '07:40:00', '2021-07-11 16:23:02', '2021-07-11 16:23:02'),
+(38, 2, 16, 12, 1, 'Jum`at', '07:00:00', '07:35:00', '2021-07-11 16:23:51', '2021-07-11 16:26:49'),
+(39, 2, 22, 5, 1, 'Jum`at', '07:00:00', '07:35:00', '2021-07-11 16:24:30', '2021-07-11 16:24:30'),
+(40, 2, 16, 12, 1, 'Sabtu', '07:00:00', '07:35:00', '2021-07-11 16:28:00', '2021-07-11 16:28:00'),
+(41, 2, 33, 10, 1, 'Rabu', '10:05:00', '11:25:00', '2021-07-11 16:35:11', '2021-07-11 16:35:11'),
+(44, 2, 16, 8, 1, 'Senin', '07:00:00', '10:45:00', '2021-07-11 17:01:08', '2021-07-11 17:01:08'),
+(45, 5, 16, 1, 1, 'Senin', '07:00:00', '12:00:00', '2021-07-21 22:55:37', '2021-07-21 22:55:37'),
+(46, 2, 16, 1, 1, 'Kamis', '07:00:00', '12:00:00', '2021-07-22 01:28:22', '2021-07-22 01:28:22');
 
 -- --------------------------------------------------------
 
@@ -207,12 +268,12 @@ CREATE TABLE `kelas` (
 --
 
 INSERT INTO `kelas` (`idKelas`, `namaKelas`, `created_at`, `updated_at`) VALUES
-(1, '7A', '2021-06-07 06:51:49', '2021-07-06 00:05:47'),
-(3, '7B', '2021-06-08 22:38:02', '2021-06-08 22:38:02'),
-(4, '8A', '2021-06-08 22:38:11', '2021-06-08 22:38:11'),
-(5, '8B', '2021-06-08 22:38:18', '2021-06-08 22:38:18'),
-(6, '9A', '2021-06-08 22:38:25', '2021-06-08 22:38:25'),
-(7, '9B', '2021-06-08 22:38:31', '2021-06-08 22:38:31');
+(1, 'VII A', '2021-06-07 06:51:49', '2021-07-24 01:10:54'),
+(3, 'VII B', '2021-06-08 22:38:02', '2021-07-24 02:02:28'),
+(4, 'VIII A', '2021-06-08 22:38:11', '2021-07-24 02:02:49'),
+(5, 'VIII B', '2021-06-08 22:38:18', '2021-07-24 02:03:05'),
+(6, 'IX A', '2021-06-08 22:38:25', '2021-07-24 02:03:23'),
+(7, 'XI B', '2021-06-08 22:38:31', '2021-07-24 02:03:41');
 
 -- --------------------------------------------------------
 
@@ -234,7 +295,32 @@ CREATE TABLE `kepsek` (
 --
 
 INSERT INTO `kepsek` (`idKepsek`, `namaKepsek`, `alamat`, `telp`, `created_at`, `updated_at`) VALUES
-(1, 'Sudarno', 'Parang Magetan', '085672418634', '2021-06-14 05:22:17', '2021-06-24 13:03:29');
+(1, 'Sudarno', 'Magetan Timur', '085672418634', '2021-06-14 05:22:17', '2021-07-11 07:17:50');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `lks`
+--
+
+CREATE TABLE `lks` (
+  `idLks` bigint(20) UNSIGNED NOT NULL,
+  `idSemester` bigint(20) UNSIGNED NOT NULL,
+  `idSiswa` bigint(20) UNSIGNED NOT NULL,
+  `idKelas` bigint(20) UNSIGNED NOT NULL,
+  `tgl` date NOT NULL,
+  `jenisBayar` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `jumlahBayar` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `lks`
+--
+
+INSERT INTO `lks` (`idLks`, `idSemester`, `idSiswa`, `idKelas`, `tgl`, `jenisBayar`, `jumlahBayar`, `created_at`, `updated_at`) VALUES
+(2, 2, 44, 1, '2021-07-01', 'LKS', 100000, '2021-07-22 00:06:07', '2021-07-23 23:46:44');
 
 -- --------------------------------------------------------
 
@@ -258,8 +344,15 @@ INSERT INTO `mapel` (`idMapel`, `namaMapel`, `created_at`, `updated_at`, `delete
 (1, 'Pend. Agama Islam', '2021-06-09 01:06:08', '2021-06-09 01:06:08', NULL),
 (2, 'Bahasa Indonesia', '2021-06-09 01:09:33', '2021-06-09 01:20:27', NULL),
 (5, 'Matematika', '2021-06-18 19:38:59', '2021-06-18 19:38:59', NULL),
-(7, 'IPA', '2021-07-04 08:15:58', '2021-07-04 08:15:58', NULL),
-(8, 'IPS', '2021-07-04 08:16:07', '2021-07-04 08:16:07', NULL);
+(7, 'IPA Terpadu', '2021-07-04 08:15:58', '2021-07-11 15:46:45', NULL),
+(8, 'IPS Terpadu', '2021-07-04 08:16:07', '2021-07-11 15:46:55', NULL),
+(10, 'BahasaArab', '2021-07-11 15:48:00', '2021-07-11 15:48:00', NULL),
+(11, 'Seni Budaya', '2021-07-11 15:48:22', '2021-07-11 15:48:22', NULL),
+(12, 'Penjaskes', '2021-07-11 15:48:35', '2021-07-11 15:48:35', NULL),
+(13, 'PKN', '2021-07-11 15:48:46', '2021-07-11 15:48:46', NULL),
+(14, 'Fikih', '2021-07-11 15:49:00', '2021-07-11 15:49:00', NULL),
+(15, 'Aqidah Akhlak', '2021-07-11 15:49:11', '2021-07-11 15:49:11', NULL),
+(16, 'Qur\'an Hadist', '2021-07-11 15:49:20', '2021-07-11 15:49:20', NULL);
 
 -- --------------------------------------------------------
 
@@ -320,7 +413,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (26, '2021_06_30_193404_create_historibayar_table', 23),
 (27, '2021_07_01_172557_create_petugas_t_u_table', 24),
 (28, '2021_07_03_042403_create_pembelajaran_table', 25),
-(29, '2021_07_06_034325_create_detailbayar_table', 26);
+(29, '2021_07_06_034325_create_detailbayar_table', 26),
+(30, '2021_07_22_063511_create_lks_table', 27),
+(31, '2021_07_22_063946_create_iuran_table', 28);
 
 -- --------------------------------------------------------
 
@@ -332,7 +427,8 @@ CREATE TABLE `nilai` (
   `idNilai` bigint(20) UNSIGNED NOT NULL,
   `idMapel` bigint(20) UNSIGNED NOT NULL,
   `idSiswa` bigint(20) UNSIGNED NOT NULL,
-  `idSemester` bigint(20) UNSIGNED NOT NULL,
+  `idSemester` bigint(20) UNSIGNED DEFAULT NULL,
+  `idPegawai` bigint(20) UNSIGNED NOT NULL,
   `kkm` varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nilaiTugas` varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nilaiUH` varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -342,6 +438,14 @@ CREATE TABLE `nilai` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `nilai`
+--
+
+INSERT INTO `nilai` (`idNilai`, `idMapel`, `idSiswa`, `idSemester`, `idPegawai`, `kkm`, `nilaiTugas`, `nilaiUH`, `nilaiUTS`, `nilaiUAS`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(8, 1, 44, NULL, 16, '75', '85', '85', '80', '80', NULL, '2021-07-22 01:39:10', '2021-07-22 01:39:10'),
+(9, 12, 57, NULL, 16, '75', '80', '80', '80', '80', NULL, '2021-07-23 16:57:09', '2021-07-23 16:57:09');
 
 -- --------------------------------------------------------
 
@@ -380,11 +484,11 @@ CREATE TABLE `pegawai` (
 --
 
 INSERT INTO `pegawai` (`idPegawai`, `nip`, `namaPegawai`, `jk`, `tmpLahir`, `tglLahir`, `alamat`, `telp`, `status`, `created_at`, `updated_at`) VALUES
-(16, '62737893', 'Bp Horas', 'L', 'Magetan', '1970-01-01', 'magetan', '08538264680', 'Kepala Sekolah', '2021-06-15 23:34:54', '2021-06-30 09:34:32'),
-(22, '62737893', 'Bp Sudarno', 'L', 'Magetan', '1970-01-01', 'parang, magetan', '08538264680', 'Guru', '2021-06-16 22:06:50', '2021-06-16 22:06:50'),
-(29, '62737893', 'Bp Horas', 'L', 'Magetan', '1970-01-01', 'magetan', '08538264680', 'Kepala Sekolah', '2021-07-02 11:05:14', '2021-07-02 11:05:14'),
-(30, '62737893', 'Bp Sudarno', 'L', 'Magetan', '1970-01-01', 'parang, magetan', '08538264680', 'Guru', '2021-07-02 11:05:14', '2021-07-02 11:05:14'),
-(31, '62737893', 'Bp Arianto', 'L', 'Madiun', '1970-03-12', 'parang, magetan', '0835793648', 'Guru', '2021-07-02 13:23:59', '2021-07-02 13:23:59');
+(16, '0128202042', 'Siswoyo, S.Pd', 'L', 'Madiun Raya', '1970-01-01', 'magetan', '08538264680', 'Guru', '2021-06-15 23:34:54', '2021-07-24 00:11:18'),
+(22, '1985335086632', 'Sudarno, S.Pd', 'L', 'Magetan', '1970-01-01', 'parang, magetan', '08538264680', 'Kepala Sekolah', '2021-06-16 22:06:50', '2021-07-11 15:53:53'),
+(31, '19853350866', 'Heri Kustanto, S.Pd', 'L', 'Madiun', '1970-03-12', 'parang, magetan', '0835793648', 'Guru', '2021-07-02 13:23:59', '2021-07-11 15:54:20'),
+(32, '198533508667', 'Sutomo', 'L', 'Madiun', '2021-07-15', 'Magetan', '032794699458', 'Guru', '2021-07-11 08:08:52', '2021-07-11 15:54:48'),
+(33, '1942735840', 'Tutik, S.Pd', 'P', 'Madiun', '1989-01-12', 'Bungkuk', '08538264680', 'Guru', '2021-07-11 15:58:53', '2021-07-11 15:58:53');
 
 -- --------------------------------------------------------
 
@@ -403,13 +507,6 @@ CREATE TABLE `pembayaran` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `pembayaran`
---
-
-INSERT INTO `pembayaran` (`idPembayaran`, `idSiswa`, `idSemester`, `idKelas`, `idBayar`, `tgl`, `jumlahBayar`, `created_at`, `updated_at`) VALUES
-(23, 30, 2, 1, 2, '2021-07-06', 100000, '2021-07-05 10:30:33', '2021-07-05 10:30:33');
 
 -- --------------------------------------------------------
 
@@ -455,9 +552,10 @@ CREATE TABLE `petugastu` (
 --
 
 INSERT INTO `petugastu` (`idTU`, `namaTU`, `jk`, `alamat`, `telp`, `created_at`, `updated_at`) VALUES
-(3, 'Yuliani', 'P', 'Madiun', '08538264680', '2021-07-01 21:36:02', '2021-07-01 21:36:02'),
-(5, 'Arianto', 'L', 'Caruban', '085382646801', '2021-07-02 04:52:17', '2021-07-02 04:52:39'),
-(7, 'Arianto', 'L', 'Plaosan', '08538264680', '2021-07-04 22:27:42', '2021-07-04 22:27:42');
+(3, 'Sutrisno, S.Pd', 'L', 'Magetan', '085382646806', '2021-07-01 21:36:02', '2021-07-23 23:12:12'),
+(5, 'Mega Ambarwati, S.E', 'L', 'Magetan', '085382646801', '2021-07-02 04:52:17', '2021-07-11 15:19:16'),
+(7, 'Sukur Budianto, S.Pd', 'L', 'Plaosan', '08538264680', '2021-07-04 22:27:42', '2021-07-11 15:19:44'),
+(9, 'Sukur Budianto, S.Pd', 'L', 'Bungkuk, Magetan', '08538264680', '2021-07-11 18:56:53', '2021-07-11 18:56:53');
 
 -- --------------------------------------------------------
 
@@ -480,7 +578,8 @@ CREATE TABLE `semester` (
 --
 
 INSERT INTO `semester` (`idSemester`, `tahunAjaran`, `tglMulai`, `tglSelesai`, `keterangan`, `created_at`, `updated_at`) VALUES
-(2, '2021/2022', '2021-06-09', '2022-12-01', 'ganjil', '2021-06-08 21:35:32', '2021-07-01 06:02:39');
+(2, '2021/2022', '2021-06-09', '2022-12-01', 'ganjil', '2021-06-08 21:35:32', '2021-07-23 23:36:15'),
+(5, '2019/2020', '2019-03-01', '2020-09-01', 'ganjil', '2021-07-21 19:56:37', '2021-07-21 19:56:37');
 
 -- --------------------------------------------------------
 
@@ -511,8 +610,17 @@ CREATE TABLE `siswa` (
 --
 
 INSERT INTO `siswa` (`idSiswa`, `idSemester`, `idKelas`, `tahunAngkatan`, `nis`, `namaSiswa`, `alamat`, `jk`, `tmpLahir`, `tglLahir`, `telp`, `namaOrtu`, `status`, `created_at`, `updated_at`) VALUES
-(30, 2, 1, '2021', '1350000774001', 'Indah Puspita Sari', 'Magetan', 'L', 'Madiun', '2000-03-26', '08538264680', '-', 'Siswa', '2021-06-29 23:45:28', '2021-07-05 23:46:29'),
-(33, 2, 1, '2021', '1350000774000', 'Abil', 'parang, magetan', 'L', 'Madiun', '2021-01-02', '08538264680', 'mukeji', 'Siswa', '2021-07-01 23:15:27', '2021-07-01 23:15:27');
+(44, 2, 1, '2021', '2762', 'Vitri Avivahh', 'Ngrombo Bungkuk', 'L', 'Magetan', '2021-07-24', '085138570946', 'Edi Sukamto', 'Siswa', '2021-07-11 14:19:42', '2021-07-23 21:59:07'),
+(46, 2, 4, '2021', '2744', 'Dinda', 'Ngrombo Bungkuk', 'L', 'Magetan', NULL, '085378298764', 'Miswanto', 'Siswa', '2021-07-11 14:24:23', '2021-07-11 15:11:29'),
+(47, 2, 4, '2019', '2704', 'Ananda Mustifa', 'Desa Mategal', 'L', 'Magetan', NULL, '085278253490', 'Jainuri', 'Siswa', '2021-07-11 14:28:41', '2021-07-11 15:11:47'),
+(48, 2, 5, '2019', '2705', 'Angga', 'Desa Sombo', 'L', 'Magetan', NULL, '085724356479', 'Selamet', 'Siswa', '2021-07-11 14:30:33', '2021-07-11 15:12:35'),
+(49, 2, 5, '2019', '2706', 'Bekti', 'Desa Trosono', 'L', 'Magetan', NULL, '085008722313', 'Sukimin', 'Siswa', '2021-07-11 14:32:24', '2021-07-11 15:12:49'),
+(51, 2, 6, '2018', '2665', 'Andri', 'DEsa Trosono', 'L', 'Magetan', NULL, '0835793648', 'Gunawan', 'Siswa', '2021-07-11 14:35:44', '2021-07-11 15:10:22'),
+(52, 2, 7, '2018', '2666', 'Anisa', 'Desa Kediren', 'L', 'Magetan', NULL, '089426734567', 'Jumiran', 'Siswa', '2021-07-11 14:37:16', '2021-07-11 15:10:04'),
+(57, 2, 1, '2018', '1350000774000', 'Indah Puspita Sari', 'Loceret, Nganjuk', 'L', 'Madiun', '2021-07-02', '0835793648', 'Edi Sukamto', 'Siswa', '2021-07-22 10:38:30', '2021-07-22 10:38:30'),
+(58, 5, 6, '2019', '2351', 'Dwi Wulandari', 'Madiun', 'P', 'Madiun', '2021-07-02', '08538264680', 'Suyatno', 'Siswa', '2021-07-23 15:50:42', '2021-07-23 15:50:42'),
+(59, 5, 6, '2018', '2356', 'Hanisyah', 'Madiun', 'P', 'Madiun', '2021-07-24', '081336389791', 'Untoro', 'Alumni', '2021-07-23 22:03:14', '2021-07-23 22:03:14'),
+(60, 5, 1, '2019', '2359', 'Muhammad Aziz', 'Madiun', 'L', 'Madiun', '2021-07-01', '0835793648', 'Edi Sukamto', 'Siswa', '2021-07-24 03:43:38', '2021-07-24 03:43:38');
 
 -- --------------------------------------------------------
 
@@ -603,10 +711,14 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`idUsers`, `idPegawai`, `idKepsek`, `idSiswa`, `username`, `password`, `level`, `remember_token`, `created_at`, `updated_at`) VALUES
-(4, NULL, NULL, NULL, 'Admin', '$2y$10$pl0FWn3H2JAbFGg3/L4i8uzEl0JdXC6Gd7sh84Iui7LUYUIKf6xfa', 'Admin', NULL, '2021-06-14 05:22:17', '2021-07-02 04:59:11'),
-(11, 16, NULL, NULL, 'Horas', '$2y$10$UuVXoKd5rz4/moznS3iWj.cP5flZRXKw2DqAg2pgG9lpdXrtl2WlW', 'Pegawai', NULL, '2021-06-14 05:22:17', '2021-06-07 05:22:17'),
+(4, NULL, NULL, NULL, 'Admin', '$2y$10$5PHEKgGnpVpfHfM2kNWIT.DWGZlfbB9rsdyuvratGvCqtSFFtSRom', 'Admin', NULL, '2021-06-14 05:22:17', '2021-07-23 16:32:39'),
+(11, 16, NULL, NULL, 'Siswoyo', '$2y$10$UuVXoKd5rz4/moznS3iWj.cP5flZRXKw2DqAg2pgG9lpdXrtl2WlW', 'Pegawai', NULL, '2021-06-14 05:22:17', '2021-06-07 05:22:17'),
 (13, NULL, 1, NULL, 'sudarno', '$2y$10$ejN2CGmEtJtxnsF9Gt1FFeKjltGThgQxJa.h1Oe5602KX.s5Y6RzS', 'Kepsek', NULL, '2021-06-01 04:36:44', '2021-06-01 04:36:44'),
-(14, 31, NULL, NULL, 'Arianto', '$2y$10$UuVXoKd5rz4/moznS3iWj.cP5flZRXKw2DqAg2pgG9lpdXrtl2WlW', 'Pegawai', NULL, '2021-06-14 05:22:17', '2021-06-24 13:03:29');
+(14, 31, NULL, NULL, 'Arianto', '$2y$10$UuVXoKd5rz4/moznS3iWj.cP5flZRXKw2DqAg2pgG9lpdXrtl2WlW', 'Pegawai', NULL, '2021-06-14 05:22:17', '2021-06-24 13:03:29'),
+(16, 16, NULL, NULL, 'siswoyo', '$2y$10$UuVXoKd5rz4/moznS3iWj.cP5flZRXKw2DqAg2pgG9lpdXrtl2WlW', 'Pegawai', NULL, '2021-06-14 05:22:17', '2021-06-24 13:03:29'),
+(17, 33, NULL, NULL, 'tutik', 'guru', 'Pegawai', NULL, '2021-06-14 05:22:17', '2021-06-07 05:22:17'),
+(18, 22, NULL, NULL, 'sudarno', '$2y$10$pl0FWn3H2JAbFGg3/L4i8uzEl0JdXC6Gd7sh84Iui7LUYUIKf6xfa', 'Pegawai', NULL, '2021-06-14 05:22:17', '2021-06-24 13:03:29'),
+(20, NULL, NULL, 57, 'indah', '$2y$10$ejN2CGmEtJtxnsF9Gt1FFeKjltGThgQxJa.h1Oe5602KX.s5Y6RzS', 'Siswa', NULL, '2021-06-14 05:22:17', '2021-07-03 02:30:42');
 
 --
 -- Indexes for dumped tables
@@ -665,6 +777,15 @@ ALTER TABLE `info`
   ADD PRIMARY KEY (`idInfo`);
 
 --
+-- Indexes for table `iuran`
+--
+ALTER TABLE `iuran`
+  ADD PRIMARY KEY (`idIuran`),
+  ADD KEY `iuran_idsemester_foreign` (`idSemester`),
+  ADD KEY `iuran_idsiswa_foreign` (`idSiswa`),
+  ADD KEY `iuran_idkelas_foreign` (`idKelas`);
+
+--
 -- Indexes for table `jadwal`
 --
 ALTER TABLE `jadwal`
@@ -686,6 +807,15 @@ ALTER TABLE `kelas`
 --
 ALTER TABLE `kepsek`
   ADD PRIMARY KEY (`idKepsek`);
+
+--
+-- Indexes for table `lks`
+--
+ALTER TABLE `lks`
+  ADD PRIMARY KEY (`idLks`),
+  ADD KEY `lks_idsemester_foreign` (`idSemester`),
+  ADD KEY `lks_idsiswa_foreign` (`idSiswa`),
+  ADD KEY `lks_idkelas_foreign` (`idKelas`);
 
 --
 -- Indexes for table `mapel`
@@ -713,7 +843,8 @@ ALTER TABLE `nilai`
   ADD PRIMARY KEY (`idNilai`),
   ADD KEY `nilai_idmapel_foreign` (`idMapel`),
   ADD KEY `nilai_idsiswa_foreign` (`idSiswa`),
-  ADD KEY `nilai_idsemester_foreign` (`idSemester`);
+  ADD KEY `nilai_idsemester_foreign` (`idSemester`),
+  ADD KEY `idPegawai` (`idPegawai`);
 
 --
 -- Indexes for table `password_resets`
@@ -813,13 +944,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `absensi`
 --
 ALTER TABLE `absensi`
-  MODIFY `idAbsensi` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `idAbsensi` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `absensi_detail`
 --
 ALTER TABLE `absensi_detail`
-  MODIFY `idDetail` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `idDetail` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `bank_soal`
@@ -849,19 +980,25 @@ ALTER TABLE `historisiswa`
 -- AUTO_INCREMENT for table `info`
 --
 ALTER TABLE `info`
-  MODIFY `idInfo` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idInfo` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `iuran`
+--
+ALTER TABLE `iuran`
+  MODIFY `idIuran` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `jadwal`
 --
 ALTER TABLE `jadwal`
-  MODIFY `idJadwal` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `idJadwal` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `kelas`
 --
 ALTER TABLE `kelas`
-  MODIFY `idKelas` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `idKelas` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `kepsek`
@@ -870,10 +1007,16 @@ ALTER TABLE `kepsek`
   MODIFY `idKepsek` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `lks`
+--
+ALTER TABLE `lks`
+  MODIFY `idLks` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `mapel`
 --
 ALTER TABLE `mapel`
-  MODIFY `idMapel` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `idMapel` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `materi`
@@ -885,25 +1028,25 @@ ALTER TABLE `materi`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `nilai`
 --
 ALTER TABLE `nilai`
-  MODIFY `idNilai` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `idNilai` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `pegawai`
 --
 ALTER TABLE `pegawai`
-  MODIFY `idPegawai` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `idPegawai` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `idPembayaran` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `idPembayaran` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `pembelajaran`
@@ -915,19 +1058,19 @@ ALTER TABLE `pembelajaran`
 -- AUTO_INCREMENT for table `petugastu`
 --
 ALTER TABLE `petugastu`
-  MODIFY `idTU` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `idTU` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `semester`
 --
 ALTER TABLE `semester`
-  MODIFY `idSemester` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idSemester` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `siswa`
 --
 ALTER TABLE `siswa`
-  MODIFY `idSiswa` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `idSiswa` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT for table `submisi`
@@ -957,7 +1100,7 @@ ALTER TABLE `ujian`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `idUsers` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `idUsers` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Constraints for dumped tables
@@ -997,6 +1140,14 @@ ALTER TABLE `historisiswa`
   ADD CONSTRAINT `historisiswa_idsiswa_foreign` FOREIGN KEY (`idSiswa`) REFERENCES `siswa` (`idSiswa`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Constraints for table `iuran`
+--
+ALTER TABLE `iuran`
+  ADD CONSTRAINT `iuran_idkelas_foreign` FOREIGN KEY (`idKelas`) REFERENCES `kelas` (`idKelas`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `iuran_idsemester_foreign` FOREIGN KEY (`idSemester`) REFERENCES `semester` (`idSemester`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `iuran_idsiswa_foreign` FOREIGN KEY (`idSiswa`) REFERENCES `siswa` (`idSiswa`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `jadwal`
 --
 ALTER TABLE `jadwal`
@@ -1004,6 +1155,14 @@ ALTER TABLE `jadwal`
   ADD CONSTRAINT `jadwal_ibfk_2` FOREIGN KEY (`idKelas`) REFERENCES `kelas` (`idKelas`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `jadwal_ibfk_3` FOREIGN KEY (`idSemester`) REFERENCES `semester` (`idSemester`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `jadwal_ibfk_4` FOREIGN KEY (`idPegawai`) REFERENCES `pegawai` (`idPegawai`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `lks`
+--
+ALTER TABLE `lks`
+  ADD CONSTRAINT `lks_idkelas_foreign` FOREIGN KEY (`idKelas`) REFERENCES `kelas` (`idKelas`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `lks_idsemester_foreign` FOREIGN KEY (`idSemester`) REFERENCES `semester` (`idSemester`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `lks_idsiswa_foreign` FOREIGN KEY (`idSiswa`) REFERENCES `siswa` (`idSiswa`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `materi`
@@ -1015,6 +1174,7 @@ ALTER TABLE `materi`
 -- Constraints for table `nilai`
 --
 ALTER TABLE `nilai`
+  ADD CONSTRAINT `nilai_ibfk_1` FOREIGN KEY (`idPegawai`) REFERENCES `pegawai` (`idPegawai`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `nilai_idmapel_foreign` FOREIGN KEY (`idMapel`) REFERENCES `mapel` (`idMapel`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `nilai_idsemester_foreign` FOREIGN KEY (`idSemester`) REFERENCES `semester` (`idSemester`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `nilai_idsiswa_foreign` FOREIGN KEY (`idSiswa`) REFERENCES `siswa` (`idSiswa`) ON DELETE CASCADE ON UPDATE CASCADE;

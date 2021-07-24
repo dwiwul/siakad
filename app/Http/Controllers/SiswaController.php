@@ -55,6 +55,7 @@ class SiswaController extends Controller
         $siswa = Siswa::all();
         $kelas = Kelas::all();
         $semester = Semester::all();
+        // dd($siswa);
         return view('admin/siswa/index', compact('siswa', 'kelas', 'semester'));
     }
 
@@ -101,6 +102,7 @@ class SiswaController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
         toast('Data Berhasil Ditambahkan!','success');
         $request->validate([
             'nis' => 'required',
@@ -150,11 +152,14 @@ class SiswaController extends Controller
      */
     public function edit($idSiswa)
     {
-        $siswa = Siswa::all();
+        // $siswa = Siswa::all();
         $kelas = Kelas::all();
         $semester = Semester::all();
-        $siswa = Siswa::where('idSiswa', $idSiswa)->first();
-        return view('admin/siswa/edit', compact('kelas', 'semester', 'siswa', 'idSiswa'));
+        // $siswa = Siswa::where('idSiswa', $idSiswa)->first();
+        $siswa = Siswa::findOrFail($idSiswa);
+        dd($siswa);
+        // return view('admin/siswa/edit', compact('kelas', 'semester', 'siswa', 'idSiswa'));
+
     }
 
     /**
@@ -166,6 +171,7 @@ class SiswaController extends Controller
      */
     public function update($idSiswa, Request $request)
     {
+        // dd($request);
         Alert::success('Data Berhasil Diubah', 'Success');
        Siswa::where('idSiswa', $idSiswa)
         ->update([

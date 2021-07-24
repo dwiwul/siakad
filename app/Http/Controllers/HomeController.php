@@ -37,7 +37,11 @@ class HomeController extends Controller
             if (session('level') == "Admin") {
                 return redirect('admin/beranda');
         } else if (session('level') == "Pegawai") {
-             return redirect('guru/beranda');
+            $data = User::findOrFail(Auth::user())->load(['pegawai', 'pegawai.mapel'])->first();
+            return view('guru/beranda', compact('data'));
+            // Return json_encode($data);
+            // dd(Auth::user());
+            //  return redirect('guru/beranda');
             //     $kelas = DB::table('kelas')
             // ->join('jadwal', 'jadwal.idKelas', '=', 'kelas.idKelas')
             // ->join('mapel', 'jadwal.idMapel', '=', 'mapel.idMapel')

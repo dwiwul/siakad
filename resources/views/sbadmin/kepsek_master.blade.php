@@ -48,7 +48,7 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item {{Request::is('kepsek/beranda') ? 'active' : ''}}">
                 <a class="nav-link" href="{{url('kepsek/beranda')}}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Beranda</span></a>
@@ -58,22 +58,26 @@
             <hr class="sidebar-divider">
 
             <!-- Heading -->
-            <li class="nav-item">
+            <li class="nav-item {{Request::is('kepsek/pegawai/index') ? 'active' : ''}} |
+                                {{Request::is('kepsek/users/index') ? 'active' : ''}} |
+                                {{Request::is('kepsek/lihat-TU') ? 'active' : ''}}">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMasterdata"
                     aria-expanded="true" aria-controls="collapseMasterdata">
                     <i class="fas fa-fw fa-plus"></i>
                     <span>Masterdata</span>
                 </a>
-                <div id="collapseMasterdata" class="collapse" aria-labelledby="headingMasterdata" data-parent="#accordionSidebar">
+                <div id="collapseMasterdata" class="collapse {{Request::is('kepsek/pegawai/index') ? 'show' : ''}} |
+                                                            {{Request::is('kepsek/users/index') ? 'show' : ''}} |
+                                                            {{Request::is('kepsek/lihat-TU') ? 'show' : ''}}" aria-labelledby="headingMasterdata" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{url('kepsek/pegawai/index')}}">Pegawai</a>
-                        <a class="collapse-item" href="{{url('kepsek/users/index')}}">User</a>
-                        <a class="collapse-item" href="{{url('kepsek/lihat-TU')}}">Petugas TU</a>
+                        <a class="collapse-item {{Request::is('kepsek/pegawai/index') ? 'active' : ''}}" id="a-nav-siswa" href="{{url('kepsek/pegawai/index')}}">Pegawai</a>
+                        <a class="collapse-item {{Request::is('kepsek/users/index') ? 'active' : ''}}" id="a-nav-siswa" href="{{url('kepsek/users/index')}}">User</a>
+                        <a class="collapse-item {{Request::is('kepsek/lihat-TU') ? 'active' : ''}}" id="a-nav-siswa" href="{{url('kepsek/lihat-TU')}}">Petugas TU</a>
                     </div>
                 </div>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item {{Request::is('kepsek/lihat-info') ? 'active' : ''}}">
                 <a class="nav-link" href="{{url('kepsek/lihat-info')}}">
                     <i class="fas fa-fw fa-info"></i>
                     <span>Informasi</span></a>

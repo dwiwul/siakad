@@ -80,8 +80,10 @@
                                     <td>{{$row->jenisBayar}}</td>
                                     <td>Rp {{number_format($row->jumlahBayar, 0)}}</td>
                                     <td>
-                                        <a class="btn btn-outline-warning" href="{{url('admin/lks/edit/'.$row->idLks)}}">
-                                            <i class="fa fa-edit"></i></a>
+                                        {{-- <a class="btn btn-outline-warning" href="{{url('admin/lks/edit/'.$row->idLks)}}">
+                                            <i class="fa fa-edit"></i></a> --}}
+                                        <button type="button" href="{{ url('admin/lks/edit/'.$row->idLks)}}" class="btn btn-outline-warning" data-toggle="modal" data-target="#editModal-{{$row->idLks}}">
+                                                <i class="fas fa-edit"></i></button>
                                         <form method="POST" class="d-inline" action="{{url('admin/lks/destroy/'.$row->idLks)}}">
                                                 {{ csrf_field() }}
                                                 @method('delete')
@@ -179,6 +181,88 @@
                                 </div>
                             </div>
                         </div>
+
+                        @foreach ($lks as $row)
+                        <div class="modal fade" id="editModal-{{$row->idLks}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="editModal">Ubah Data</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    {{-- url('admin/siswa/.$idSiswa --}}
+                                    <form action="{{ url('admin/lks/'.$row->idLks)}}" method="post" id="editModal" enctype="multipart/form-data">
+                                        {{ method_field('PUT') }}
+                                        {{ @csrf_field() }}
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="idSemester">Tahun</label>
+                                                            <select id="idSemester" name="idSemester" class="form-control @error('idSemester') is-invalid @enderror select2bs4">
+
+                                                                @foreach($semester as $data)
+                                                                    <option value="{{ $data->idSemester }}">{{ $data->tahunAjaran }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="idKelas">Kelas</label>
+                                                            <select id="idKelas" name="idKelas" class="form-control @error('idKelas') is-invalid @enderror select2bs4">
+
+                                                                @foreach($kelas as $data)
+                                                                    <option value="{{ $data->idKelas }}">{{ $data->namaKelas }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="idSiswa">Siswa</label>
+                                                            <select id="idSiswa" name="idSiswa" class="form-control @error('idSiswa') is-invalid @enderror select2bs4">
+                                                                @foreach($siswa as $data)
+                                                                    <option value="{{ $data->idSiswa }}">{{ $data->namaSiswa }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="tgl">Tanggal Lahir</label>
+                                                            <input type="date" class="form-control" id="tgl" name="tgl" value="{{$row->tgl}}" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="jenisBayar">Pembayaran</label>
+                                                            <input id="jenisBayar" name="jenisBayar" class="form-control @error('jenisBayar') is-invalid @enderror select2bs4" value="{{$row->jenisBayar}}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="jumlahBayar">Jumlah Bayar</label>
+                                                            <input id="jumlahBayar" name="jumlahBayar" class="form-control @error('jumlahBayar') is-invalid @enderror select2bs4" value="{{$row->jumlahBayar}}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+
+
                     </table>
                 </div>
             </div>

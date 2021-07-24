@@ -146,6 +146,17 @@ class PegawaiController extends Controller
         return view('guru/lihat-info', compact('info'));
     }
 
+    public function updateInfo(Request $request, $idInfo)
+    {
+        toast('Data Berhasil Diubah!','success');
+        Info::where('idInfo', $idInfo)
+        ->update([
+            'tgl' => $request->tgl,
+            'pengumuman' => $request->pengumuman,
+        ]);
+        return redirect('guru/lihat-info');
+    }
+
     // public function beranda()
     // {
     //     return view('guru/beranda');

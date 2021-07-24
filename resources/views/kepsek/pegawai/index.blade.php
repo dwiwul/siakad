@@ -47,7 +47,9 @@
                                     <td>{{$row->status}}</td>
                                     <td>
                                         <a href="{{url('/kepsek/pegawai/show/'.$row->idPegawai)}}" class="btn btn-outline-primary"><i class="fas fa-search"></i></i></a>
-                                        <a class="btn btn-outline-warning" href="{{url('kepsek/pegawai/edit/'.$row->idPegawai)}}"><i class="fa fa-edit"></i></a>
+                                        <button type="button" href="{{ url('kepsek/pegawai/edit/'.$row->idPegawai)}}" class="btn btn-outline-warning" data-toggle="modal" data-target="#editModal-{{$row->idPegawai}}">
+                                            <i class="fas fa-edit"></i></button>
+                                        {{-- <a class="btn btn-outline-warning" href="{{url('kepsek/pegawai/edit/'.$row->idPegawai)}}"><i class="fa fa-edit"></i></a> --}}
                                         <form method="POST" class="d-inline" action="{{url('kepsek/pegawai/destroy/'.$row->idPegawai)}}">
                                             {{ csrf_field() }}
                                             @method('delete')
@@ -199,6 +201,90 @@
                     </div>
                 </div>
             </div>
+
+            @foreach ($pegawai as $pgw)
+            <div class="modal fade" id="editModal-{{$pgw->idPegawai}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editModal">Ubah Data</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        {{-- url('admin/sipgw/.$idSiswa --}}
+                        <form action="{{ url('kepsek/pegawai/'.$pgw->idPegawai)}}" method="post" id="editModal" enctype="multipart/form-data">
+                            {{ method_field('PUT') }}
+                            {{ @csrf_field() }}
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="nip">NIP</label>
+                                                <input id="nip" name="nip" class="form-control @error('nip') is-invalid @enderror select2bs4" value="{{ $pgw->nip }}">
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="namaPegawai">Nama Pegawai</label>
+                                                <input id="namaPegawai" name="namaPegawai" class="form-control @error('namaPegawai') is-invalid @enderror select2bs4" value="{{$pgw->namaPegawai}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="jk">Jenis Kelamin</label>
+                                                <select class="form-control" name="jk" id="jk" value="{{old('jk')}}">
+                                                    <option>--Pilihan--</option>
+                                                    <option value="L" {{ $pgw->jk == 'L' ? 'selected' : '' }}>Laki-laki</option>
+                                                    <option value="P" {{ $pgw->jk == 'P' ? 'selected' : '' }}>Perempuan</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="tmpLahir">Tempat Lahir</label>
+                                                <input id="tmpLahir" name="tmpLahir" class="form-control @error('tmpLahir') is-invalid @enderror select2bs4" value="{{$pgw->tmpLahir}}">
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="tglLahir">Tanggal Lahir</label>
+                                                <input type="date" class="form-control" id="tglLahir" name="tglLahir" value="{{$pgw->tglLahir}}" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="alamat">Alamat</label>
+                                                <input id="alamat" name="alamat" class="form-control @error('alamat') is-invalid @enderror select2bs4" value="{{$pgw->alamat}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="telp">Telp</label>
+                                                <input id="telp" name="telp" class="form-control @error('telp') is-invalid @enderror select2bs4" value="{{$pgw->telp}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="status">Status</label>
+                                                <input id="status" name="status" class="form-control @error('status') is-invalid @enderror select2bs4" value="{{$pgw->status}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            @endforeach
 
         </div>
         @include('sweetalert::alert')

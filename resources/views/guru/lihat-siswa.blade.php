@@ -33,14 +33,14 @@
                                 <th>No</th>
                                 <th>Tahun</th>
                                 <th>Kelas</th>
-                                <th>NISN</th>
+                                {{-- <th>NISN</th> --}}
                                 <th>Nama Siswa</th>
-                                <th>Alamat</th>
+                                {{-- <th>Alamat</th> --}}
                                 <th>Jenis Kelamin</th>
                                 <th>Tempat, Tanggal Lahir</th>
                                 <th>Telp</th>
-                                <th>Nama Ortu</th>
-                                <th>Status</th>
+                                {{-- <th>Nama Ortu</th> --}}
+                                {{-- <th>Status</th> --}}
                             </tr>
                         </thead>
                         <tbody>
@@ -49,14 +49,14 @@
                                     <td>{{$loop->iteration}}</td>
                                     <td>{{$row->semester->tahunAjaran }}</td>
                                     <td>{{$row->kelas->namaKelas }}</td>
-                                    <td>{{$row->nis}}</td>
+                                    {{-- <td>{{$row->nis}}</td> --}}
                                     <td>{{$row->namaSiswa}}</td>
-                                    <td>{{$row->alamat}}</td>
+                                    {{-- <td>{{$row->alamat}}</td> --}}
                                     <td>{{$row->jk}}</td>
                                     <td>{{$row->tmpLahir}},{{$row->tglLahir}} </td>
                                     <td>{{$row->telp}}</td>
-                                    <td>{{$row->namaOrtu}}</td>
-                                    <td>{{$row->status}}</td>
+                                    {{-- <td>{{$row->namaOrtu}}</td> --}}
+                                    {{-- <td>{{$row->status}}</td> --}}
                                 </tr>
                             @endforeach
                         </tbody>

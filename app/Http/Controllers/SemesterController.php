@@ -7,6 +7,7 @@ use App\Semester;
 
 use Illumninate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class SemesterController extends Controller
 {
@@ -40,6 +41,7 @@ class SemesterController extends Controller
      */
     public function store(Request $request)
     {
+        toast('Data Berhasil Ditambahkan!','success');
         $semester = new Semester();
         $semester->tahunAjaran = $request->get("tahunAjaran");
         $semester->tglMulai = $request->get("tglMulai");
@@ -84,6 +86,7 @@ class SemesterController extends Controller
      */
     public function update(Request $request, $id)
     {
+        Alert::success('Data Berhasil Diubah', 'Success');
         Semester::where('idSemester', $id)
         ->update([
             'tahunAjaran' => $request->tahunAjaran,

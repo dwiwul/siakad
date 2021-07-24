@@ -14,4 +14,9 @@ class Pegawai extends Model
         return $this->hasOne('App\User', 'idUsers', 'idUsers');
     }
 
+    public function mapel()
+    {
+        return $this->hasMany('App\Mapel', 'idPegawai', 'idPegawai');
+    }
+
 }

@@ -9,7 +9,7 @@ class Mapel extends Model
 {
     protected $table = 'mapel';
     protected $primaryKey = 'idMapel';
-    protected $fillable = ['namaMapel'];
+    protected $fillable = ['idPegawai', 'namaMapel'];
 
 
     public function nilai()
@@ -20,5 +20,10 @@ class Mapel extends Model
     public function jadwal()
     {
         return $this->hasMany('App\Jadwal', 'idJadwal', 'idJadwal');
+    }
+
+    public function pegawai()
+    {
+        return $this->belongsTo('App\Pegawai', 'idPegawai', 'idPegawai');
     }
 }

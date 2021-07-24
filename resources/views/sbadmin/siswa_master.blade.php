@@ -46,7 +46,7 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item {{Request::is('siswa/beranda') ? 'active' : ''}}">
                 <a class="nav-link" href="{{url('siswa/beranda')}}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Beranda</span></a>
@@ -57,19 +57,19 @@
 
             <!-- Heading -->
 
-            <li class="nav-item">
+            <li class="nav-item {{Request::is('siswa/jadwal/lihat-jadwal') ? 'active' : ''}}">
                 <a class="nav-link" href="{{url ('siswa/jadwal/lihat-jadwal')}}">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Jadwal</span></a>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item{{Request::is('siswa/lihat-nilai') ? 'active' : ''}}">
                 <a class="nav-link" href="{{url ('siswa/lihat-nilai')}}">
                     <i class="fas fa-fw fa-file"></i>
                     <span>Nilai</span></a>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item {{Request::is('siswa/lihat-pengumuman') ? 'active' : ''}}">
                 <a class="nav-link" href="{{url('siswa/lihat-pengumuman')}}">
                     <i class="fas fa-fw fa-info"></i>
                     <span>Informasi</span></a>

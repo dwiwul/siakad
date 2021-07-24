@@ -11,6 +11,7 @@ use App\Siswa;
 use App\Jadwal;
 use App\Mapel;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class MapelController extends Controller
 {
@@ -102,6 +103,7 @@ class MapelController extends Controller
      */
     public function update(Request $request, $idMapel)
     {
+        Alert::success('Data Berhasil Diubah', 'Success');
         $mapel = Mapel::findOrFail($idMapel);
         $mapel->namaMapel = $request->get("namaMapel");
         $mapel->save();
