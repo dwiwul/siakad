@@ -25,12 +25,6 @@
     <link href="{{ asset('vendor/sbadmin/datatable/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset ('vendor/sbadmin/https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css')}}" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('vendor/sbadmin/https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.css') }}">
-
-
-
-
-
-
 </head>
 
 <body id="page-top">
@@ -55,7 +49,7 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item {{Request::is('admin/beranda') ? 'active' : ''}}">
                 <a class="nav-link" href="{{ url ('admin/beranda')}}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Beranda</span></a>
@@ -67,53 +61,67 @@
             <!-- Heading -->
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item" id="nav-master">
+            <li class="nav-item {{Request::is('admin/siswa/index') ? 'active' : ''}} |
+                                {{Request::is('admin/petugasTU/index') ? 'active' : ''}} |
+                                {{Request::is('admin/kelas/index') ? 'active' : ''}} |
+                                {{Request::is('admin/mapel/index') ? 'active' : ''}}" id="nav-master">
                 <a class="nav-link" id="a-master" href="#" data-toggle="collapse" data-target="#collapseMasterdata"
                     aria-expanded="true" aria-controls="collapseMasterdata">
                     <i class="fas fa-fw fa-plus"></i>
                     <span>Master Data</span>
                 </a>
-                <div id="collapseMasterdata" class="collapse" aria-labelledby="headingMasterdata"
+                <div id="collapseMasterdata" class="collapse {{Request::is('admin/siswa/index') ? 'show' : ''}} |
+                                                            {{Request::is('admin/petugasTU/index') ? 'show' : ''}} |
+                                                            {{Request::is('admin/kelas/index') ? 'show' : ''}} |
+                                                            {{Request::is('admin/mapel/index') ? 'show' : ''}}" aria-labelledby="headingMasterdata"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" id="a-nav-siswa" href="{{url('admin/siswa/index')}}">Siswa</a>
-                        <a class="collapse-item" id="a-nav-tu" href="{{url('admin/petugasTU/index')}}">Petugas TU</a>
-                        <a class="collapse-item" id="a-nav-kelas" href="{{url('admin/kelas/index')}}">Kelas</a>
-                        <a class="collapse-item" id="a-nav-mapel" href="{{url('admin/mapel/index')}}">Mata Pelajaran</a>
+                        <a class="collapse-item {{Request::is('admin/siswa/index') ? 'active' : ''}}" id="a-nav-siswa" href="{{url('admin/siswa/index')}}">Siswa</a>
+                        <a class="collapse-item {{Request::is('admin/petugasTU/index') ? 'active' : ''}}" id="a-nav-tu" href="{{url('admin/petugasTU/index')}}">Petugas TU</a>
+                        <a class="collapse-item {{Request::is('admin/kelas/index') ? 'active' : ''}}" id="a-nav-kelas" href="{{url('admin/kelas/index')}}">Kelas</a>
+                        <a class="collapse-item {{Request::is('admin/mapel/index') ? 'active' : ''}}" id="a-nav-mapel" href="{{url('admin/mapel/index')}}">Mata Pelajaran</a>
                     </div>
                 </div>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePembelajaran"
+                <a class="nav-link {{Request::is('admin/semester/index') ? 'active' : ''}} |
+                                    {{Request::is('admin/jadwal/pilihKelas') ? 'active' : ''}} |
+                                    {{Request::is('admin/info/index') ? 'active' : ''}} |
+                                    {{Request::is('admin/raport/kelas') ? 'active' : ''}}" href="#" data-toggle="collapse" data-target="#collapsePembelajaran"
                     aria-expanded="true" aria-controls="collapsePembelajaran">
                     <i class="fas fa-fw fa-book"></i>
                     <span>Pembelajaran</span>
                 </a>
-                <div id="collapsePembelajaran" class="collapse" aria-labelledby="headingPembelajaran"
+                <div id="collapsePembelajaran" class="collapse {{Request::is('admin/semester/index') ? 'show' : ''}} |
+                                                                {{Request::is('admin/jadwal/pilihKelas') ? 'show' : ''}} |
+                                                                {{Request::is('admin/info/index') ? 'show' : ''}} |
+                                                                {{Request::is('admin/raport/kelas') ? 'show' : ''}}" aria-labelledby="headingPembelajaran"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{url('admin/semester/index')}}">Periode</a>
+                        <a class="collapse-item {{Request::is('admin/semester/index') ? 'active' : ''}}" href="{{url('admin/semester/index')}}">Periode</a>
                         {{-- <a class="collapse-item" href="{{url('admin/histori/index-histori')}}">Kelas Siswa</a> --}}
                         {{-- <a class="collapse-item" href="{{url('admin/jadwal/index')}}">Jadwal</a> --}}
-                        <a class="collapse-item" href="{{url('admin/jadwal/pilihKelas')}}">Jadwal</a>
-                        <a class="collapse-item" href="{{url('admin/info/index')}}">Pengumuman</a>
-                        <a class="collapse-item" href="{{url('admin/raport/kelas')}}">Raport</a>
+                        <a class="collapse-item {{Request::is('admin/jadwal/pilihKelas') ? 'active' : ''}}" href="{{url('admin/jadwal/pilihKelas')}}">Jadwal</a>
+                        <a class="collapse-item {{Request::is('admin/info/index') ? 'active' : ''}}" href="{{url('admin/info/index')}}">Pengumuman</a>
+                        <a class="collapse-item {{Request::is('admin/raport/kelas') ? 'active' : ''}}" href="{{url('admin/raport/kelas')}}">Raport</a>
                     </div>
                 </div>
             </li>
 
 
-            <li class="nav-item">
+            <li class="nav-item {{Request::is('admin/lks/index') ? 'active' : ''}} |
+                                {{Request::is('admin/iuran/index') ? 'active' : ''}}">
                 <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePembayaran"
                     aria-expanded="true" aria-controls="collapsePembayaran">
                     <i class="fas fa-fw fa-credit-card"></i>
                     <span>Pembayaran</span>
                 </a>
-                <div id="collapsePembayaran" class="collapse" aria-labelledby="headingPembayaran" data-parent="#accordionSidebar">
+                <div id="collapsePembayaran" class="collapse {{Request::is('admin/lks/index') ? 'show' : ''}} |
+                {{Request::is('admin/iuran/index') ? 'show' : ''}}" aria-labelledby="headingPembayaran" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{url('admin/lks/index')}}">LKS</a>
-                        <a class="collapse-item" href="{{url('admin/iuran/index')}}">Iuran</a>
+                        <a class="collapse-item {{Request::is('admin/lks/index') ? 'active' : ''}}" href="{{url('admin/lks/index')}}">LKS</a>
+                        <a class="collapse-item {{Request::is('admin/iuran/index') ? 'active' : ''}}" href="{{url('admin/iuran/index')}}">Iuran</a>
                     </div>
                 </div>
             </li>

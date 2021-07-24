@@ -37,8 +37,9 @@
                                     <td>{{$row->alamat}}</td>
                                     <td>{{$row->telp}}</td>
                                     <td>
-                                        <a class="btn btn-outline-warning" href="{{url('admin/petugasTU/edit/'.$row->idTU)}}"><i class="fa fa-edit"></i></a>
-
+                                        {{-- <a class="btn btn-outline-warning" href="{{url('admin/petugasTU/edit/'.$row->idTU)}}"><i class="fa fa-edit"></i></a> --}}
+                                        <button type="button" href="{{ url('admin/siswa/edit/'.$row->idTU)}}" class="btn btn-outline-warning" data-toggle="modal" data-target="#editModal-{{$row->idTU}}">
+                                            <i class="fas fa-edit"></i></button>
                                         <form method="POST" class="d-inline"
                                             action="{{url('admin/petugasTU/destroy/'.$row->idTU)}}">
                                             {{ csrf_field() }}
@@ -117,6 +118,65 @@
                     </div>
                 </div>
             </div>
+
+            @foreach ($petugastu as $tu)
+            <div class="modal fade" id="editModal-{{$tu->idTU}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editModal">Ubah Data</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        {{-- url('admin/siswa/.$idSiswa --}}
+                        <form action="{{ url('admin/petugasTU/'.$tu->idTU)}}" method="post" id="editModal" enctype="multipart/form-data">
+                            {{ method_field('PUT') }}
+                            {{ @csrf_field() }}
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="namaTU">Petugas TU</label>
+                                                <input id="namaTU" name="namaTU" class="form-control @error('namaTU') is-invalid @enderror select2bs4" value="{{$tu->namaTU}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="jk">Jenis Kelamin</label>
+                                                <select class="form-control" name="jk" id="jk" value="{{old('jk')}}">
+                                                    <option>--Pilihan--</option>
+                                                    <option value="L" {{ $tu->jk == 'L' ? 'selected' : '' }}>Laki-laki</option>
+                                                    <option value="P" {{ $tu->jk == 'P' ? 'selected' : '' }}>Perempuan</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="alamat">Alamat</label>
+                                                <input id="alamat" name="alamat" class="form-control @error('alamat') is-invalid @enderror select2bs4" value="{{$tu->alamat}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="telp">Telp</label>
+                                                <input id="telp" name="telp" class="form-control @error('telp') is-invalid @enderror select2bs4" value="{{$tu->telp}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+
         </div>
         @include('sweetalert::alert')
     </div>

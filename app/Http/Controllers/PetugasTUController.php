@@ -67,7 +67,7 @@ class PetugasTUController extends Controller
             'alamat' => $request->alamat,
             'telp' => $request->telp,
         ]);
-        return redirect('admin/petugasTU/index')->with(['success' => 'Data Berhasil Ditambahkan']);
+        return redirect('admin/petugasTU/index');
     }
 
     public function show($id)

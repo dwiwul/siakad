@@ -9,6 +9,7 @@ use App\Jadwal;
 use App\Siswa;
 use Illumninate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class KelasController extends Controller
 {
@@ -84,6 +85,7 @@ class KelasController extends Controller
      */
     public function update(Request $request, $id)
     {
+        Alert::success('Data Berhasil Diubah', 'Success');
         Kelas::where('idKelas', $id)
         ->update([
             'namaKelas' => $request->namaKelas,

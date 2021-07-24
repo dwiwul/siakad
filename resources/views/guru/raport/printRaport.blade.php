@@ -22,7 +22,7 @@
 
     </style>
     <center>
-        <h5><b>RAPORT</b></h5>
+        <h5><b>RAPORT MTs Roudlotul Ulum Parang</b></h5>
     </center>
     <p style="text-align:left;font-size: 12px;">
         Nama : {{ $siswa->namaSiswa }}
@@ -42,9 +42,18 @@
                 <th  style="text-align:center; font-size: 12px;" rowspan="2">No</th>
                 <th  style="text-align:center; font-size: 12px;" rowspan="2">Mata Pelajaran</th>
                 <th  style="text-align:center; font-size: 12px;" rowspan="2">KKM</th>
+                <th  style="text-align:center; font-size: 12px;" colspan="2">Pengetahuan</th>
+                <th  style="text-align:center; font-size: 12px;" colspan="2">Keterampilan</th>
+                <th  style="text-align:center; font-size: 12px;" rowspan="2">Sikap</th>
                 <th  style="text-align:center; font-size: 12px;" colspan="4">Akademik</th>
             </tr>
             <tr>
+                <th  style="text-align:center; font-size: 12px;">Angka</th>
+                <th  style="text-align:center; font-size: 12px;">Predikat</th>
+
+                <th  style="text-align:center; font-size: 12px;">Angka</th>
+                <th  style="text-align:center; font-size: 12px;">Predikat</th>
+
                 <th  style="text-align:center; font-size: 12px;">Tugas</th>
                 <th  style="text-align:center; font-size: 12px;">UH</th>
                 <th  style="text-align:center; font-size: 12px;">UTS</th>

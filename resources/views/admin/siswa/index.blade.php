@@ -55,7 +55,7 @@
                                     <td>{{$row->status}}</td>
                                     <td>
                                         <a href="{{url('/admin/siswa/show/'.$row->idSiswa)}}" class="btn btn-outline-primary"><i class="fas fa-search"></i></i></a>
-                                        <button type="button" href="{{ url('admin/siswa/edit/'.$row->idSiswa)}}" class="btn btn-outline-warning" data-toggle="modal" data-target="#editModal">
+                                        <button type="button" href="{{ url('admin/siswa/edit/'.$row->idSiswa)}}" class="btn btn-outline-warning" data-toggle="modal" data-target="#editModal-{{$row->idSiswa}}">
                                             <i class="fas fa-edit"></i></button>
                                         {{-- <button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#EditModal"><i class="fa fa-edit"></i></button> --}}
                                         {{-- <a class="btn btn-outline-warning" href="{{url('admin/siswa/edit/'.$row->idSiswa)}}"><i class="fa fa-edit"></i></a> --}}
@@ -249,7 +249,9 @@
                 </div>
             </div>
 
-            <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            {{-- edit modal --}}
+            @foreach ($siswa as $swa)
+            <div class="modal fade" id="editModal-{{$swa->idSiswa}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -258,17 +260,18 @@
                             <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <form action="{{ action ('SiswaController@update')}}" method="post" id="editModal" enctype="multipart/form-data">
+                        {{-- url('admin/siswa/.$idSiswa --}}
+                        <form action="{{ url('admin/siswa/'.$swa->idSiswa)}}" method="post" id="editModal" enctype="multipart/form-data">
+                            {{ method_field('PUT') }}
+                            {{ @csrf_field() }}
                             <div class="modal-body">
                                 <div class="form-group">
-                                    {{ method_field('PATCH') }}
-                                    {{ @csrf_field() }}
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <!-- <input type="hidden" class="form-control" id="idKelas" name="idKelas"> -->
                                                 <label for="tahunAngkatan">Tahun Angkatan</label>
-                                                <input type="text" class="form-control" id="tahunAngkatan" name="tahunAngkatan" value="{{old('tahunAngkatan')}}">
+                                                <input type="text" class="form-control" id="tahunAngkatan" name="tahunAngkatan" value="{{$swa->tahunAngkatan}}" required>
                                                 @error('tahunAngkatan')
                                                     <small class="text-danger">{{ $message }}</small>
                                                 @enderror
@@ -278,7 +281,7 @@
                                             <div class="form-group">
                                                 <label for="idSemester">Tahun</label>
                                                 <select id="idSemester" name="idSemester" class="form-control @error('idSemester') is-invalid @enderror select2bs4">
-                                                    {{-- <option>-- Pilih Kelas --</option> --}}
+
                                                     @foreach($semester as $data)
                                                         <option value="{{ $data->idSemester }}">{{ $data->tahunAjaran }}</option>
                                                     @endforeach
@@ -289,33 +292,40 @@
                                             <div class="form-group">
                                                 <label for="idKelas">Kelas</label>
                                                 <select id="idKelas" name="idKelas" class="form-control @error('idKelas') is-invalid @enderror select2bs4">
-                                                    {{-- <option>-- Pilih Kelas --</option> --}}
+
                                                     @foreach($kelas as $data)
                                                         <option value="{{ $data->idKelas }}">{{ $data->namaKelas }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
                                         </div>
-
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="nis">NISN</label>
-                                                <input type="text" value="{{$siswa->nis}}" class="form-control" id="nis" name="nis">
-                                                @error('nis')
-                                                    <small class="text-danger">{{ $message}}</small>
-                                                @enderror
+                                                <input id="nis" name="nis" class="form-control @error('nis') is-invalid @enderror select2bs4" value="{{ $swa->nis }}">
+                                                    {{-- <option>-- Pilih Kelas --</option> --}}
+                                                    {{-- @foreach($siswa as $data) --}}
+                                                        {{-- <option value="{{ $data->idSiswa }}">{{ $data->nis }}</option> --}}
+                                                    {{-- @endforeach --}}
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="namaSiswa">Nama Siswa</label>
-                                                <input type="text" class="form-control" id="namaSiswa" name="namaSiswa" value="{{old('namaSiswa')}}">
-                                                @error('namaSiswa')
-                                                    <small class="text-danger">{{ $message }}</small>
-                                                @enderror
+                                                <input id="namaSiswa" name="namaSiswa" class="form-control @error('namaSiswa') is-invalid @enderror select2bs4" value="{{$swa->namaSiswa}}">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="jk">Jenis Kelamin</label>
+                                                <select class="form-control" name="jk" id="jk" value="{{old('jk')}}">
+                                                    <option>--Pilihan--</option>
+                                                    <option value="L" {{ $swa->jk == 'L' ? 'selected' : '' }}>Laki-laki</option>
+                                                    <option value="P" {{ $swa->jk == 'P' ? 'selected' : '' }}>Perempuan</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        {{-- <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="jk">Jenis Kelamin</label>
                                                 <select class="form-control" name="jk" id="jk" value="{{old('jk')}}">
@@ -324,52 +334,47 @@
                                                     <option value="P">Perempuan</option>
                                                 </select>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="tmpLahir">Tempat Lahir</label>
-                                                <input type="text" class="form-control" id="tmpLahir" name="tmpLahir" value="{{old('tmpLahir')}}">
-                                                @error('tmpLahir')
-                                                    <small class="text-danger">{{ $message }}</small>
-                                                @enderror
+                                                <input id="tmpLahir" name="tmpLahir" class="form-control @error('tmpLahir') is-invalid @enderror select2bs4" value="{{$swa->tmpLahir}}">
+
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="tglLahir">Tanggal Lahir</label>
-                                                <input type="date" class="form-control" id="tglLahir" name="tglLahir" value="{{old('tglLahir')}}">
-                                                @error('tglLahir')
-                                                    <small class="text-danger">{{ $message }}</small>
-                                                @enderror
+                                                <input type="date" class="form-control" id="tglLahir" name="tglLahir" value="{{$swa->tglLahir}}" required>
                                             </div>
                                         </div>
+                                        {{-- <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="idSiswa">Tanggal Lahir</label>
+                                                <select id="idSiswa" type="date"name="idSiswa" class="form-control @error('idSiswa') is-invalid @enderror select2bs4">
+                                                    {{-- <option>-- Pilih Kelas --</option> --}}
+                                                    {{-- @foreach($siswa as $data)
+                                                        <option value="{{ $data->idSiswa }}">{{ $data->tglLahir }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div> --}}
+                                        {{-- </div> --}}
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="alamat">Alamat</label>
-                                                <input type="text" class="form-control" id="alamat" name="alamat" value="{{old('alamat')}}">
-                                                @error('alamat')
-                                                    <small class="text-danger">{{ $message }}</small>
-                                                @enderror
+                                                <input id="alamat" name="alamat" class="form-control @error('alamat') is-invalid @enderror select2bs4" value="{{$swa->alamat}}">
                                             </div>
                                         </div>
-
-
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="telp">Telp/HP</label>
-                                                <input type="text" class="form-control" id="telp" name="telp" value="{{old('telp')}}">
-                                                @error('telp')
-                                                    <small class="text-danger">{{ $message }}</small>
-                                                @enderror
+                                                <label for="telp">Telp</label>
+                                                <input id="telp" name="telp" class="form-control @error('telp') is-invalid @enderror select2bs4" value="{{$swa->telp}}">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="namaOrtu">Nama Orang Tua</label>
-                                                <input type="text" class="form-control" id="namaOrtu" name="namaOrtu" value="{{old('namaOrtu')}}">
-                                                @error('namaOrtu')
-                                                    <small class="text-danger">{{ $message }}</small>
-                                                @enderror
+                                                <input id="namaOrtu" name="namaOrtu" class="form-control @error('namaOrtu') is-invalid @enderror select2bs4" value="{{$swa->namaOrtu}}">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -377,8 +382,8 @@
                                                 <label for="status">Status</label>
                                                 <select class="form-control" name="status" id="status" value="{{old('status')}}">
                                                     <option>--Pilihan--</option>
-                                                    <option value="Siswa">Siswa</option>
-                                                    <option value="Alumni">Alumni</option>
+                                                    <option value="Siswa" {{ $swa->status == 'Siswa' ? 'selected' : '' }}>Siswa</option>
+                                                    <option value="Alumni" {{ $swa->status == 'Alumni' ? 'selected' : '' }}>Alumni</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -393,29 +398,7 @@
                     </div>
                 </div>
             </div>
-
-            {{-- <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="confirmModal">Konfirmasi</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <form action="{{ url ('importSiswa')}}" method="post" enctype="multipart/form-data">
-                            <div class="modal-body">
-                                <h4 align="center" style="margin:0;"> Apakah Anda yakin ingin menghapus data ini?</h4>
-                            </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal </button>
-                                    <button type="submit" class="btn btn-primary">Ok</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div> --}}
+            @endforeach
 
         </div>
         @include('sweetalert::alert')

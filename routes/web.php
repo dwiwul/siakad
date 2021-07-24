@@ -124,7 +124,7 @@ Route::group(['middleware' =>['auth']], function() {
         Route::post('admin/petugasTU/index', 'PetugasTUController@store')->name('petugasTU');
         Route::post('admin/petugasTU', 'PetugasTUController@store');
         Route::get('admin/petugasTU/edit/{idPetugasTU}', 'PetugasTUController@edit');
-        Route::patch('admin/petugasTU/{idPetugasTU}', 'PetugasTUController@update');
+        Route::put('admin/petugasTU/{idPetugasTU}', 'PetugasTUController@update');
         Route::get('admin/petugasTU/show/{id}', 'PetugasTUController@show');
         Route::delete('admin/petugasTU/destroy/{id}', 'PetugasTUController@destroy');
 
@@ -146,7 +146,7 @@ Route::group(['middleware' =>['auth']], function() {
         Route::get('admin/siswa/create', 'SiswaController@create');
         Route::post('admin/siswa/', 'SiswaController@store');
         Route::get('admin/siswa/edit/{idSiswa}', 'SiswaController@edit');
-        Route::patch('admin/siswa/', 'SiswaController@update');
+        Route::put('admin/siswa/{idSiswa}', 'SiswaController@update');
         Route::get('admin/siswa/show/{idKelas}', 'SiswaController@show');
         Route::delete('admin/siswa/destroy/{id}', 'SiswaController@destroy');
         Route::get('admin/siswa/cetak-data-siswa', 'SiswaController@cetakSiswa')->name('cetak-data-siswa');
@@ -165,7 +165,7 @@ Route::group(['middleware' =>['auth']], function() {
         Route::get('admin/kelas/create', 'KelasController@create');
         Route::post('admin/kelas', 'KelasController@store');
         Route::get('admin/kelas/edit/{id}', 'KelasController@edit');
-        Route::patch('admin/kelas/{id}', 'KelasController@update');
+        Route::put('admin/kelas/{id}', 'KelasController@update');
         Route::get('admin/kelas/show/{id}', 'KelasController@show');
         Route::delete('admin/kelas/destroy/{id}', 'KelasController@destroy');
 
@@ -173,7 +173,8 @@ Route::group(['middleware' =>['auth']], function() {
         Route::get('admin/info/create', 'InfoController@create');
         Route::post('admin/info', 'InfoController@store');
         Route::get('admin/info/edit/{id}', 'InfoController@edit');
-        Route::patch('admin/info/{id}', 'InfoController@update');
+        
+        Route::put('admin/info/{id}', 'InfoController@update');
         Route::get('admin/info/show/{id}', 'InfoController@show');
         Route::delete('admin/info/destroy/{id}', 'InfoController@destroy');
 
@@ -222,7 +223,7 @@ Route::group(['middleware' =>['auth']], function() {
         Route::get('admin/semester/create', 'SemesterController@create');
         Route::post('admin/semester', 'SemesterController@store');
         Route::get('admin/semester/edit/{id}', 'SemesterController@edit');
-        Route::patch('admin/semester/{id}', 'SemesterController@update');
+        Route::put('admin/semester/{id}', 'SemesterController@update');
         Route::get('admin/semester/show/{id}', 'SemesterController@show');
         Route::delete('admin/semester/destroy/{id}', 'SemesterController@destroy');
 
@@ -230,7 +231,7 @@ Route::group(['middleware' =>['auth']], function() {
         Route::get('admin/mapel/create', 'MapelController@create');
         Route::post('admin/mapel', 'MapelController@store');
         Route::get('admin/mapel/edit/{id}', 'MapelController@edit');
-        Route::patch('admin/mapel/{id}', 'MapelController@update');
+        Route::put('admin/mapel/{id}', 'MapelController@update');
         Route::get('admin/mapel/show/{id}', 'MapelController@show');
         Route::delete('admin/mapel/destroy/{id}', 'MapelController@destroy');
 
@@ -238,7 +239,7 @@ Route::group(['middleware' =>['auth']], function() {
         Route::get('admin/lks/create', 'LksController@create');
         Route::post('admin/lks', 'LksController@store');
         Route::get('admin/lks/edit/{id}', 'LksController@edit');
-        Route::patch('admin/lks/{id}', 'LksController@update');
+        Route::put('admin/lks/{id}', 'LksController@update');
         Route::get('admin/lks/show/{id}', 'LksController@show');
         Route::delete('admin/lks/destroy/{id}', 'LksController@destroy');
         Route::get('admin/lks/cetak-data-lks/{tglawal}/{tglakhir}', 'LksController@cetakLks')->name('cetak-data-lks');
@@ -247,7 +248,7 @@ Route::group(['middleware' =>['auth']], function() {
         Route::get('admin/iuran/create', 'IuranController@create');
         Route::post('admin/iuran', 'IuranController@store');
         Route::get('admin/iuran/edit/{id}', 'IuranController@edit');
-        Route::patch('admin/iuran/{id}', 'IuranController@update');
+        Route::put('admin/iuran/{id}', 'IuranController@update');
         Route::get('admin/iuran/show/{id}', 'IuranController@show');
         Route::delete('admin/iuran/destroy/{id}', 'IuranController@destroy');
         Route::get('admin/cetak-iuran', 'IuranController@cetakForm')->name('cetak-iuran');
@@ -275,7 +276,7 @@ Route::group(['middleware' =>['auth']], function() {
         Route::get('kepsek/pegawai/create', 'PegawaiController@create');
         Route::post('kepsek/pegawai', 'PegawaiController@store');
         Route::get('kepsek/pegawai/edit/{idPegawai}', 'PegawaiController@edit');
-        Route::patch('kepsek/pegawai/{idPegawai}', 'PegawaiController@update');
+        Route::put('kepsek/pegawai/{idPegawai}', 'PegawaiController@update');
         Route::get('kepsek/pegawai/show/{id}', 'PegawaiController@show');
         Route::delete('kepsek/pegawai/destroy/{id}', 'PegawaiController@destroy');
         Route::get('kepsek/pegawai/cetak-data-pegawai', 'PegawaiController@cetakPegawai')->name('cetak-data-pegawai');
