@@ -25,11 +25,12 @@
                             <tr>
                                 <th>No</th>
                                 <th>Nama</th>
-                                <th>KKM</th>
                                 <th>Nilai Tugas</th>
                                 <th>Nilai UH</th>
                                 <th>Nilai UTS</th>
                                 <th>Nilai UAS</th>
+                                <th>Nilai Praktik</th>
+                                <th>Nilai Observasi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -40,11 +41,12 @@
                                 <tr>
                                     <td>{{ $i++ }}</td>
                                     <td>{{ $item->namaSiswa }}</td>
-                                    <td>{{ $item->kkm }}</td>
                                     <td>{{ $item->nilaiTugas }}</td>
                                     <td>{{ $item->nilaiUH }}</td>
                                     <td>{{ $item->nilaiUTS }}</td>
                                     <td>{{ $item->nilaiUAS }}</td>
+                                    <td>{{ $item->nilaiPraktik }}</td>
+                                    <td>{{ $item->nilaiObservasi }}</td>
                                 </tr>
                             @endforeach
                         </tbody>

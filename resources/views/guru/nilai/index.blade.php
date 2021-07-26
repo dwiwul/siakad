@@ -23,6 +23,7 @@
                                 <th>Ulangan Harian</th>
                                 <th>UTS</th>
                                 <th>UAS</th>
+                                
                                 <th>Aksi</th>
                             </tr>
                         </thead>

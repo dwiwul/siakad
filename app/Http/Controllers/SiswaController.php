@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Auth;
+use Session;
 use App\Http\Controllers\Controller;
 use App\Pegawai;
 use App\Kelas;
@@ -233,21 +233,9 @@ class SiswaController extends Controller
 
     public function lihatNilai()
     {
-        // $hariInd = [
-        //     0 => 'Minggu',
-        //     1 => 'Senin',
-        //     2 => 'Selasa',
-        //     3 => 'Rabu',
-        //     4 => 'Kamis',
-        //     5 => "Jum`at",
-        //     6 => 'Sabtu',
-        // ];
-        // $hari = $hariInd[Carbon::now()->dayOfWeek];
-
-        // $nilai = Nilai::where('hari', '=', $hari)->get();
-
-        // return view('siswa/lihat-nilai', compact('nilai'));
-        $nilai = Nilai::all();
+        $nilai = Nilai::where('idSiswa', Session::get('id'))->get();
+        
+        // $nilai = Nilai::all();
         return view('siswa/lihat-nilai', compact('nilai'));
     }
 

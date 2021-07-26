@@ -84,11 +84,13 @@ class NilaiController extends Controller
                 'idMapel' => $request['idMapel'],
                 'idSemester' => $request['idSemester'],
                 'idPegawai' => $request['idPegawai'],
-                'kkm' => $request['kkm'],
+                // 'kkm' => $request['kkm'],
                 'nilaiTugas' => $request['nilaiTugas'],
                 'nilaiUH' => $request['nilaiUH'],
                 'nilaiUTS' => $request['nilaiUTS'],
                 'nilaiUAS' => $request['nilaiUAS'],
+                'nilaiPraktik' => $request['nilaiPraktik'],
+                'nilaiObservasi' => $request['nilaiObservasi'],
                 'idPegawai' => session('id'),
             ]);
             return redirect(url('listSiswa/'.$request['idJadwal']))->with('alert', 'Berhasil input nilai');
@@ -129,6 +131,8 @@ class NilaiController extends Controller
         $nilai->nilaiUH = $request->get("nilaiUH");
         $nilai->nilaiUTS = $request->get("nilaiUTS");
         $nilai->nilaiUAS = $request->get("nilaiUAS");
+        $nilai->nilaiPraktik = $request->get("nilaiPraktis");
+        $nilai->nilaiObservasi = $request->get("nilaiObservasi");
         $nilai->save();
         $nilai = nilai::all();
         return redirect('nilai');
@@ -181,6 +185,8 @@ class NilaiController extends Controller
         $nilai->nilaiHarian = $request->get("nilaiHarian");
         $nilai->nilaiUts = $request->get("nilaiUts");
         $nilai->nilaiUas = $request->get("nilaiUas");
+        $nilai->nilaiPraktik = $request->get("nilaiPraktis");
+        $nilai->nilaiObservasi = $request->get("nilaiObservasi");
         $nilai->save();
         return redirect('nilai');
     }
