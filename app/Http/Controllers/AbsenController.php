@@ -159,14 +159,17 @@ class AbsenController extends Controller
 
         for ($i = 0; $i < count($request['idSiswa']); $i++) {
             $a = $request['idSiswa'][$i];
-            return $request['keterangan' . $a][0] ;
-            $absensiDetail['idAbsensi'] = $id->idAbsensi;
-            $absensiDetail['idSiswa'] = $request['idSiswa'][$i];
-            $absensiDetail['keterangan'] = $request['keterangan' . $a][0];
-            $absensiDetail['created_at'] = Date('Y-m-d H:i:s');
-            $absensiDetail['updated_at'] = Date('Y-m-d H:i:s');
+            if(isset($request['keterangan' . $a][0])){
+                // return $request['keterangan' . $a][0] ;
+                $absensiDetail['idAbsensi'] = $id->idAbsensi;
+                $absensiDetail['idSiswa'] = $request['idSiswa'][$i];
+                $absensiDetail['keterangan'] = $request['keterangan' . $a][0];
+                // die($request['keterangan' . $a][0]);
+                $absensiDetail['created_at'] = Date('Y-m-d H:i:s');
+                $absensiDetail['updated_at'] = Date('Y-m-d H:i:s');
 
-            AppAbsensiDetail::create($absensiDetail);
+                AppAbsensiDetail::create($absensiDetail);
+            }
         }
         // return $absensiDetail;
         return redirect('/absen/list/' . $request['idJadwal']);

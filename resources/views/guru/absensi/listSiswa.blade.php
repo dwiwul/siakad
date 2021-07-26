@@ -8,7 +8,7 @@
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-body">
-                <form action="{{url('/absen/save')}}" method="post">
+                <form action="{{url('/absen/save')}}" method="POST">
                     @csrf
                     <input type="hidden" name="idJadwal" value="{{$idJadwal}}">
                     <div class="table-responsive">
@@ -37,7 +37,7 @@
                                         <td>
                                             <div class="custom-control custom-checkbox">
                                                 <div class="form-check">
-                                                    <input name="keterangan{{$item->idSiswa}}[]" id="keterangan{{$item->idSiswa}}" value="1" class="form-check-input"
+                                                    <input name="keterangan{{$item->idSiswa}}[]" id="keterangan{{$item->idSiswa}}" value="hadir" class="form-check-input"
                                                         type="radio">
                                                 </div>
                                             </div>
@@ -45,7 +45,7 @@
                                         <td>
                                             <div class="custom-control custom-checkbox">
                                                 <div class="form-check">
-                                                    <input name="keterangan{{$item->idSiswa}}[]" id="keterangan{{$item->idSiswa}}" value="2" class="form-check-input"
+                                                    <input name="keterangan{{$item->idSiswa}}[]" id="keterangan{{$item->idSiswa}}" value="sakit" class="form-check-input"
                                                         type="radio">
                                                 </div>
                                             </div>
@@ -53,7 +53,7 @@
                                         <td>
                                             <div class="custom-control custom-checkbox">
                                                 <div class="form-check">
-                                                    <input name="keterangan{{$item->idSiswa}}[]" id="keterangan{{$item->idSiswa}}" value="3" class="form-check-input"
+                                                    <input name="keterangan{{$item->idSiswa}}[]" id="keterangan{{$item->idSiswa}}" value="izin" class="form-check-input"
                                                         type="radio">
                                                 </div>
                                             </div>
@@ -61,7 +61,7 @@
                                         <td>
                                             <div class="custom-control custom-checkbox">
                                                 <div class="form-check">
-                                                    <input name="keterangan{{$item->idSiswa}}[]" id="keterangan{{$item->idSiswa}}" value="4" class="form-check-input"
+                                                    <input name="keterangan{{$item->idSiswa}}[]" id="keterangan{{$item->idSiswa}}" value="alpha" class="form-check-input"
                                                         type="radio">
                                                 </div>
                                             </div>
