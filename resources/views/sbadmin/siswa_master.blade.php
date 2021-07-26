@@ -63,7 +63,7 @@
                     <span>Jadwal</span></a>
             </li>
 
-            <li class="nav-item{{Request::is('siswa/lihat-nilai') ? 'active' : ''}}">
+            <li class="nav-item {{Request::is('siswa/lihat-nilai') ? 'active' : ''}}">
                 <a class="nav-link" href="{{url ('siswa/lihat-nilai')}}">
                     <i class="fas fa-fw fa-file"></i>
                     <span>Nilai</span></a>

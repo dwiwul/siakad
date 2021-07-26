@@ -20,6 +20,7 @@
                     <thead>
                                 <tr>
                                     <th>No</th>
+                                    <th>Guru Pengampu</th>
                                     <th>Nama Mapel</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -29,6 +30,7 @@
                         @foreach ($mapel as $row)
                             <tr>
                                 <td>{{$loop->iteration}}</td>
+                                <td>{{$row->pegawai->namaPegawai}}</td>
                                 <td>{{$row->namaMapel}}</td>
                                 <td>
                                     {{-- <a class="btn btn-outline-warning" href="{{url('admin/mapel/edit/'.$row->idMapel)}}">
@@ -66,6 +68,14 @@
                                             {{ method_field('POST') }}
                                             {{ @csrf_field() }}
                                             <div class="row">
+                                                <div class="form-group">
+                                                    <label for="idPegawai">Nama Pengampu</label>
+                                                    <select name="idPegawai" class="form-control">
+                                                        @foreach($pegawai as $row)
+                                                            <option value="{{$row->idPegawai}}">{{$row->namaPegawai}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="namaMapel">Nama Mata Pelajaran</label>
@@ -104,6 +114,16 @@
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="idPegawai">Guru Pengampu</label>
+                                                        <select id="idPegawai" name="idPegawai" class="form-control @error('idPegawai') is-invalid @enderror select2bs4">
+                                                            @foreach($pegawai as $data)
+                                                                <option value="{{ $data->idPegawai }}">{{ $data->namaPegawai }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="namaMapel">Nama Mapel</label>

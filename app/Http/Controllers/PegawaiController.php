@@ -15,6 +15,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 
 
 class PegawaiController extends Controller
@@ -130,7 +131,24 @@ class PegawaiController extends Controller
 
     public function lihatSiswa()
     {
-        $siswa = Siswa::all();
+
+        $hariInd = [
+            0 => 'Minggu',
+            1 => 'Senin',
+            2 => 'Selasa',
+            3 => 'Rabu',
+            4 => 'Kamis',
+            5 => "Jum`at",
+            6 => 'Sabtu',
+        ];
+        $hari = $hariInd[Carbon::now()->dayOfWeek];
+
+        $siswa = Siswa::join('jadwal', 'siswa.idKelas', '=', 'jadwal.idKelas')
+        ->where('hari', '=', $hari)
+        ->get();
+        // echo json_encode($siswa);
+
+        // $siswa = Siswa::all();
         return view('guru/lihat-siswa', compact('siswa'));
     }
 

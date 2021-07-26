@@ -238,13 +238,13 @@
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label for="jenisBayar">Pembayaran</label>
-                                                                <input id="jenisBayar" name="jenisBayar" class="form-control @error('jenisBayar') is-invalid @enderror select2bs4" value="{{$row->jenisBayar}}">
+                                                                <input id="jenisBayar" name="jenisBayar" class="form-control @error('jenisBayar') is-invalid @enderror select2bs4" value="{{$row->jenisBayar}}" required>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label for="jumlahBayar">Jumlah Bayar</label>
-                                                                <input id="jumlahBayar" name="jumlahBayar" class="form-control @error('jumlahBayar') is-invalid @enderror select2bs4" value="{{$row->jumlahBayar}}">
+                                                                <input id="jumlahBayar" name="jumlahBayar" class="form-control @error('jumlahBayar') is-invalid @enderror select2bs4" value="{{$row->jumlahBayar}}" required>
                                                             </div>
                                                         </div>
                                                     </div>

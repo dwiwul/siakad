@@ -86,7 +86,7 @@ class SemesterController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Alert::success('Data Berhasil Diubah', 'Success');
+        toast('Data Berhasil Diubah!','success');
         Semester::where('idSemester', $id)
         ->update([
             'tahunAjaran' => $request->tahunAjaran,
@@ -105,6 +105,7 @@ class SemesterController extends Controller
      */
     public function destroy($id)
     {
+        toast('Data Berhasil Dihapus!','success');
         $semester = Semester::find($id);
         $semester->delete();
         return redirect('admin/semester/index');

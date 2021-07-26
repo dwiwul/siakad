@@ -104,7 +104,7 @@ class IuranController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Alert::success('Data Berhasil Diubah', 'Success');
+        toast('Data Berhasil Diubah!','success');
         $iuran = Iuran::findOrFail($id);
         $iuran->idSiswa = $request->get("idSiswa");
         $iuran->idSemester = $request->get("idSemester");

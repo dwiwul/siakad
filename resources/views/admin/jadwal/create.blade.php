@@ -6,7 +6,7 @@
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h1 class="h3 mb-4 text-gray-800">Data Pegawai</h1>
+            <h1 class="h3 mb-4 text-gray-800">Data Jadwal</h1>
         </div>
         <div class="card-body">
             <form action="{{url('admin/jadwal/')}}" method="POST">
@@ -62,7 +62,7 @@
                     </div>
             </div>
         <button type="submit" class="btn btn-primary">Tambah</button>
-        <a href="{{url('admin/jadwal/index')}}" class="btn btn-secondary btn-sm">Kembali</a>
+        {{-- <a href="{{url('admin/jadwal/show')}}" class="btn btn-secondary btn-sm">Kembali</a> --}}
     </form>
         </div>
     </div>

@@ -175,6 +175,7 @@ Route::group(['middleware' =>['auth']], function() {
         Route::post('admin/info', 'InfoController@store');
         Route::get('admin/info/edit/{id}', 'InfoController@edit');
 
+
         Route::put('admin/info/{id}', 'InfoController@update');
         Route::get('admin/info/show/{id}', 'InfoController@show');
         Route::delete('admin/info/destroy/{id}', 'InfoController@destroy');

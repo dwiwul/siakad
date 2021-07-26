@@ -51,7 +51,7 @@
                 </div>
         </div>
         <button type="submit" class="btn btn-primary">Edit</button>
-        <a href="{{url('admin/jadwal/show')}}" class="btn btn-secondary btn-sm">Kembali</a>
+        {{-- <a href="{{url('admin/jadwal/show')}}" class="btn btn-secondary btn-sm">Kembali</a> --}}
     </form>
         </div>
     </div>

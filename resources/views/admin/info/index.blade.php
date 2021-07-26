@@ -69,12 +69,12 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="tgl">Tanggal</label>
-                                            <input type="date" id="tgl" name="tgl" class="form-control @error('tgl') is-invalid @enderror">
+                                            <input type="date" id="tgl" name="tgl" class="form-control @error('tgl') is-invalid @enderror" required>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="pengumuman">Pengumuman</label>
-                                            <input type="text" id="pengumuman" name="pengumuman" class="form-control @error('pengumuman') is-invalid @enderror">
+                                            <input type="text" id="pengumuman" name="pengumuman" class="form-control @error('pengumuman') is-invalid @enderror" required>
                                         </div>
                                     </div>
                                 </div>

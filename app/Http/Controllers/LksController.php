@@ -104,7 +104,7 @@ class LksController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Alert::success('Data Berhasil Diubah', 'Success');
+        toast('Data Berhasil Diubah!','success');
         $lks = Lks::findOrFail($id);
         $lks->idSiswa = $request->get("idSiswa");
         $lks->idSemester = $request->get("idSemester");

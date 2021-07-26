@@ -62,6 +62,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         // dd($request->all);
+        toast('Data Berhasil Ditambahkan!','success');
         $users = new User();
         $users->username = $request->get("username");
         $users->password = bcrypt($request->get("password"));
@@ -111,6 +112,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $idUsers)
     {
+        toast('Data Berhasil Diubah!','success');
         $users = User::findOrFail($idUsers);
         $users->username = $request->get("username");
         $users->password = bcrypt($request->get("password"));
@@ -127,6 +129,7 @@ class UserController extends Controller
      */
     public function destroy($idUsers)
     {
+        toast('Data Berhasil Dihapus!','success');
         $users = user::find($idUsers);
         if (!$users) {
             return redirect()->back();
@@ -185,6 +188,7 @@ class UserController extends Controller
 
     public function updateProfile(Request $request)
     {
+        toast('Data Berhasil Diupdate!','success');
         if ($request['password'] != null) {
             $in['password'] = bcrypt($request['password']);
         }
@@ -202,6 +206,7 @@ class UserController extends Controller
     public function updateProfileGuru(Request $request)
     {
         // return $request;
+        toast('Data Berhasil Diupdate!','success');
         $in['namaPegawai'] = $request['namaPegawai'];
         $in['jk'] = $request['jk'];
         $in['tmpLahir'] = $request['tmpLahir'];
@@ -215,6 +220,7 @@ class UserController extends Controller
     public function updateProfileKepsek(Request $request)
     {
         // return $request;
+        toast('Data Berhasil Diupdate!','success');
         $in['namaKepsek'] = $request['namaKepsek'];
         $in['alamat'] = $request['alamat'];
         $in['telp'] = $request['telp'];
@@ -225,6 +231,7 @@ class UserController extends Controller
     public function updateProfileSiswa(Request $request)
     {
         // return $request;
+    toast('Data Berhasil Diupdate!','success');
        $in['namaSiswa'] = $request['namaSiswa'];
        $in['tahunAngkatan'] = $request['tahunAngkatan'];
        $in['jk'] = $request['jk'];

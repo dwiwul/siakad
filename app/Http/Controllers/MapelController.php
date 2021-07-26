@@ -23,7 +23,8 @@ class MapelController extends Controller
     public function index()
     {
         $mapel = Mapel::all();
-        return view("admin/mapel/index", compact('mapel'));
+        $pegawai = Pegawai::all();
+        return view("admin/mapel/index", compact('mapel', 'pegawai'));
     }
 
     /**
@@ -64,10 +65,11 @@ class MapelController extends Controller
      */
     public function store(Request $request)
     {
+        toast('Data Berhasil Ditambahkan!','success');
         $mapel = new Mapel();
-        $mapel->namaMapel = $request->get("namaMapel");
+        $mapel->namaMapel = $request->namaMapel;
+        $mapel->idPegawai = $request->idPegawai;
         $mapel->save();
-        $mapel = Mapel::all();
         return redirect("admin/mapel/index");
     }
 
@@ -103,7 +105,7 @@ class MapelController extends Controller
      */
     public function update(Request $request, $idMapel)
     {
-        Alert::success('Data Berhasil Diubah', 'Success');
+        toast('Data Berhasil Diubah!','success');
         $mapel = Mapel::findOrFail($idMapel);
         $mapel->namaMapel = $request->get("namaMapel");
         $mapel->save();
@@ -118,6 +120,7 @@ class MapelController extends Controller
      */
     public function destroy($id)
     {
+        toast('Data Berhasil Dihapus!','success');
         $mapel = Mapel::find($id);
         $mapel->delete();
         return redirect('admin/mapel/index');

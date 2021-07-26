@@ -119,6 +119,7 @@ class NilaiController extends Controller
      */
     public function store(Request $request)
     {
+        toast('Data Berhasil Ditambahkan!','success');
         $nilai = new Nilai();
         $nilai->idMapel = $request->get("idMapel");
         $nilai->idSemester = $request->get("idSemester");
@@ -171,6 +172,7 @@ class NilaiController extends Controller
      */
     public function update(Request $request, $idNilai)
     {
+        toast('Data Berhasil Diubah!','success');
         $nilai = Nilai::findOrFail($idNilai);
         $nilai->idMapel = $request->get('idMapel');
         $nilai->idSemester = $request->get('idSemester');
@@ -191,6 +193,7 @@ class NilaiController extends Controller
      */
     public function destroy($idNilai)
     {
+        toast('Data Berhasil Dihapus!','success');
         $nilai = Nilai::find($idNilai);
         if (!$nilai) {
             return redirect('nilai');

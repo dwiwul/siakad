@@ -152,6 +152,7 @@ class SiswaController extends Controller
      */
     public function edit($idSiswa)
     {
+        toast('Data Berhasil Diubah!','success');
         // $siswa = Siswa::all();
         $kelas = Kelas::all();
         $semester = Semester::all();
@@ -172,7 +173,7 @@ class SiswaController extends Controller
     public function update($idSiswa, Request $request)
     {
         // dd($request);
-        Alert::success('Data Berhasil Diubah', 'Success');
+        toast('Data Berhasil Diubah!','success');
        Siswa::where('idSiswa', $idSiswa)
         ->update([
             'nis' => $request->nis,
@@ -213,12 +214,39 @@ class SiswaController extends Controller
 
     public function lihatJadwal()
     {
-        $jadwal = Jadwal::all();
+        // $jadwal = Jadwal::all();
+        $hariInd = [
+            0 => 'Minggu',
+            1 => 'Senin',
+            2 => 'Selasa',
+            3 => 'Rabu',
+            4 => 'Kamis',
+            5 => "Jum`at",
+            6 => 'Sabtu',
+        ];
+        $hari = $hariInd[Carbon::now()->dayOfWeek];
+
+        $jadwal = Jadwal::where('hari', '=', $hari)->get();
+
         return view('siswa/jadwal/lihat-jadwal', compact('jadwal'));
     }
 
     public function lihatNilai()
     {
+        // $hariInd = [
+        //     0 => 'Minggu',
+        //     1 => 'Senin',
+        //     2 => 'Selasa',
+        //     3 => 'Rabu',
+        //     4 => 'Kamis',
+        //     5 => "Jum`at",
+        //     6 => 'Sabtu',
+        // ];
+        // $hari = $hariInd[Carbon::now()->dayOfWeek];
+
+        // $nilai = Nilai::where('hari', '=', $hari)->get();
+
+        // return view('siswa/lihat-nilai', compact('nilai'));
         $nilai = Nilai::all();
         return view('siswa/lihat-nilai', compact('nilai'));
     }

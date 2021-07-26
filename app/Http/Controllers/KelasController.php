@@ -44,6 +44,7 @@ class KelasController extends Controller
      */
     public function store(Request $request)
     {
+        toast('Data Berhasil Ditambahkan!','success');
         $kelas = new Kelas();
         $kelas->namaKelas = $request->get("namaKelas");
         $kelas->save();
@@ -85,7 +86,7 @@ class KelasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Alert::success('Data Berhasil Diubah', 'Success');
+        toast('Data Berhasil Diubah!','success');
         Kelas::where('idKelas', $id)
         ->update([
             'namaKelas' => $request->namaKelas,
@@ -101,6 +102,7 @@ class KelasController extends Controller
      */
     public function destroy($id)
     {
+        toast('Data Berhasil Dihapus!','success');
         $kelas = Kelas::find($id);
         $kelas->delete();
         return redirect('admin/kelas/index');
