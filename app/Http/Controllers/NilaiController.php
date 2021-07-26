@@ -84,11 +84,12 @@ class NilaiController extends Controller
                 'idMapel' => $request['idMapel'],
                 'idSemester' => $request['idSemester'],
                 'idPegawai' => $request['idPegawai'],
-                'kkm' => $request['kkm'],
                 'nilaiTugas' => $request['nilaiTugas'],
                 'nilaiUH' => $request['nilaiUH'],
                 'nilaiUTS' => $request['nilaiUTS'],
                 'nilaiUAS' => $request['nilaiUAS'],
+                'nilaiPraktik' => $request['nilaiPraktik'],
+                'nilaiObservasi' => $request['nilaiObservasi'],
                 'idPegawai' => session('id'),
             ]);
             return redirect(url('listSiswa/'.$request['idJadwal']))->with('alert', 'Berhasil input nilai');
@@ -119,7 +120,6 @@ class NilaiController extends Controller
      */
     public function store(Request $request)
     {
-        toast('Data Berhasil Ditambahkan!','success');
         $nilai = new Nilai();
         $nilai->idMapel = $request->get("idMapel");
         $nilai->idSemester = $request->get("idSemester");
@@ -172,7 +172,6 @@ class NilaiController extends Controller
      */
     public function update(Request $request, $idNilai)
     {
-        toast('Data Berhasil Diubah!','success');
         $nilai = Nilai::findOrFail($idNilai);
         $nilai->idMapel = $request->get('idMapel');
         $nilai->idSemester = $request->get('idSemester');
@@ -193,7 +192,6 @@ class NilaiController extends Controller
      */
     public function destroy($idNilai)
     {
-        toast('Data Berhasil Dihapus!','success');
         $nilai = Nilai::find($idNilai);
         if (!$nilai) {
             return redirect('nilai');

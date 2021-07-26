@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Cetak Absensi</title>
+    <title>Cetak Raport</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
@@ -22,7 +22,7 @@
 
     </style>
     <center>
-        <h5><b>RAPORT MTs Roudlotul Ulum Parang</b></h5>
+        <h5>RAPORT MTS ROUDLOTUL ULUM PARANG</h5>
     </center>
     <p style="text-align:left;font-size: 12px;">
         Nama : {{ $siswa->namaSiswa }}
@@ -41,11 +41,9 @@
             <tr>
                 <th  style="text-align:center; font-size: 12px;" rowspan="2">No</th>
                 <th  style="text-align:center; font-size: 12px;" rowspan="2">Mata Pelajaran</th>
-                <th  style="text-align:center; font-size: 12px;" rowspan="2">KKM</th>
                 <th  style="text-align:center; font-size: 12px;" colspan="2">Pengetahuan</th>
                 <th  style="text-align:center; font-size: 12px;" colspan="2">Keterampilan</th>
-                <th  style="text-align:center; font-size: 12px;" rowspan="2">Sikap</th>
-                <th  style="text-align:center; font-size: 12px;" colspan="4">Akademik</th>
+                <th  style="text-align:center; font-size: 12px;" colspan="2">Sikap</th>
             </tr>
             <tr>
                 <th  style="text-align:center; font-size: 12px;">Angka</th>
@@ -54,10 +52,8 @@
                 <th  style="text-align:center; font-size: 12px;">Angka</th>
                 <th  style="text-align:center; font-size: 12px;">Predikat</th>
 
-                <th  style="text-align:center; font-size: 12px;">Tugas</th>
-                <th  style="text-align:center; font-size: 12px;">UH</th>
-                <th  style="text-align:center; font-size: 12px;">UTS</th>
-                <th  style="text-align:center; font-size: 12px;">UAS</th>
+                <th  style="text-align:center; font-size: 12px;">Dalam Mapel</th>
+                <th  style="text-align:center; font-size: 12px;">Antar Mapel</th>
             </tr>
 
         </thead>
@@ -81,11 +77,72 @@
 
                     <td  style="text-align:center; font-size: 12px;">{{ $i }}</td>
                     <td  style=" font-size: 12px;">{{ $item->namaMapel }}</td>
-                    <td  style="text-align:center; font-size: 12px;">{{ $item->kkm }}</td>
-                    <td  style="text-align:center; font-size: 12px;">{{ $item->nilaiTugas }}</td>
-                    <td  style=" font-size: 12px;">{{ $item->nilaiUH }}</td>
-                    <td  style="text-align:center; font-size: 12px;">{{ $item->nilaiUTS }}</td>
-                    <td  style=" font-size: 12px;">{{ $item->nilaiUAS }}</td>
+                    <?php 
+                        $pengetahuan   = ((int)$item->nilaiTugas + (int)$item->nilaiUH + (int)$item->nilaiUTS + (int)$item->nilaiUAS) / 4 / 25;
+                        $predikat_pengetahuan = "";
+                        if ($pengetahuan > 3.66)
+                            $predikat_pengetahuan = "A";
+                        elseif($pengetahuan > 3.33)
+                            $predikat_pengetahuan = "A-";
+                        elseif($pengetahuan > 3.00)
+                            $predikat_pengetahuan = "B+";
+                        elseif($pengetahuan > 2.66)
+                            $predikat_pengetahuan = "B";
+                        elseif($pengetahuan > 2.33)
+                            $predikat_pengetahuan = "B-";
+                        elseif($pengetahuan > 2.00)
+                            $predikat_pengetahuan = "C+";
+                        elseif($pengetahuan > 1.66)
+                            $predikat_pengetahuan = "C";
+                        elseif($pengetahuan > 1.33)
+                            $predikat_pengetahuan = "C-";
+                        elseif($pengetahuan > 1.00)
+                            $predikat_pengetahuan = "D+";
+                        else
+                            $predikat_pengetahuan = "D";
+                     ?>
+                    <td  style="text-align:center; font-size: 12px;">{{ $pengetahuan }}</td>
+                    <td  style="text-align:center; font-size: 12px;">{{ $predikat_pengetahuan }}</td>
+                    <?php 
+                        $keterampilan = (float)$item->nilaiPraktik / 25;
+                        $predikat_keterampilan = "";
+                        if ($keterampilan > 3.66)
+                            $predikat_keterampilan = "A";
+                        elseif($keterampilan > 3.33)
+                            $predikat_keterampilan = "A-";
+                        elseif($keterampilan > 3.00)
+                            $predikat_keterampilan = "B+";
+                        elseif($keterampilan > 2.66)
+                            $predikat_keterampilan = "B";
+                        elseif($keterampilan > 2.33)
+                            $predikat_keterampilan = "B-";
+                        elseif($keterampilan > 2.00)
+                            $predikat_keterampilan = "C+";
+                        elseif($keterampilan > 1.66)
+                            $predikat_keterampilan = "C";
+                        elseif($keterampilan > 1.33)
+                            $predikat_keterampilan = "C-";
+                        elseif($keterampilan > 1.00)
+                            $predikat_keterampilan = "D+";
+                        else
+                            $predikat_keterampilan = "D";
+
+                        $observasi = (float)$item->nilaiObservasi / 25;
+                        $predikat_observasi = "";
+                        if($observasi > 3.33)
+                            $predikat_observasi = "SB (Sangat Baik)";
+                        elseif($observasi > 2.33)
+                            $predikat_observasi = "B (Baik)";
+                        elseif($observasi > 1.33)
+                            $predikat_observasi = "C (Cukup)";
+                        else
+                            $predikat_observasi = "K (Kurang)";
+                     ?>
+                    <td  style="text-align:center; font-size: 12px;">{{ $keterampilan }}</td>
+                    <td  style="text-align:center; font-size: 12px;">{{ $predikat_keterampilan }}</td>
+
+                    <td  style="text-align:center; font-size: 12px;">{{ $predikat_observasi }}</td>
+                    <td></td>
                     @php
                         $i++;
                     @endphp

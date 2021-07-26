@@ -56,16 +56,9 @@
                                                         <h5 class="modal-title">Input Nilai {{ $item->namaSiswa }}</h5>
                                                     </div>
                                                     <div class="modal-body">
+                                                        <label><b>Pengetahuan</b></label>
                                                         <div class="form-group">
-                                                            <label for="kkm">KKM</label>
-                                                            <input type="text" class="form-control" id="kkm" name="kkm"
-                                                                required>
-                                                            @error('kkm')
-                                                                <small class="text-danger">{{ $message }}</small>
-                                                            @enderror
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="nilaiTugas">Nilai Tugas</label>
+                                                            <label for="nilaiTugas">Rata-rata Nilai Tugas(0-100)</label>
                                                             <input type="text" class="form-control" id="nilaiTugas"
                                                                 name="nilaiTugas" required>
                                                             @error('nilaiTugas')
@@ -73,7 +66,7 @@
                                                             @enderror
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="nilaiUH">Nilai UH</label>
+                                                            <label for="nilaiUH">Rata-rata Nilai UH(0-100)</label>
                                                             <input type="text" class="form-control" id="nilaiUH"
                                                                 name="nilaiUH" required>
                                                             @error('nilaiUH')
@@ -81,7 +74,7 @@
                                                             @enderror
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="nilaiUTS">Nilai UTS</label>
+                                                            <label for="nilaiUTS">Nilai UTS(0-100)</label>
                                                             <input type="text" class="form-control" id="nilaiUTS"
                                                                 name="nilaiUTS" required>
                                                             @error('nilaiUTS')
@@ -89,10 +82,28 @@
                                                             @enderror
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="nilaiUAS">Nilai UAS</label>
+                                                            <label for="nilaiUAS">Nilai UAS(0-100)</label>
                                                             <input type="text" class="form-control" id="nilaiUAS"
                                                                 name="nilaiUAS" required>
                                                             @error('nilaiUAS')
+                                                                <small class="text-danger">{{ $message }}</small>
+                                                            @enderror
+                                                        </div>
+                                                        <label><b>Keterampilan</b></label>
+                                                        <div class="form-group">
+                                                            <label for="nilaiPraktik">Rata-rata Nilai Praktik(0-100)</label>
+                                                            <input type="text" class="form-control" id="nilaiPraktik"
+                                                                name="nilaiPraktik" required>
+                                                            @error('nilaiPraktik')
+                                                                <small class="text-danger">{{ $message }}</small>
+                                                            @enderror
+                                                        </div>
+                                                        <label><b>Sikap</b></label>
+                                                        <div class="form-group">
+                                                            <label for="nilaiObservasi">Rata-rata Nilai Observasi Sikap(0-100)</label>
+                                                            <input type="text" class="form-control" id="nilaiObservasi"
+                                                                name="nilaiObservasi" required>
+                                                            @error('nilaiObservasi')
                                                                 <small class="text-danger">{{ $message }}</small>
                                                             @enderror
                                                         </div>
